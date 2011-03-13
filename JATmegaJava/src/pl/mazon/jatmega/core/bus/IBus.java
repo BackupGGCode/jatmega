@@ -7,6 +7,10 @@ public interface IBus {
 	
 	void sendLine(String message);
 	
+	void addReceiverCallback(IBusReceiveCallback callback);
+	
+	void addEventCallback(IBusEventCallback callback);
+	
 	boolean isOnLine();
 
 }

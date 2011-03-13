@@ -10,23 +10,25 @@ import gnu.io.UnsupportedCommOperationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.TooManyListenersException;
 import java.util.Vector;
-import java.util.logging.Logger;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.log4j.spi.LoggerFactory;
+import pl.mazon.jatmega.core.bus.event.BusConnectEvent;
+import pl.mazon.jatmega.core.bus.event.BusDisconnectEvent;
+import pl.mazon.jatmega.core.bus.event.BusDriverLoadFailureEvent;
 
-public class RSBus implements IBus, SerialPortEventListener {
-	
-	private static final char EOL = '\n';
+/**
+ * Sterownik magistrali RS232
+ * @author radomir.mazon
+ *
+ */
+
+public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 
 	private Log logger = LogFactory.getLog(RSBus.class);
 	
@@ -47,7 +49,6 @@ public class RSBus implements IBus, SerialPortEventListener {
 	public RSBus(RSBusConfig config) {
 		this.config = config;
 		unfinischedBuffer = "";
-		
 		
 		commDriver = loadDriver(config.getDriverName());
 
@@ -92,8 +93,10 @@ public class RSBus implements IBus, SerialPortEventListener {
 			result = (CommDriver) Class.forName(driverName).newInstance();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
+			onEvent(new BusDriverLoadFailureEvent());
 		} catch (Error ee) {
 			logger.info("Serial driver load failure.");
+			onEvent(new BusDriverLoadFailureEvent());
 		}
 		return result;
 	}
@@ -133,8 +136,10 @@ public class RSBus implements IBus, SerialPortEventListener {
              
 		if (initResult) {
 			logger.debug("Starting RS-BUS OK.("+portName+")");
+			onEvent(new BusConnectEvent());
 		} else {
 			logger.debug("RS-BUS is offline. ("+portName+")");
+			onEvent(new BusDisconnectEvent());
 		}
 	}
 	
@@ -156,6 +161,7 @@ public class RSBus implements IBus, SerialPortEventListener {
 			}
 		}
 		*/
+		onEvent(new BusDisconnectEvent());
 	}
 
 	synchronized public void serialEvent(SerialPortEvent event) {
@@ -186,13 +192,14 @@ public class RSBus implements IBus, SerialPortEventListener {
 	            // read data
 	            while (inputStream.available() > 0) {
 	               inputStream.read(readBuffer);
-	               /*if (readBuffer[0] == EOL && unfinischedBuffer != "") {
-	            	   addMessage(unfinischedBuffer);
+	               
+	               if (readBuffer[0] == EOL && unfinischedBuffer != "") {
+	            	   onReceive(unfinischedBuffer);
 	            	   unfinischedBuffer = "";
-	            	   notify();
 	               } else {
 	            	   unfinischedBuffer += new String(readBuffer);
-	               }*/
+	               }
+	               
 	               logger.info("Receive: " + new String(readBuffer));
 	            }
 	         } catch (IOException e) {}
@@ -200,8 +207,7 @@ public class RSBus implements IBus, SerialPortEventListener {
 	         break;
 	      }
 	   } 
-	
-	
+
 	@Override
 	public void send(String message) {
 		 try {
