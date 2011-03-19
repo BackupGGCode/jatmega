@@ -8,15 +8,13 @@
 #ifndef TESTTASK_H_
 #define TESTTASK_H_
 
-#include "../util/EventController.h"
+#include "../util/ITick.h"
 #include "../ProtocolTarget.h"
 #include <string.h>
 
-class TestCommand : public EventController, public ProtocolTarget {
+class TestCommand : public ITick, public ProtocolTarget {
 public:
-	void onOneEvent(){}
-	void onLongEvent();
-	void onEndLongEvent(){}
+	void onTick();
 
 	void serialize(char* message, char* result);
 	char getTargetName(){return 'X';}

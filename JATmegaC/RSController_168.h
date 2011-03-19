@@ -20,9 +20,9 @@
 #ifndef RSCONTROLLER_H_
 #define RSCONTROLLER_H_
 #include <stdio.h>
-#include "util/EventController.h"
+#include "util/ITick.h"
 
-class RSController : public Listener , public EventController {
+class RSController : public Listener , public ITick {
 public:
 	RSController();
 	void usartInit(unsigned int baud);
@@ -32,12 +32,10 @@ public:
 	void onTx();
 	char* getLine();
 
+	void onTick();
 private:
 	RingBuffer sendRingBuffer;
 	RingBuffer receiveRingBuffer;
-	void onOneEvent(){}
-	void onEndLongEvent(){}
-	void onLongEvent();
 	int lineDetect;
 };
 

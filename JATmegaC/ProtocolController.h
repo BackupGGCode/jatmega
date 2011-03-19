@@ -21,7 +21,7 @@ public:
 	void registerProtocolTarget(ProtocolTarget* taget){targetTab[tabIndex++] = taget;}
 private:
 	void removeProtocolFrame(char* message);
-	void addProtocolFrame(char* message, char targetName);
+	void addProtocolFrame(char* message, char targetName, char targetNum);
 	ProtocolTarget* targetTab[TARGET_NUM];
 	int tabIndex;
 };

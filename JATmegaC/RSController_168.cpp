@@ -71,7 +71,7 @@ void RSController::onRx() {
 	}
 }
 
-void RSController::onLongEvent() {
+void RSController::onTick() {
 	if (lineDetect == 0) {
 		return;
 	} else {

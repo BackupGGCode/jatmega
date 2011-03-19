@@ -21,6 +21,6 @@ void TestCommand::serialize(char* message, char* result) {
 	strcpy(result, "odpowiedz");
 }
 
-void TestCommand::onLongEvent() {
+void TestCommand::onTick() {
 
 }
