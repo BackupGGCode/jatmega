@@ -18,10 +18,6 @@ import java.util.Vector;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import pl.mazon.jatmega.core.bus.event.BusConnectEvent;
-import pl.mazon.jatmega.core.bus.event.BusDisconnectEvent;
-import pl.mazon.jatmega.core.bus.event.BusDriverLoadFailureEvent;
-
 /**
  * Sterownik magistrali RS232
  * @author radomir.mazon
@@ -93,10 +89,10 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 			result = (CommDriver) Class.forName(driverName).newInstance();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			onEvent(new BusDriverLoadFailureEvent());
+			onDriverLoadFailureEvent();
 		} catch (Error ee) {
 			logger.info("Serial driver load failure.");
-			onEvent(new BusDriverLoadFailureEvent());
+			onDriverLoadFailureEvent();
 		}
 		return result;
 	}
@@ -136,10 +132,10 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
              
 		if (initResult) {
 			logger.debug("Starting RS-BUS OK.("+portName+")");
-			onEvent(new BusConnectEvent());
+			onConnectEvent();
 		} else {
 			logger.debug("RS-BUS is offline. ("+portName+")");
-			onEvent(new BusDisconnectEvent());
+			onDisconnectEvent();
 		}
 	}
 	
@@ -161,7 +157,7 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 			}
 		}
 		*/
-		onEvent(new BusDisconnectEvent());
+		onDisconnectEvent();
 	}
 
 	synchronized public void serialEvent(SerialPortEvent event) {

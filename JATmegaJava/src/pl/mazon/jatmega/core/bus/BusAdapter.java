@@ -3,8 +3,6 @@ package pl.mazon.jatmega.core.bus;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.mazon.jatmega.core.bus.event.IBusEvent;
-
 /**
  * Adapter IBus. Implementuje system rozgloszeniowy callback
  * @author radomir.mazon
@@ -18,7 +16,7 @@ public abstract class BusAdapter implements IBus {
 	 * czasami występują jednocześnie. 
 	 * W tym driverze używany jest jeden z nich
 	 */
-	public static final char EOL = '\n';
+	public static final char EOL = '\r';
 	
 	private List<IBusReceiveCallback> receiveCallbackList;
 	
@@ -36,9 +34,21 @@ public abstract class BusAdapter implements IBus {
 		}
 	}
 	
-	protected void onEvent(IBusEvent event) {
+	protected void onConnectEvent() {
 		for (IBusEventCallback eventCallback : eventCallbackList) {
-			eventCallback.eventCallback(event);
+			eventCallback.connectEvent();
+		}
+	}
+	
+	protected void onDisconnectEvent() {
+		for (IBusEventCallback eventCallback : eventCallbackList) {
+			eventCallback.disconnectEvent();
+		}
+	}
+
+	protected void onDriverLoadFailureEvent() {
+		for (IBusEventCallback eventCallback : eventCallbackList) {
+			eventCallback.driverLoadFailuerEvent();
 		}
 	}
 	
