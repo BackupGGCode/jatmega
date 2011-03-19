@@ -7,8 +7,6 @@
  */
 
 #include "RSController_168.h"
-#include <util/delay.h>
-#include <string.h>
 
 extern RSController rs;
 
@@ -23,6 +21,7 @@ SIGNAL(USART_RX_vect) {
 
 RSController::RSController() {
 	usartInit(UBRRVAL);
+	lineDetect = 0;
 }
 
 void RSController::usartInit(unsigned int baud)
@@ -47,7 +46,10 @@ void RSController::send(char* string) {
 }
 
 void RSController::sendLine(char* string) {
-	send(string);
+	while(*string) {
+			sendRingBuffer.add(*string);
+			string++;
+	}
 	sendRingBuffer.add((unsigned char)EOL);
 	sendRingBuffer.add('\n');
 	onTx();
@@ -60,24 +62,37 @@ void RSController::onRx() {
 	if (bit_is_clear(UCSR0A, RXC0)) {
 		return;
 	}
+
 	char data = UDR0;
 	receiveRingBuffer.add(data);
-	if (data == EOL) {
-		char line[BUFFOR_SIZE];
-		int index = 0;
-		char c = 0;
-		do {
-			c = receiveRingBuffer.get();
-			line[index++] = c;
-		} while(!(c == RING_EMPTY || c == EOL));
-		line[index] = 0;
 
-		fireEvent(&line);
+	if (data == EOL) {
+		lineDetect = 1;
+	}
+}
+
+void RSController::onLongEvent() {
+	if (lineDetect == 0) {
+		return;
+	} else {
+		lineDetect = 0;
 	}
 
-	//echo
-	//sendRingBuffer.add(data);
-	//onTx();
+	char line[BUFFOR_SIZE] = {0};
+	int index = 0;
+	char c = receiveRingBuffer.get();
+	while(!(c == RING_EMPTY || c == EOL)) {
+		if (index == 0) {
+			line[index++] = c;
+		}
+		c = receiveRingBuffer.get();
+		line[index++] = c;
+	}
+	if (line[index-1] == EOL) {
+		index--;
+	}
+	line[index] = NULL;
+	fireEvent(line);
 }
 
 void RSController::onTx() {
@@ -87,7 +102,6 @@ void RSController::onTx() {
 	char c = sendRingBuffer.get();
 	if (c == RING_EMPTY) {
 		return;
-
 	}
 	UDR0 = c;
 }

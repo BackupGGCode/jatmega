@@ -49,7 +49,7 @@ public:
 	/**
 	 * Wyktycie multi zdarzenia
 	 */
-	virtual void onMultiEvent()=0;
+	virtual void onMultiEvent(){}
 
 
 private:

@@ -10,7 +10,7 @@
 
 class ProtocolTarget {
 public:
-	virtual char* serialize(char* message)=0;
+	virtual void serialize(char* message, char* result)=0;
 	virtual char getTargetName()=0;
 };
 

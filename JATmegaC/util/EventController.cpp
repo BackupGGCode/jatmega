@@ -7,6 +7,7 @@
 
 #include "EventController.h"
 
+
 #define MULTI_EVENT_TIMEOUT		200
 
 EventController::EventController() {
@@ -22,6 +23,7 @@ inline void EventController::reset() {
 
 void EventController::onTick() {
 	if ( getEvent() == 1) {
+
 		if (lastEvent == 0) {
 			reset();
 			lastEvent = 1;

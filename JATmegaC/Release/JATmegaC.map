@@ -1,0 +1,686 @@
+Archive member included because of file (symbol)
+
+c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                              ./util/RingBuffer.o (__divmodhi4)
+c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                              c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o (exit)
+c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                              ./ProtocolController.o (__do_copy_data)
+c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                              ./main.o (__do_clear_bss)
+c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+                              ./main.o (__do_global_ctors)
+c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                              c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o) (__udivmodhi4)
+c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                              c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o) (__tablejump__)
+c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                              ./command/TestCommand.o (strcpy)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+LOAD ./ProtocolController.o
+LOAD ./ProtocolTarget.o
+LOAD ./RSController_168.o
+LOAD ./avrcore.o
+LOAD ./main.o
+LOAD ./util/EventController.o
+LOAD ./util/HexConverter.o
+LOAD ./util/Listener.o
+LOAD ./util/RingBuffer.o
+LOAD ./timer168/Timer0.o
+LOAD ./timer168/Timer1.o
+LOAD ./timer168/Timer2.o
+LOAD ./timer168/TimerCounter.o
+LOAD ./command/TestCommand.o
+LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
+LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
+LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000      0xe52
+ *(.vectors)
+ .vectors       0x00000000       0x68 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x00000068                . = ALIGN (0x2)
+                0x00000068                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000068        0x0 linker stubs
+ *(.trampolines*)
+                0x00000068                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000068                __ctors_start = .
+ *(.ctors)
+ .ctors         0x00000068        0x2 ./main.o
+                0x0000006a                __ctors_end = .
+                0x0000006a                __dtors_start = .
+ *(.dtors)
+                0x0000006a                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000006a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+                0x0000006a                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000006a        0xc c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000076       0x16 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                0x00000076                __do_copy_data
+ .init4         0x0000008c       0x10 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x0000008c                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ .init6         0x0000009c       0x16 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+                0x0000009c                __do_global_ctors
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000000b2        0x8 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+ *(.init9)
+ *(.text)
+ .text          0x000000ba        0x4 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+                0x000000ba                __vector_22
+                0x000000ba                __vector_1
+                0x000000ba                __vector_24
+                0x000000ba                __vector_12
+                0x000000ba                __bad_interrupt
+                0x000000ba                __vector_6
+                0x000000ba                __vector_3
+                0x000000ba                __vector_23
+                0x000000ba                __vector_25
+                0x000000ba                __vector_11
+                0x000000ba                __vector_13
+                0x000000ba                __vector_17
+                0x000000ba                __vector_19
+                0x000000ba                __vector_7
+                0x000000ba                __vector_5
+                0x000000ba                __vector_4
+                0x000000ba                __vector_9
+                0x000000ba                __vector_2
+                0x000000ba                __vector_21
+                0x000000ba                __vector_15
+                0x000000ba                __vector_8
+                0x000000ba                __vector_14
+                0x000000ba                __vector_10
+                0x000000ba                __vector_16
+ .text          0x000000be      0x196 ./ProtocolController.o
+                0x000000de                ProtocolController::removeProtocolFrame(char*)
+                0x000000be                ProtocolController::ProtocolController()
+                0x0000011e                ProtocolController::onEvent(void*)
+                0x000000ce                ProtocolController::ProtocolController()
+                0x000000f0                ProtocolController::addProtocolFrame(char*, char)
+ .text          0x00000254        0x0 ./ProtocolTarget.o
+ .text          0x00000254      0x318 ./RSController_168.o
+                0x00000516                RSController::RSController()
+                0x0000025e                RSController::onOneEvent()
+                0x00000258                EventController::getMultiEventCount()
+                0x000004c0                RSController::RSController()
+                0x00000254                EventController::getEvent()
+                0x00000260                RSController::onEndLongEvent()
+                0x00000278                RSController::onTx()
+                0x000003b4                RSController::onRx()
+                0x00000438                RSController::sendLine(char*)
+                0x00000262                RSController::usartInit(unsigned int)
+                0x0000025c                EventController::onMultiEvent()
+                0x000002e0                RSController::onLongEvent()
+                0x000003ec                __vector_18
+                0x00000294                __vector_20
+                0x00000482                RSController::send(char*)
+ .text          0x0000056c       0x20 ./avrcore.o
+                0x0000058a                __cxa_pure_virtual
+                0x00000580                __cxa_guard_release
+                0x00000588                __cxa_guard_abort
+                0x0000056c                __cxa_guard_acquire
+ .text          0x0000058c       0x8c ./main.o
+                0x00000596                main
+ .text          0x00000618      0x112 ./util/EventController.o
+                0x00000636                EventController::EventController()
+                0x00000622                EventController::EventController()
+                0x000006a2                EventController::onTick()
+                0x00000688                EventController::multiEventEvent()
+                0x0000064a                EventController::multiEventOneEvent()
+ .text          0x0000072a        0x0 ./util/HexConverter.o
+ .text          0x0000072a       0xea ./util/Listener.o
+                0x00000788                Listener::addListener(ListenerAware*)
+                0x0000072a                Listener::Listener()
+                0x00000732                Listener::Listener()
+                0x000007be                Listener::fireEvent(void*)
+                0x0000073a                Listener::removeListener(ListenerAware*)
+ .text          0x00000814       0xc8 ./util/RingBuffer.o
+                0x00000888                RingBuffer::get()
+                0x00000824                RingBuffer::RingBuffer()
+                0x00000814                RingBuffer::RingBuffer()
+                0x00000834                RingBuffer::add(char)
+                0x000008cc                RingBuffer::flush()
+ .text          0x000008dc       0xe4 ./timer168/Timer0.o
+                0x000008dc                Timer0::Timer0()
+                0x0000094e                Timer0::Timer0()
+ .text          0x000009c0      0x128 ./timer168/Timer1.o
+                0x00000a54                Timer1::Timer1()
+                0x000009c0                Timer1::Timer1()
+ .text          0x00000ae8      0x10c ./timer168/Timer2.o
+                0x00000ae8                Timer2::Timer2()
+                0x00000b6e                Timer2::Timer2()
+ .text          0x00000bf4      0x1ba ./timer168/TimerCounter.o
+                0x00000c7c                TimerCounter::setNormalMode()
+                0x00000d30                TimerCounter::outputNotInvertA()
+                0x00000d8e                TimerCounter::outputInvertB()
+                0x00000d1e                TimerCounter::outputNotConnectedB()
+                0x00000c76                TimerCounter::setPrescaler(char)
+                0x00000c48                TimerCounter::start()
+                0x00000d6e                TimerCounter::outputInvertA()
+                0x00000bf4                TimerCounter::TimerCounter()
+                0x00000cbc                TimerCounter::setPwmMode()
+                0x00000c9c                TimerCounter::setCtcMode()
+                0x00000cdc                TimerCounter::setPwmMode(unsigned char)
+                0x00000c1e                TimerCounter::TimerCounter()
+                0x00000c64                TimerCounter::stop()
+                0x00000d0c                TimerCounter::outputNotConnectedA()
+                0x00000d50                TimerCounter::outputNotInvertB()
+ .text          0x00000dae       0x38 ./command/TestCommand.o
+                0x00000dbc                non-virtual thunk to TestCommand::getTargetName()
+                0x00000db8                TestCommand::onOneEvent()
+                0x00000dc8                TestCommand::test(int, int)
+                0x00000dd0                TestCommand::onLongEvent()
+                0x00000dda                TestCommand::serialize(char*, char*)
+                0x00000dc4                TestCommand::getTargetName()
+                0x00000dd2                non-virtual thunk to TestCommand::serialize(char*, char*)
+                0x00000dba                TestCommand::onEndLongEvent()
+ .text          0x00000de6        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00000de6        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text          0x00000de6        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000de6        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00000de6        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text          0x00000de6        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00000de6        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .text          0x00000de6        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                0x00000de6                . = ALIGN (0x2)
+ *(.text.*)
+ .text.libgcc   0x00000de6       0x26 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                0x00000de6                __divmodhi4
+                0x00000de6                _div
+ .text.libgcc   0x00000e0c        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000e0c        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000e0c        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000e0c        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text.libgcc   0x00000e0c       0x28 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000e0c                __udivmodhi4
+ .text.libgcc   0x00000e34        0xc c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                0x00000e38                __tablejump__
+                0x00000e34                __tablejump2__
+ .text.avr-libc
+                0x00000e40        0xe c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                0x00000e40                strcpy
+                0x00000e4e                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00000e4e        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00000e4e                exit
+                0x00000e4e                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00000e4e        0x4 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00000e52                _etext = .
+
+.data           0x00800100       0x5a load address 0x00000e52
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+ .data          0x00800100        0xc ./ProtocolController.o
+                0x00800100                vtable for ProtocolController
+                0x00800106                vtable for ListenerAware
+ .data          0x0080010c        0x0 ./ProtocolTarget.o
+ .data          0x0080010c       0x10 ./RSController_168.o
+                0x0080010c                vtable for RSController
+ .data          0x0080011c        0x0 ./avrcore.o
+ .data          0x0080011c        0x8 ./main.o
+                0x0080011c                vtable for ProtocolTarget
+ .data          0x00800124       0x10 ./util/EventController.o
+                0x00800124                vtable for EventController
+ .data          0x00800134        0x0 ./util/HexConverter.o
+ .data          0x00800134        0x0 ./util/Listener.o
+ .data          0x00800134        0x0 ./util/RingBuffer.o
+ .data          0x00800134        0x0 ./timer168/Timer0.o
+ .data          0x00800134        0x0 ./timer168/Timer1.o
+ .data          0x00800134        0x0 ./timer168/Timer2.o
+ .data          0x00800134        0x0 ./timer168/TimerCounter.o
+ .data          0x00800134       0x26 ./command/TestCommand.o
+                0x0080013e                vtable for TestCommand
+ .data          0x0080015a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .data          0x0080015a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .data          0x0080015a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .data          0x0080015a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .data          0x0080015a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .data          0x0080015a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x0080015a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .data          0x0080015a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x0080015a                . = ALIGN (0x2)
+                0x0080015a                _edata = .
+                0x0080015a                PROVIDE (__data_end, .)
+
+.bss            0x0080015a      0x123
+                0x0080015a                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x0080015a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+ .bss           0x0080015a        0x0 ./ProtocolController.o
+ .bss           0x0080015a        0x0 ./ProtocolTarget.o
+ .bss           0x0080015a        0x0 ./RSController_168.o
+ .bss           0x0080015a        0x0 ./avrcore.o
+ .bss           0x0080015a      0x123 ./main.o
+                0x0080015a                rs
+ .bss           0x0080027d        0x0 ./util/EventController.o
+ .bss           0x0080027d        0x0 ./util/HexConverter.o
+ .bss           0x0080027d        0x0 ./util/Listener.o
+ .bss           0x0080027d        0x0 ./util/RingBuffer.o
+ .bss           0x0080027d        0x0 ./timer168/Timer0.o
+ .bss           0x0080027d        0x0 ./timer168/Timer1.o
+ .bss           0x0080027d        0x0 ./timer168/Timer2.o
+ .bss           0x0080027d        0x0 ./timer168/TimerCounter.o
+ .bss           0x0080027d        0x0 ./command/TestCommand.o
+ .bss           0x0080027d        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .bss           0x0080027d        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x0080027d        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x0080027d        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x0080027d        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .bss           0x0080027d        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x0080027d        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .bss           0x0080027d        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+ *(.bss*)
+ *(COMMON)
+                0x0080027d                PROVIDE (__bss_end, .)
+                0x00000e52                __data_load_start = LOADADDR (.data)
+                0x00000eac                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x0080027d        0x0
+                0x0080027d                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x0080027d                PROVIDE (__noinit_end, .)
+                0x0080027d                _end = .
+                0x0080027d                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(JATmegaC.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+EventController::EventController()                ./util/EventController.o
+                                                  ./main.o
+                                                  ./RSController_168.o
+EventController::EventController()                ./util/EventController.o
+EventController::getEvent()                       ./RSController_168.o
+EventController::getMultiEventCount()             ./RSController_168.o
+EventController::multiEventEvent()                ./util/EventController.o
+EventController::multiEventOneEvent()             ./util/EventController.o
+EventController::onMultiEvent()                   ./RSController_168.o
+EventController::onTick()                         ./util/EventController.o
+                                                  ./main.o
+Listener::Listener()                              ./util/Listener.o
+                                                  ./RSController_168.o
+Listener::Listener()                              ./util/Listener.o
+Listener::addListener(ListenerAware*)             ./util/Listener.o
+                                                  ./main.o
+Listener::fireEvent(void*)                        ./util/Listener.o
+                                                  ./RSController_168.o
+Listener::removeListener(ListenerAware*)          ./util/Listener.o
+ProtocolController::ProtocolController()          ./ProtocolController.o
+ProtocolController::ProtocolController()          ./ProtocolController.o
+                                                  ./main.o
+ProtocolController::addProtocolFrame(char*, char) ./ProtocolController.o
+ProtocolController::onEvent(void*)                ./ProtocolController.o
+ProtocolController::removeProtocolFrame(char*)    ./ProtocolController.o
+RSController::RSController()                      ./RSController_168.o
+                                                  ./main.o
+RSController::RSController()                      ./RSController_168.o
+RSController::onEndLongEvent()                    ./RSController_168.o
+RSController::onLongEvent()                       ./RSController_168.o
+RSController::onOneEvent()                        ./RSController_168.o
+RSController::onRx()                              ./RSController_168.o
+RSController::onTx()                              ./RSController_168.o
+RSController::send(char*)                         ./RSController_168.o
+RSController::sendLine(char*)                     ./RSController_168.o
+                                                  ./ProtocolController.o
+RSController::usartInit(unsigned int)             ./RSController_168.o
+RingBuffer::RingBuffer()                          ./util/RingBuffer.o
+RingBuffer::RingBuffer()                          ./util/RingBuffer.o
+                                                  ./RSController_168.o
+RingBuffer::add(char)                             ./util/RingBuffer.o
+                                                  ./RSController_168.o
+RingBuffer::flush()                               ./util/RingBuffer.o
+RingBuffer::get()                                 ./util/RingBuffer.o
+                                                  ./RSController_168.o
+TestCommand::getTargetName()                      ./command/TestCommand.o
+TestCommand::onEndLongEvent()                     ./command/TestCommand.o
+TestCommand::onLongEvent()                        ./command/TestCommand.o
+TestCommand::onOneEvent()                         ./command/TestCommand.o
+TestCommand::serialize(char*, char*)              ./command/TestCommand.o
+TestCommand::test(int, int)                       ./command/TestCommand.o
+Timer0::Timer0()                                  ./timer168/Timer0.o
+Timer0::Timer0()                                  ./timer168/Timer0.o
+Timer1::Timer1()                                  ./timer168/Timer1.o
+Timer1::Timer1()                                  ./timer168/Timer1.o
+Timer2::Timer2()                                  ./timer168/Timer2.o
+Timer2::Timer2()                                  ./timer168/Timer2.o
+TimerCounter::TimerCounter()                      ./timer168/TimerCounter.o
+                                                  ./timer168/Timer2.o
+                                                  ./timer168/Timer1.o
+                                                  ./timer168/Timer0.o
+TimerCounter::TimerCounter()                      ./timer168/TimerCounter.o
+                                                  ./timer168/Timer2.o
+                                                  ./timer168/Timer1.o
+                                                  ./timer168/Timer0.o
+TimerCounter::outputInvertA()                     ./timer168/TimerCounter.o
+TimerCounter::outputInvertB()                     ./timer168/TimerCounter.o
+TimerCounter::outputNotConnectedA()               ./timer168/TimerCounter.o
+TimerCounter::outputNotConnectedB()               ./timer168/TimerCounter.o
+TimerCounter::outputNotInvertA()                  ./timer168/TimerCounter.o
+TimerCounter::outputNotInvertB()                  ./timer168/TimerCounter.o
+TimerCounter::setCtcMode()                        ./timer168/TimerCounter.o
+TimerCounter::setNormalMode()                     ./timer168/TimerCounter.o
+TimerCounter::setPrescaler(char)                  ./timer168/TimerCounter.o
+TimerCounter::setPwmMode()                        ./timer168/TimerCounter.o
+TimerCounter::setPwmMode(unsigned char)           ./timer168/TimerCounter.o
+TimerCounter::start()                             ./timer168/TimerCounter.o
+TimerCounter::stop()                              ./timer168/TimerCounter.o
+__bad_interrupt                                   c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__bss_end                                         c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+__bss_start                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+__ctors_end                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+__ctors_start                                     c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+__cxa_guard_abort                                 ./avrcore.o
+__cxa_guard_acquire                               ./avrcore.o
+__cxa_guard_release                               ./avrcore.o
+__cxa_pure_virtual                                ./avrcore.o
+                                                  ./util/EventController.o
+                                                  ./main.o
+                                                  ./ProtocolController.o
+__data_end                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__data_load_start                                 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__data_start                                      c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+__divmodhi4                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                                                  ./util/RingBuffer.o
+__do_clear_bss                                    c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                                                  ./main.o
+__do_copy_data                                    c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                                                  ./command/TestCommand.o
+                                                  ./util/EventController.o
+                                                  ./main.o
+                                                  ./RSController_168.o
+                                                  ./ProtocolController.o
+__do_global_ctors                                 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+                                                  ./main.o
+__heap_end                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__init                                            c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__stack                                           c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__tablejump2__                                    c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+__tablejump__                                     c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                                                  c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+__udivmodhi4                                      c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                                                  c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+__vector_1                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_10                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_11                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_12                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_13                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_14                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_15                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_16                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_17                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_18                                       ./RSController_168.o
+                                                  c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_19                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_2                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_20                                       ./RSController_168.o
+                                                  c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_21                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_22                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_23                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_24                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_25                                       c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_3                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_4                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_5                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_6                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_7                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_8                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_9                                        c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vector_default                                  c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+__vectors                                         c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+_div                                              c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+_exit                                             c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+exit                                              c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                                                  c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+main                                              ./main.o
+                                                  c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
+non-virtual thunk to TestCommand::getTargetName() ./command/TestCommand.o
+non-virtual thunk to TestCommand::serialize(char*, char*) ./command/TestCommand.o
+rs                                                ./main.o
+                                                  ./RSController_168.o
+                                                  ./ProtocolController.o
+strcpy                                            c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                                                  ./command/TestCommand.o
+vtable for EventController                        ./util/EventController.o
+vtable for ListenerAware                          ./ProtocolController.o
+vtable for ProtocolController                     ./ProtocolController.o
+vtable for ProtocolTarget                         ./main.o
+vtable for RSController                           ./RSController_168.o
+vtable for TestCommand                            ./command/TestCommand.o
+                                                  ./main.o

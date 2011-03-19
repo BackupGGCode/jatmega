@@ -9,14 +9,14 @@
 #include <avr/io.h>
 #include "RSController_168.h"
 #include "ProtocolController.h"
-#include "task/TestTask.h"
+#include "command/TestCommand.h"
 
 RSController rs;
 
 
 int main(void) {
 
-	TestTask testTask;
+	TestCommand testCommand;
 
 	sei();
 
@@ -24,11 +24,12 @@ int main(void) {
 
 	ProtocolController protocol;
 	rs.addListener(&protocol);
-	protocol.registerProtocolTarget(&testTask);
+	protocol.registerProtocolTarget(&testCommand);
 
 
 	for (;;) {
-		testTask.onTick();
+		testCommand.onTick();
+		rs.onTick();
 	}
 
 

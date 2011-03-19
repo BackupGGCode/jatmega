@@ -5,7 +5,6 @@
  *      Author: rmazon
  */
 #include <avr/io.h>
-#include <stdio.h>
 
 #define BUFFOR_SIZE 128
 #define RING_EMPTY ((char)-1)

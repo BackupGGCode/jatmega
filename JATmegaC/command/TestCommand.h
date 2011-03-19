@@ -10,16 +10,16 @@
 
 #include "../util/EventController.h"
 #include "../ProtocolTarget.h"
+#include <string.h>
 
-class TestTask : public EventController, public ProtocolTarget {
+class TestCommand : public EventController, public ProtocolTarget {
 public:
-	void onOneEvent();
+	void onOneEvent(){}
 	void onLongEvent();
-	void onEndLongEvent();
-	void onMultiEvent();
+	void onEndLongEvent(){}
 
-	char* serialize(char* message);
-	char getTargetName();
+	void serialize(char* message, char* result);
+	char getTargetName(){return 'X';}
 private:
 	int test(int a, int b);
 

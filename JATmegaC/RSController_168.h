@@ -19,8 +19,10 @@
 
 #ifndef RSCONTROLLER_H_
 #define RSCONTROLLER_H_
+#include <stdio.h>
+#include "util/EventController.h"
 
-class RSController : public Listener {
+class RSController : public Listener , public EventController {
 public:
 	RSController();
 	void usartInit(unsigned int baud);
@@ -33,6 +35,10 @@ public:
 private:
 	RingBuffer sendRingBuffer;
 	RingBuffer receiveRingBuffer;
+	void onOneEvent(){}
+	void onEndLongEvent(){}
+	void onLongEvent();
+	int lineDetect;
 };
 
 #endif /* RSCONTROLLER_H_ */

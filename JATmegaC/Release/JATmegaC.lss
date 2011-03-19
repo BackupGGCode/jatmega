@@ -1,0 +1,1939 @@
+
+JATmegaC.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         0000005a  00800100  00000e52  00000ee6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000e52  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000123  0080015a  0080015a  00000f40  2**0
+                  ALLOC
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 35 00 	jmp	0x6a	; 0x6a <__ctors_end>
+   4:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+   8:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+   c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  10:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  14:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  18:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  1c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  20:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  24:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  28:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  2c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  30:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  34:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  38:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  3c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  40:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  44:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  48:	0c 94 f6 01 	jmp	0x3ec	; 0x3ec <__vector_18>
+  4c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  50:	0c 94 4a 01 	jmp	0x294	; 0x294 <__vector_20>
+  54:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  58:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  5c:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  60:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+  64:	0c 94 5d 00 	jmp	0xba	; 0xba <__bad_interrupt>
+
+00000068 <__ctors_start>:
+  68:	c6 02       	muls	r28, r22
+
+0000006a <__ctors_end>:
+  6a:	11 24       	eor	r1, r1
+  6c:	1f be       	out	0x3f, r1	; 63
+  6e:	cf ef       	ldi	r28, 0xFF	; 255
+  70:	d4 e0       	ldi	r29, 0x04	; 4
+  72:	de bf       	out	0x3e, r29	; 62
+  74:	cd bf       	out	0x3d, r28	; 61
+
+00000076 <__do_copy_data>:
+  76:	11 e0       	ldi	r17, 0x01	; 1
+  78:	a0 e0       	ldi	r26, 0x00	; 0
+  7a:	b1 e0       	ldi	r27, 0x01	; 1
+  7c:	e2 e5       	ldi	r30, 0x52	; 82
+  7e:	fe e0       	ldi	r31, 0x0E	; 14
+  80:	02 c0       	rjmp	.+4      	; 0x86 <.do_copy_data_start>
+
+00000082 <.do_copy_data_loop>:
+  82:	05 90       	lpm	r0, Z+
+  84:	0d 92       	st	X+, r0
+
+00000086 <.do_copy_data_start>:
+  86:	aa 35       	cpi	r26, 0x5A	; 90
+  88:	b1 07       	cpc	r27, r17
+  8a:	d9 f7       	brne	.-10     	; 0x82 <.do_copy_data_loop>
+
+0000008c <__do_clear_bss>:
+  8c:	12 e0       	ldi	r17, 0x02	; 2
+  8e:	aa e5       	ldi	r26, 0x5A	; 90
+  90:	b1 e0       	ldi	r27, 0x01	; 1
+  92:	01 c0       	rjmp	.+2      	; 0x96 <.do_clear_bss_start>
+
+00000094 <.do_clear_bss_loop>:
+  94:	1d 92       	st	X+, r1
+
+00000096 <.do_clear_bss_start>:
+  96:	ad 37       	cpi	r26, 0x7D	; 125
+  98:	b1 07       	cpc	r27, r17
+  9a:	e1 f7       	brne	.-8      	; 0x94 <.do_clear_bss_loop>
+
+0000009c <__do_global_ctors>:
+  9c:	10 e0       	ldi	r17, 0x00	; 0
+  9e:	ca e6       	ldi	r28, 0x6A	; 106
+  a0:	d0 e0       	ldi	r29, 0x00	; 0
+  a2:	04 c0       	rjmp	.+8      	; 0xac <.do_global_ctors_start>
+
+000000a4 <.do_global_ctors_loop>:
+  a4:	22 97       	sbiw	r28, 0x02	; 2
+  a6:	fe 01       	movw	r30, r28
+  a8:	0e 94 1c 07 	call	0xe38	; 0xe38 <__tablejump__>
+
+000000ac <.do_global_ctors_start>:
+  ac:	c8 36       	cpi	r28, 0x68	; 104
+  ae:	d1 07       	cpc	r29, r17
+  b0:	c9 f7       	brne	.-14     	; 0xa4 <.do_global_ctors_loop>
+  b2:	0e 94 cb 02 	call	0x596	; 0x596 <main>
+  b6:	0c 94 27 07 	jmp	0xe4e	; 0xe4e <_exit>
+
+000000ba <__bad_interrupt>:
+  ba:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000be <_ZN18ProtocolControllerC2Ev>:
+  be:	fc 01       	movw	r30, r24
+  c0:	84 e0       	ldi	r24, 0x04	; 4
+  c2:	91 e0       	ldi	r25, 0x01	; 1
+  c4:	91 83       	std	Z+1, r25	; 0x01
+  c6:	80 83       	st	Z, r24
+  c8:	13 8a       	std	Z+19, r1	; 0x13
+  ca:	12 8a       	std	Z+18, r1	; 0x12
+  cc:	08 95       	ret
+
+000000ce <_ZN18ProtocolControllerC1Ev>:
+  ce:	fc 01       	movw	r30, r24
+  d0:	84 e0       	ldi	r24, 0x04	; 4
+  d2:	91 e0       	ldi	r25, 0x01	; 1
+  d4:	91 83       	std	Z+1, r25	; 0x01
+  d6:	80 83       	st	Z, r24
+  d8:	13 8a       	std	Z+19, r1	; 0x13
+  da:	12 8a       	std	Z+18, r1	; 0x12
+  dc:	08 95       	ret
+
+000000de <_ZN18ProtocolController19removeProtocolFrameEPc>:
+  de:	fb 01       	movw	r30, r22
+  e0:	02 c0       	rjmp	.+4      	; 0xe6 <_ZN18ProtocolController19removeProtocolFrameEPc+0x8>
+  e2:	81 81       	ldd	r24, Z+1	; 0x01
+  e4:	81 93       	st	Z+, r24
+  e6:	80 81       	ld	r24, Z
+  e8:	88 23       	and	r24, r24
+  ea:	d9 f7       	brne	.-10     	; 0xe2 <_ZN18ProtocolController19removeProtocolFrameEPc+0x4>
+  ec:	10 82       	st	Z, r1
+  ee:	08 95       	ret
+
+000000f0 <_ZN18ProtocolController16addProtocolFrameEPcc>:
+  f0:	db 01       	movw	r26, r22
+  f2:	20 e0       	ldi	r18, 0x00	; 0
+  f4:	30 e0       	ldi	r19, 0x00	; 0
+  f6:	02 c0       	rjmp	.+4      	; 0xfc <_ZN18ProtocolController16addProtocolFrameEPcc+0xc>
+  f8:	2f 5f       	subi	r18, 0xFF	; 255
+  fa:	3f 4f       	sbci	r19, 0xFF	; 255
+  fc:	fd 01       	movw	r30, r26
+  fe:	e2 0f       	add	r30, r18
+ 100:	f3 1f       	adc	r31, r19
+ 102:	80 81       	ld	r24, Z
+ 104:	88 23       	and	r24, r24
+ 106:	c1 f7       	brne	.-16     	; 0xf8 <_ZN18ProtocolController16addProtocolFrameEPcc+0x8>
+ 108:	9d 01       	movw	r18, r26
+ 10a:	21 50       	subi	r18, 0x01	; 1
+ 10c:	30 40       	sbci	r19, 0x00	; 0
+ 10e:	80 81       	ld	r24, Z
+ 110:	81 83       	std	Z+1, r24	; 0x01
+ 112:	31 97       	sbiw	r30, 0x01	; 1
+ 114:	e2 17       	cp	r30, r18
+ 116:	f3 07       	cpc	r31, r19
+ 118:	d1 f7       	brne	.-12     	; 0x10e <_ZN18ProtocolController16addProtocolFrameEPcc+0x1e>
+ 11a:	4c 93       	st	X, r20
+ 11c:	08 95       	ret
+
+0000011e <_ZN18ProtocolController7onEventEPv>:
+ 11e:	5f 92       	push	r5
+ 120:	6f 92       	push	r6
+ 122:	7f 92       	push	r7
+ 124:	8f 92       	push	r8
+ 126:	9f 92       	push	r9
+ 128:	af 92       	push	r10
+ 12a:	bf 92       	push	r11
+ 12c:	cf 92       	push	r12
+ 12e:	df 92       	push	r13
+ 130:	ef 92       	push	r14
+ 132:	ff 92       	push	r15
+ 134:	0f 93       	push	r16
+ 136:	1f 93       	push	r17
+ 138:	df 93       	push	r29
+ 13a:	cf 93       	push	r28
+ 13c:	cd b7       	in	r28, 0x3d	; 61
+ 13e:	de b7       	in	r29, 0x3e	; 62
+ 140:	c0 5f       	subi	r28, 0xF0	; 240
+ 142:	d0 40       	sbci	r29, 0x00	; 0
+ 144:	0f b6       	in	r0, 0x3f	; 63
+ 146:	f8 94       	cli
+ 148:	de bf       	out	0x3e, r29	; 62
+ 14a:	0f be       	out	0x3f, r0	; 63
+ 14c:	cd bf       	out	0x3d, r28	; 61
+ 14e:	6c 01       	movw	r12, r24
+ 150:	9b 01       	movw	r18, r22
+ 152:	db 01       	movw	r26, r22
+ 154:	5c 90       	ld	r5, X
+ 156:	19 82       	std	Y+1, r1	; 0x01
+ 158:	fe 01       	movw	r30, r28
+ 15a:	e7 58       	subi	r30, 0x87	; 135
+ 15c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 15e:	10 82       	st	Z, r1
+ 160:	a0 e0       	ldi	r26, 0x00	; 0
+ 162:	b0 e0       	ldi	r27, 0x00	; 0
+ 164:	be 01       	movw	r22, r28
+ 166:	6f 5f       	subi	r22, 0xFF	; 255
+ 168:	7f 4f       	sbci	r23, 0xFF	; 255
+ 16a:	05 c0       	rjmp	.+10     	; 0x176 <_ZN18ProtocolController7onEventEPv+0x58>
+ 16c:	fb 01       	movw	r30, r22
+ 16e:	ea 0f       	add	r30, r26
+ 170:	fb 1f       	adc	r31, r27
+ 172:	80 83       	st	Z, r24
+ 174:	11 96       	adiw	r26, 0x01	; 1
+ 176:	f9 01       	movw	r30, r18
+ 178:	ea 0f       	add	r30, r26
+ 17a:	fb 1f       	adc	r31, r27
+ 17c:	80 81       	ld	r24, Z
+ 17e:	88 23       	and	r24, r24
+ 180:	a9 f7       	brne	.-22     	; 0x16c <_ZN18ProtocolController7onEventEPv+0x4e>
+ 182:	a6 0f       	add	r26, r22
+ 184:	b7 1f       	adc	r27, r23
+ 186:	1c 92       	st	X, r1
+ 188:	c6 01       	movw	r24, r12
+ 18a:	0e 94 6f 00 	call	0xde	; 0xde <_ZN18ProtocolController19removeProtocolFrameEPc>
+ 18e:	86 01       	movw	r16, r12
+ 190:	ee 24       	eor	r14, r14
+ 192:	ff 24       	eor	r15, r15
+ 194:	aa 24       	eor	r10, r10
+ 196:	bb 24       	eor	r11, r11
+ 198:	99 e7       	ldi	r25, 0x79	; 121
+ 19a:	69 2e       	mov	r6, r25
+ 19c:	71 2c       	mov	r7, r1
+ 19e:	6c 0e       	add	r6, r28
+ 1a0:	7d 1e       	adc	r7, r29
+ 1a2:	4e 01       	movw	r8, r28
+ 1a4:	08 94       	sec
+ 1a6:	81 1c       	adc	r8, r1
+ 1a8:	91 1c       	adc	r9, r1
+ 1aa:	26 c0       	rjmp	.+76     	; 0x1f8 <_ZN18ProtocolController7onEventEPv+0xda>
+ 1ac:	d8 01       	movw	r26, r16
+ 1ae:	12 96       	adiw	r26, 0x02	; 2
+ 1b0:	ed 91       	ld	r30, X+
+ 1b2:	fc 91       	ld	r31, X
+ 1b4:	13 97       	sbiw	r26, 0x03	; 3
+ 1b6:	a0 81       	ld	r26, Z
+ 1b8:	b1 81       	ldd	r27, Z+1	; 0x01
+ 1ba:	12 96       	adiw	r26, 0x02	; 2
+ 1bc:	2d 91       	ld	r18, X+
+ 1be:	3c 91       	ld	r19, X
+ 1c0:	13 97       	sbiw	r26, 0x03	; 3
+ 1c2:	cf 01       	movw	r24, r30
+ 1c4:	f9 01       	movw	r30, r18
+ 1c6:	09 95       	icall
+ 1c8:	85 15       	cp	r24, r5
+ 1ca:	89 f4       	brne	.+34     	; 0x1ee <_ZN18ProtocolController7onEventEPv+0xd0>
+ 1cc:	d8 01       	movw	r26, r16
+ 1ce:	12 96       	adiw	r26, 0x02	; 2
+ 1d0:	ed 91       	ld	r30, X+
+ 1d2:	fc 91       	ld	r31, X
+ 1d4:	13 97       	sbiw	r26, 0x03	; 3
+ 1d6:	a0 81       	ld	r26, Z
+ 1d8:	b1 81       	ldd	r27, Z+1	; 0x01
+ 1da:	2d 91       	ld	r18, X+
+ 1dc:	3c 91       	ld	r19, X
+ 1de:	cf 01       	movw	r24, r30
+ 1e0:	b4 01       	movw	r22, r8
+ 1e2:	a3 01       	movw	r20, r6
+ 1e4:	f9 01       	movw	r30, r18
+ 1e6:	09 95       	icall
+ 1e8:	81 e0       	ldi	r24, 0x01	; 1
+ 1ea:	a8 2e       	mov	r10, r24
+ 1ec:	b1 2c       	mov	r11, r1
+ 1ee:	08 94       	sec
+ 1f0:	e1 1c       	adc	r14, r1
+ 1f2:	f1 1c       	adc	r15, r1
+ 1f4:	0e 5f       	subi	r16, 0xFE	; 254
+ 1f6:	1f 4f       	sbci	r17, 0xFF	; 255
+ 1f8:	f6 01       	movw	r30, r12
+ 1fa:	82 89       	ldd	r24, Z+18	; 0x12
+ 1fc:	93 89       	ldd	r25, Z+19	; 0x13
+ 1fe:	e8 16       	cp	r14, r24
+ 200:	f9 06       	cpc	r15, r25
+ 202:	a4 f2       	brlt	.-88     	; 0x1ac <_ZN18ProtocolController7onEventEPv+0x8e>
+ 204:	8e 01       	movw	r16, r28
+ 206:	07 58       	subi	r16, 0x87	; 135
+ 208:	1f 4f       	sbci	r17, 0xFF	; 255
+ 20a:	c6 01       	movw	r24, r12
+ 20c:	b8 01       	movw	r22, r16
+ 20e:	45 2d       	mov	r20, r5
+ 210:	0e 94 78 00 	call	0xf0	; 0xf0 <_ZN18ProtocolController16addProtocolFrameEPcc>
+ 214:	f1 e0       	ldi	r31, 0x01	; 1
+ 216:	af 16       	cp	r10, r31
+ 218:	b1 04       	cpc	r11, r1
+ 21a:	29 f4       	brne	.+10     	; 0x226 <_ZN18ProtocolController7onEventEPv+0x108>
+ 21c:	8a e5       	ldi	r24, 0x5A	; 90
+ 21e:	91 e0       	ldi	r25, 0x01	; 1
+ 220:	b8 01       	movw	r22, r16
+ 222:	0e 94 1c 02 	call	0x438	; 0x438 <_ZN12RSController8sendLineEPc>
+ 226:	c0 51       	subi	r28, 0x10	; 16
+ 228:	df 4f       	sbci	r29, 0xFF	; 255
+ 22a:	0f b6       	in	r0, 0x3f	; 63
+ 22c:	f8 94       	cli
+ 22e:	de bf       	out	0x3e, r29	; 62
+ 230:	0f be       	out	0x3f, r0	; 63
+ 232:	cd bf       	out	0x3d, r28	; 61
+ 234:	cf 91       	pop	r28
+ 236:	df 91       	pop	r29
+ 238:	1f 91       	pop	r17
+ 23a:	0f 91       	pop	r16
+ 23c:	ff 90       	pop	r15
+ 23e:	ef 90       	pop	r14
+ 240:	df 90       	pop	r13
+ 242:	cf 90       	pop	r12
+ 244:	bf 90       	pop	r11
+ 246:	af 90       	pop	r10
+ 248:	9f 90       	pop	r9
+ 24a:	8f 90       	pop	r8
+ 24c:	7f 90       	pop	r7
+ 24e:	6f 90       	pop	r6
+ 250:	5f 90       	pop	r5
+ 252:	08 95       	ret
+
+00000254 <_ZN15EventController8getEventEv>:
+ 254:	81 e0       	ldi	r24, 0x01	; 1
+ 256:	08 95       	ret
+
+00000258 <_ZN15EventController18getMultiEventCountEv>:
+ 258:	80 e1       	ldi	r24, 0x10	; 16
+ 25a:	08 95       	ret
+
+0000025c <_ZN15EventController12onMultiEventEv>:
+ 25c:	08 95       	ret
+
+0000025e <_ZN12RSController10onOneEventEv>:
+ 25e:	08 95       	ret
+
+00000260 <_ZN12RSController14onEndLongEventEv>:
+ 260:	08 95       	ret
+
+00000262 <_ZN12RSController9usartInitEj>:
+ 262:	70 93 c5 00 	sts	0x00C5, r23
+ 266:	60 93 c4 00 	sts	0x00C4, r22
+ 26a:	86 e0       	ldi	r24, 0x06	; 6
+ 26c:	80 93 c2 00 	sts	0x00C2, r24
+ 270:	88 ed       	ldi	r24, 0xD8	; 216
+ 272:	80 93 c1 00 	sts	0x00C1, r24
+ 276:	08 95       	ret
+
+00000278 <_ZN12RSController4onTxEv>:
+ 278:	9c 01       	movw	r18, r24
+ 27a:	80 91 c0 00 	lds	r24, 0x00C0
+ 27e:	85 ff       	sbrs	r24, 5
+ 280:	08 c0       	rjmp	.+16     	; 0x292 <_ZN12RSController4onTxEv+0x1a>
+ 282:	c9 01       	movw	r24, r18
+ 284:	49 96       	adiw	r24, 0x19	; 25
+ 286:	0e 94 44 04 	call	0x888	; 0x888 <_ZN10RingBuffer3getEv>
+ 28a:	8f 3f       	cpi	r24, 0xFF	; 255
+ 28c:	11 f0       	breq	.+4      	; 0x292 <_ZN12RSController4onTxEv+0x1a>
+ 28e:	80 93 c6 00 	sts	0x00C6, r24
+ 292:	08 95       	ret
+
+00000294 <__vector_20>:
+ 294:	1f 92       	push	r1
+ 296:	0f 92       	push	r0
+ 298:	0f b6       	in	r0, 0x3f	; 63
+ 29a:	0f 92       	push	r0
+ 29c:	11 24       	eor	r1, r1
+ 29e:	2f 93       	push	r18
+ 2a0:	3f 93       	push	r19
+ 2a2:	4f 93       	push	r20
+ 2a4:	5f 93       	push	r21
+ 2a6:	6f 93       	push	r22
+ 2a8:	7f 93       	push	r23
+ 2aa:	8f 93       	push	r24
+ 2ac:	9f 93       	push	r25
+ 2ae:	af 93       	push	r26
+ 2b0:	bf 93       	push	r27
+ 2b2:	ef 93       	push	r30
+ 2b4:	ff 93       	push	r31
+ 2b6:	8a e5       	ldi	r24, 0x5A	; 90
+ 2b8:	91 e0       	ldi	r25, 0x01	; 1
+ 2ba:	0e 94 3c 01 	call	0x278	; 0x278 <_ZN12RSController4onTxEv>
+ 2be:	ff 91       	pop	r31
+ 2c0:	ef 91       	pop	r30
+ 2c2:	bf 91       	pop	r27
+ 2c4:	af 91       	pop	r26
+ 2c6:	9f 91       	pop	r25
+ 2c8:	8f 91       	pop	r24
+ 2ca:	7f 91       	pop	r23
+ 2cc:	6f 91       	pop	r22
+ 2ce:	5f 91       	pop	r21
+ 2d0:	4f 91       	pop	r20
+ 2d2:	3f 91       	pop	r19
+ 2d4:	2f 91       	pop	r18
+ 2d6:	0f 90       	pop	r0
+ 2d8:	0f be       	out	0x3f, r0	; 63
+ 2da:	0f 90       	pop	r0
+ 2dc:	1f 90       	pop	r1
+ 2de:	18 95       	reti
+
+000002e0 <_ZN12RSController11onLongEventEv>:
+ 2e0:	af 92       	push	r10
+ 2e2:	bf 92       	push	r11
+ 2e4:	cf 92       	push	r12
+ 2e6:	df 92       	push	r13
+ 2e8:	ef 92       	push	r14
+ 2ea:	ff 92       	push	r15
+ 2ec:	0f 93       	push	r16
+ 2ee:	1f 93       	push	r17
+ 2f0:	df 93       	push	r29
+ 2f2:	cf 93       	push	r28
+ 2f4:	cd b7       	in	r28, 0x3d	; 61
+ 2f6:	de b7       	in	r29, 0x3e	; 62
+ 2f8:	c0 58       	subi	r28, 0x80	; 128
+ 2fa:	d0 40       	sbci	r29, 0x00	; 0
+ 2fc:	0f b6       	in	r0, 0x3f	; 63
+ 2fe:	f8 94       	cli
+ 300:	de bf       	out	0x3e, r29	; 62
+ 302:	0f be       	out	0x3f, r0	; 63
+ 304:	cd bf       	out	0x3d, r28	; 61
+ 306:	6c 01       	movw	r12, r24
+ 308:	fc 01       	movw	r30, r24
+ 30a:	ef 5d       	subi	r30, 0xDF	; 223
+ 30c:	fe 4f       	sbci	r31, 0xFE	; 254
+ 30e:	80 81       	ld	r24, Z
+ 310:	91 81       	ldd	r25, Z+1	; 0x01
+ 312:	89 2b       	or	r24, r25
+ 314:	e9 f1       	breq	.+122    	; 0x390 <_ZN12RSController11onLongEventEv+0xb0>
+ 316:	11 82       	std	Z+1, r1	; 0x01
+ 318:	10 82       	st	Z, r1
+ 31a:	8e 01       	movw	r16, r28
+ 31c:	0f 5f       	subi	r16, 0xFF	; 255
+ 31e:	1f 4f       	sbci	r17, 0xFF	; 255
+ 320:	80 e8       	ldi	r24, 0x80	; 128
+ 322:	f8 01       	movw	r30, r16
+ 324:	11 92       	st	Z+, r1
+ 326:	8a 95       	dec	r24
+ 328:	e9 f7       	brne	.-6      	; 0x324 <_ZN12RSController11onLongEventEv+0x44>
+ 32a:	9d e9       	ldi	r25, 0x9D	; 157
+ 32c:	a9 2e       	mov	r10, r25
+ 32e:	b1 2c       	mov	r11, r1
+ 330:	ac 0c       	add	r10, r12
+ 332:	bd 1c       	adc	r11, r13
+ 334:	c5 01       	movw	r24, r10
+ 336:	0e 94 44 04 	call	0x888	; 0x888 <_ZN10RingBuffer3getEv>
+ 33a:	ee 24       	eor	r14, r14
+ 33c:	ff 24       	eor	r15, r15
+ 33e:	11 c0       	rjmp	.+34     	; 0x362 <_ZN12RSController11onLongEventEv+0x82>
+ 340:	e1 14       	cp	r14, r1
+ 342:	f1 04       	cpc	r15, r1
+ 344:	21 f4       	brne	.+8      	; 0x34e <_ZN12RSController11onLongEventEv+0x6e>
+ 346:	89 83       	std	Y+1, r24	; 0x01
+ 348:	81 e0       	ldi	r24, 0x01	; 1
+ 34a:	e8 2e       	mov	r14, r24
+ 34c:	f1 2c       	mov	r15, r1
+ 34e:	c5 01       	movw	r24, r10
+ 350:	0e 94 44 04 	call	0x888	; 0x888 <_ZN10RingBuffer3getEv>
+ 354:	f8 01       	movw	r30, r16
+ 356:	ee 0d       	add	r30, r14
+ 358:	ff 1d       	adc	r31, r15
+ 35a:	80 83       	st	Z, r24
+ 35c:	08 94       	sec
+ 35e:	e1 1c       	adc	r14, r1
+ 360:	f1 1c       	adc	r15, r1
+ 362:	8f 3f       	cpi	r24, 0xFF	; 255
+ 364:	11 f0       	breq	.+4      	; 0x36a <_ZN12RSController11onLongEventEv+0x8a>
+ 366:	8d 30       	cpi	r24, 0x0D	; 13
+ 368:	59 f7       	brne	.-42     	; 0x340 <_ZN12RSController11onLongEventEv+0x60>
+ 36a:	d7 01       	movw	r26, r14
+ 36c:	11 97       	sbiw	r26, 0x01	; 1
+ 36e:	fe 01       	movw	r30, r28
+ 370:	ee 0d       	add	r30, r14
+ 372:	ff 1d       	adc	r31, r15
+ 374:	80 81       	ld	r24, Z
+ 376:	8d 30       	cpi	r24, 0x0D	; 13
+ 378:	09 f0       	breq	.+2      	; 0x37c <_ZN12RSController11onLongEventEv+0x9c>
+ 37a:	d7 01       	movw	r26, r14
+ 37c:	be 01       	movw	r22, r28
+ 37e:	6f 5f       	subi	r22, 0xFF	; 255
+ 380:	7f 4f       	sbci	r23, 0xFF	; 255
+ 382:	a6 0f       	add	r26, r22
+ 384:	b7 1f       	adc	r27, r23
+ 386:	1c 92       	st	X, r1
+ 388:	c6 01       	movw	r24, r12
+ 38a:	07 96       	adiw	r24, 0x07	; 7
+ 38c:	0e 94 df 03 	call	0x7be	; 0x7be <_ZN8Listener9fireEventEPv>
+ 390:	c0 58       	subi	r28, 0x80	; 128
+ 392:	df 4f       	sbci	r29, 0xFF	; 255
+ 394:	0f b6       	in	r0, 0x3f	; 63
+ 396:	f8 94       	cli
+ 398:	de bf       	out	0x3e, r29	; 62
+ 39a:	0f be       	out	0x3f, r0	; 63
+ 39c:	cd bf       	out	0x3d, r28	; 61
+ 39e:	cf 91       	pop	r28
+ 3a0:	df 91       	pop	r29
+ 3a2:	1f 91       	pop	r17
+ 3a4:	0f 91       	pop	r16
+ 3a6:	ff 90       	pop	r15
+ 3a8:	ef 90       	pop	r14
+ 3aa:	df 90       	pop	r13
+ 3ac:	cf 90       	pop	r12
+ 3ae:	bf 90       	pop	r11
+ 3b0:	af 90       	pop	r10
+ 3b2:	08 95       	ret
+
+000003b4 <_ZN12RSController4onRxEv>:
+ 3b4:	1f 93       	push	r17
+ 3b6:	cf 93       	push	r28
+ 3b8:	df 93       	push	r29
+ 3ba:	ec 01       	movw	r28, r24
+ 3bc:	80 91 c0 00 	lds	r24, 0x00C0
+ 3c0:	87 ff       	sbrs	r24, 7
+ 3c2:	10 c0       	rjmp	.+32     	; 0x3e4 <_ZN12RSController4onRxEv+0x30>
+ 3c4:	10 91 c6 00 	lds	r17, 0x00C6
+ 3c8:	ce 01       	movw	r24, r28
+ 3ca:	83 56       	subi	r24, 0x63	; 99
+ 3cc:	9f 4f       	sbci	r25, 0xFF	; 255
+ 3ce:	61 2f       	mov	r22, r17
+ 3d0:	0e 94 1a 04 	call	0x834	; 0x834 <_ZN10RingBuffer3addEc>
+ 3d4:	1d 30       	cpi	r17, 0x0D	; 13
+ 3d6:	31 f4       	brne	.+12     	; 0x3e4 <_ZN12RSController4onRxEv+0x30>
+ 3d8:	cf 5d       	subi	r28, 0xDF	; 223
+ 3da:	de 4f       	sbci	r29, 0xFE	; 254
+ 3dc:	81 e0       	ldi	r24, 0x01	; 1
+ 3de:	90 e0       	ldi	r25, 0x00	; 0
+ 3e0:	99 83       	std	Y+1, r25	; 0x01
+ 3e2:	88 83       	st	Y, r24
+ 3e4:	df 91       	pop	r29
+ 3e6:	cf 91       	pop	r28
+ 3e8:	1f 91       	pop	r17
+ 3ea:	08 95       	ret
+
+000003ec <__vector_18>:
+ 3ec:	1f 92       	push	r1
+ 3ee:	0f 92       	push	r0
+ 3f0:	0f b6       	in	r0, 0x3f	; 63
+ 3f2:	0f 92       	push	r0
+ 3f4:	11 24       	eor	r1, r1
+ 3f6:	2f 93       	push	r18
+ 3f8:	3f 93       	push	r19
+ 3fa:	4f 93       	push	r20
+ 3fc:	5f 93       	push	r21
+ 3fe:	6f 93       	push	r22
+ 400:	7f 93       	push	r23
+ 402:	8f 93       	push	r24
+ 404:	9f 93       	push	r25
+ 406:	af 93       	push	r26
+ 408:	bf 93       	push	r27
+ 40a:	ef 93       	push	r30
+ 40c:	ff 93       	push	r31
+ 40e:	8a e5       	ldi	r24, 0x5A	; 90
+ 410:	91 e0       	ldi	r25, 0x01	; 1
+ 412:	0e 94 da 01 	call	0x3b4	; 0x3b4 <_ZN12RSController4onRxEv>
+ 416:	ff 91       	pop	r31
+ 418:	ef 91       	pop	r30
+ 41a:	bf 91       	pop	r27
+ 41c:	af 91       	pop	r26
+ 41e:	9f 91       	pop	r25
+ 420:	8f 91       	pop	r24
+ 422:	7f 91       	pop	r23
+ 424:	6f 91       	pop	r22
+ 426:	5f 91       	pop	r21
+ 428:	4f 91       	pop	r20
+ 42a:	3f 91       	pop	r19
+ 42c:	2f 91       	pop	r18
+ 42e:	0f 90       	pop	r0
+ 430:	0f be       	out	0x3f, r0	; 63
+ 432:	0f 90       	pop	r0
+ 434:	1f 90       	pop	r1
+ 436:	18 95       	reti
+
+00000438 <_ZN12RSController8sendLineEPc>:
+ 438:	ef 92       	push	r14
+ 43a:	ff 92       	push	r15
+ 43c:	0f 93       	push	r16
+ 43e:	1f 93       	push	r17
+ 440:	cf 93       	push	r28
+ 442:	df 93       	push	r29
+ 444:	7c 01       	movw	r14, r24
+ 446:	eb 01       	movw	r28, r22
+ 448:	8c 01       	movw	r16, r24
+ 44a:	07 5e       	subi	r16, 0xE7	; 231
+ 44c:	1f 4f       	sbci	r17, 0xFF	; 255
+ 44e:	04 c0       	rjmp	.+8      	; 0x458 <_ZN12RSController8sendLineEPc+0x20>
+ 450:	c8 01       	movw	r24, r16
+ 452:	0e 94 1a 04 	call	0x834	; 0x834 <_ZN10RingBuffer3addEc>
+ 456:	21 96       	adiw	r28, 0x01	; 1
+ 458:	68 81       	ld	r22, Y
+ 45a:	66 23       	and	r22, r22
+ 45c:	c9 f7       	brne	.-14     	; 0x450 <_ZN12RSController8sendLineEPc+0x18>
+ 45e:	c8 01       	movw	r24, r16
+ 460:	6d e0       	ldi	r22, 0x0D	; 13
+ 462:	0e 94 1a 04 	call	0x834	; 0x834 <_ZN10RingBuffer3addEc>
+ 466:	c8 01       	movw	r24, r16
+ 468:	6a e0       	ldi	r22, 0x0A	; 10
+ 46a:	0e 94 1a 04 	call	0x834	; 0x834 <_ZN10RingBuffer3addEc>
+ 46e:	c7 01       	movw	r24, r14
+ 470:	0e 94 3c 01 	call	0x278	; 0x278 <_ZN12RSController4onTxEv>
+ 474:	df 91       	pop	r29
+ 476:	cf 91       	pop	r28
+ 478:	1f 91       	pop	r17
+ 47a:	0f 91       	pop	r16
+ 47c:	ff 90       	pop	r15
+ 47e:	ef 90       	pop	r14
+ 480:	08 95       	ret
+
+00000482 <_ZN12RSController4sendEPc>:
+ 482:	ef 92       	push	r14
+ 484:	ff 92       	push	r15
+ 486:	0f 93       	push	r16
+ 488:	1f 93       	push	r17
+ 48a:	cf 93       	push	r28
+ 48c:	df 93       	push	r29
+ 48e:	8c 01       	movw	r16, r24
+ 490:	eb 01       	movw	r28, r22
+ 492:	29 e1       	ldi	r18, 0x19	; 25
+ 494:	e2 2e       	mov	r14, r18
+ 496:	f1 2c       	mov	r15, r1
+ 498:	e8 0e       	add	r14, r24
+ 49a:	f9 1e       	adc	r15, r25
+ 49c:	04 c0       	rjmp	.+8      	; 0x4a6 <_ZN12RSController4sendEPc+0x24>
+ 49e:	c7 01       	movw	r24, r14
+ 4a0:	0e 94 1a 04 	call	0x834	; 0x834 <_ZN10RingBuffer3addEc>
+ 4a4:	21 96       	adiw	r28, 0x01	; 1
+ 4a6:	68 81       	ld	r22, Y
+ 4a8:	66 23       	and	r22, r22
+ 4aa:	c9 f7       	brne	.-14     	; 0x49e <_ZN12RSController4sendEPc+0x1c>
+ 4ac:	c8 01       	movw	r24, r16
+ 4ae:	0e 94 3c 01 	call	0x278	; 0x278 <_ZN12RSController4onTxEv>
+ 4b2:	df 91       	pop	r29
+ 4b4:	cf 91       	pop	r28
+ 4b6:	1f 91       	pop	r17
+ 4b8:	0f 91       	pop	r16
+ 4ba:	ff 90       	pop	r15
+ 4bc:	ef 90       	pop	r14
+ 4be:	08 95       	ret
+
+000004c0 <_ZN12RSControllerC1Ev>:
+ 4c0:	0f 93       	push	r16
+ 4c2:	1f 93       	push	r17
+ 4c4:	8c 01       	movw	r16, r24
+ 4c6:	07 96       	adiw	r24, 0x07	; 7
+ 4c8:	0e 94 95 03 	call	0x72a	; 0x72a <_ZN8ListenerC2Ev>
+ 4cc:	c8 01       	movw	r24, r16
+ 4ce:	0e 94 11 03 	call	0x622	; 0x622 <_ZN15EventControllerC2Ev>
+ 4d2:	80 e1       	ldi	r24, 0x10	; 16
+ 4d4:	91 e0       	ldi	r25, 0x01	; 1
+ 4d6:	f8 01       	movw	r30, r16
+ 4d8:	91 83       	std	Z+1, r25	; 0x01
+ 4da:	80 83       	st	Z, r24
+ 4dc:	c8 01       	movw	r24, r16
+ 4de:	49 96       	adiw	r24, 0x19	; 25
+ 4e0:	0e 94 12 04 	call	0x824	; 0x824 <_ZN10RingBufferC1Ev>
+ 4e4:	c8 01       	movw	r24, r16
+ 4e6:	83 56       	subi	r24, 0x63	; 99
+ 4e8:	9f 4f       	sbci	r25, 0xFF	; 255
+ 4ea:	0e 94 12 04 	call	0x824	; 0x824 <_ZN10RingBufferC1Ev>
+ 4ee:	83 e3       	ldi	r24, 0x33	; 51
+ 4f0:	90 e0       	ldi	r25, 0x00	; 0
+ 4f2:	90 93 c5 00 	sts	0x00C5, r25
+ 4f6:	80 93 c4 00 	sts	0x00C4, r24
+ 4fa:	86 e0       	ldi	r24, 0x06	; 6
+ 4fc:	80 93 c2 00 	sts	0x00C2, r24
+ 500:	88 ed       	ldi	r24, 0xD8	; 216
+ 502:	80 93 c1 00 	sts	0x00C1, r24
+ 506:	0f 5d       	subi	r16, 0xDF	; 223
+ 508:	1e 4f       	sbci	r17, 0xFE	; 254
+ 50a:	f8 01       	movw	r30, r16
+ 50c:	11 82       	std	Z+1, r1	; 0x01
+ 50e:	10 82       	st	Z, r1
+ 510:	1f 91       	pop	r17
+ 512:	0f 91       	pop	r16
+ 514:	08 95       	ret
+
+00000516 <_ZN12RSControllerC2Ev>:
+ 516:	0f 93       	push	r16
+ 518:	1f 93       	push	r17
+ 51a:	8c 01       	movw	r16, r24
+ 51c:	07 96       	adiw	r24, 0x07	; 7
+ 51e:	0e 94 95 03 	call	0x72a	; 0x72a <_ZN8ListenerC2Ev>
+ 522:	c8 01       	movw	r24, r16
+ 524:	0e 94 11 03 	call	0x622	; 0x622 <_ZN15EventControllerC2Ev>
+ 528:	80 e1       	ldi	r24, 0x10	; 16
+ 52a:	91 e0       	ldi	r25, 0x01	; 1
+ 52c:	f8 01       	movw	r30, r16
+ 52e:	91 83       	std	Z+1, r25	; 0x01
+ 530:	80 83       	st	Z, r24
+ 532:	c8 01       	movw	r24, r16
+ 534:	49 96       	adiw	r24, 0x19	; 25
+ 536:	0e 94 12 04 	call	0x824	; 0x824 <_ZN10RingBufferC1Ev>
+ 53a:	c8 01       	movw	r24, r16
+ 53c:	83 56       	subi	r24, 0x63	; 99
+ 53e:	9f 4f       	sbci	r25, 0xFF	; 255
+ 540:	0e 94 12 04 	call	0x824	; 0x824 <_ZN10RingBufferC1Ev>
+ 544:	83 e3       	ldi	r24, 0x33	; 51
+ 546:	90 e0       	ldi	r25, 0x00	; 0
+ 548:	90 93 c5 00 	sts	0x00C5, r25
+ 54c:	80 93 c4 00 	sts	0x00C4, r24
+ 550:	86 e0       	ldi	r24, 0x06	; 6
+ 552:	80 93 c2 00 	sts	0x00C2, r24
+ 556:	88 ed       	ldi	r24, 0xD8	; 216
+ 558:	80 93 c1 00 	sts	0x00C1, r24
+ 55c:	0f 5d       	subi	r16, 0xDF	; 223
+ 55e:	1e 4f       	sbci	r17, 0xFE	; 254
+ 560:	f8 01       	movw	r30, r16
+ 562:	11 82       	std	Z+1, r1	; 0x01
+ 564:	10 82       	st	Z, r1
+ 566:	1f 91       	pop	r17
+ 568:	0f 91       	pop	r16
+ 56a:	08 95       	ret
+
+0000056c <__cxa_guard_acquire>:
+ 56c:	fc 01       	movw	r30, r24
+ 56e:	20 e0       	ldi	r18, 0x00	; 0
+ 570:	30 e0       	ldi	r19, 0x00	; 0
+ 572:	80 81       	ld	r24, Z
+ 574:	88 23       	and	r24, r24
+ 576:	11 f4       	brne	.+4      	; 0x57c <__cxa_guard_acquire+0x10>
+ 578:	21 e0       	ldi	r18, 0x01	; 1
+ 57a:	30 e0       	ldi	r19, 0x00	; 0
+ 57c:	c9 01       	movw	r24, r18
+ 57e:	08 95       	ret
+
+00000580 <__cxa_guard_release>:
+ 580:	fc 01       	movw	r30, r24
+ 582:	81 e0       	ldi	r24, 0x01	; 1
+ 584:	80 83       	st	Z, r24
+ 586:	08 95       	ret
+
+00000588 <__cxa_guard_abort>:
+ 588:	08 95       	ret
+
+0000058a <__cxa_pure_virtual>:
+ 58a:	08 95       	ret
+
+0000058c <_GLOBAL__I_rs>:
+ 58c:	8a e5       	ldi	r24, 0x5A	; 90
+ 58e:	91 e0       	ldi	r25, 0x01	; 1
+ 590:	0e 94 60 02 	call	0x4c0	; 0x4c0 <_ZN12RSControllerC1Ev>
+ 594:	08 95       	ret
+
+00000596 <main>:
+ 596:	0f 93       	push	r16
+ 598:	1f 93       	push	r17
+ 59a:	df 93       	push	r29
+ 59c:	cf 93       	push	r28
+ 59e:	cd b7       	in	r28, 0x3d	; 61
+ 5a0:	de b7       	in	r29, 0x3e	; 62
+ 5a2:	6d 97       	sbiw	r28, 0x1d	; 29
+ 5a4:	0f b6       	in	r0, 0x3f	; 63
+ 5a6:	f8 94       	cli
+ 5a8:	de bf       	out	0x3e, r29	; 62
+ 5aa:	0f be       	out	0x3f, r0	; 63
+ 5ac:	cd bf       	out	0x3d, r28	; 61
+ 5ae:	ce 01       	movw	r24, r28
+ 5b0:	01 96       	adiw	r24, 0x01	; 1
+ 5b2:	0e 94 11 03 	call	0x622	; 0x622 <_ZN15EventControllerC2Ev>
+ 5b6:	82 e4       	ldi	r24, 0x42	; 66
+ 5b8:	91 e0       	ldi	r25, 0x01	; 1
+ 5ba:	9a 83       	std	Y+2, r25	; 0x02
+ 5bc:	89 83       	std	Y+1, r24	; 0x01
+ 5be:	44 96       	adiw	r24, 0x14	; 20
+ 5c0:	99 87       	std	Y+9, r25	; 0x09
+ 5c2:	88 87       	std	Y+8, r24	; 0x08
+ 5c4:	78 94       	sei
+ 5c6:	22 9a       	sbi	0x04, 2	; 4
+ 5c8:	8e 01       	movw	r16, r28
+ 5ca:	06 5f       	subi	r16, 0xF6	; 246
+ 5cc:	1f 4f       	sbci	r17, 0xFF	; 255
+ 5ce:	c8 01       	movw	r24, r16
+ 5d0:	0e 94 67 00 	call	0xce	; 0xce <_ZN18ProtocolControllerC1Ev>
+ 5d4:	81 e6       	ldi	r24, 0x61	; 97
+ 5d6:	91 e0       	ldi	r25, 0x01	; 1
+ 5d8:	b8 01       	movw	r22, r16
+ 5da:	0e 94 c4 03 	call	0x788	; 0x788 <_ZN8Listener11addListenerEP13ListenerAware>
+ 5de:	4c 8d       	ldd	r20, Y+28	; 0x1c
+ 5e0:	5d 8d       	ldd	r21, Y+29	; 0x1d
+ 5e2:	4f 5f       	subi	r20, 0xFF	; 255
+ 5e4:	5f 4f       	sbci	r21, 0xFF	; 255
+ 5e6:	fa 01       	movw	r30, r20
+ 5e8:	ee 0f       	add	r30, r30
+ 5ea:	ff 1f       	adc	r31, r31
+ 5ec:	9e 01       	movw	r18, r28
+ 5ee:	2f 5f       	subi	r18, 0xFF	; 255
+ 5f0:	3f 4f       	sbci	r19, 0xFF	; 255
+ 5f2:	e2 0f       	add	r30, r18
+ 5f4:	f3 1f       	adc	r31, r19
+ 5f6:	ce 01       	movw	r24, r28
+ 5f8:	08 96       	adiw	r24, 0x08	; 8
+ 5fa:	92 87       	std	Z+10, r25	; 0x0a
+ 5fc:	81 87       	std	Z+9, r24	; 0x09
+ 5fe:	5d 8f       	std	Y+29, r21	; 0x1d
+ 600:	4c 8f       	std	Y+28, r20	; 0x1c
+ 602:	12 2f       	mov	r17, r18
+ 604:	03 2f       	mov	r16, r19
+ 606:	81 2f       	mov	r24, r17
+ 608:	90 2f       	mov	r25, r16
+ 60a:	0e 94 51 03 	call	0x6a2	; 0x6a2 <_ZN15EventController6onTickEv>
+ 60e:	8a e5       	ldi	r24, 0x5A	; 90
+ 610:	91 e0       	ldi	r25, 0x01	; 1
+ 612:	0e 94 51 03 	call	0x6a2	; 0x6a2 <_ZN15EventController6onTickEv>
+ 616:	f7 cf       	rjmp	.-18     	; 0x606 <main+0x70>
+ 618:	81 e0       	ldi	r24, 0x01	; 1
+ 61a:	08 95       	ret
+ 61c:	80 e1       	ldi	r24, 0x10	; 16
+ 61e:	08 95       	ret
+ 620:	08 95       	ret
+
+00000622 <_ZN15EventControllerC2Ev>:
+ 622:	fc 01       	movw	r30, r24
+ 624:	88 e2       	ldi	r24, 0x28	; 40
+ 626:	91 e0       	ldi	r25, 0x01	; 1
+ 628:	91 83       	std	Z+1, r25	; 0x01
+ 62a:	80 83       	st	Z, r24
+ 62c:	13 82       	std	Z+3, r1	; 0x03
+ 62e:	12 82       	std	Z+2, r1	; 0x02
+ 630:	14 82       	std	Z+4, r1	; 0x04
+ 632:	15 82       	std	Z+5, r1	; 0x05
+ 634:	08 95       	ret
+
+00000636 <_ZN15EventControllerC1Ev>:
+ 636:	fc 01       	movw	r30, r24
+ 638:	88 e2       	ldi	r24, 0x28	; 40
+ 63a:	91 e0       	ldi	r25, 0x01	; 1
+ 63c:	91 83       	std	Z+1, r25	; 0x01
+ 63e:	80 83       	st	Z, r24
+ 640:	13 82       	std	Z+3, r1	; 0x03
+ 642:	12 82       	std	Z+2, r1	; 0x02
+ 644:	14 82       	std	Z+4, r1	; 0x04
+ 646:	15 82       	std	Z+5, r1	; 0x05
+ 648:	08 95       	ret
+
+0000064a <_ZN15EventController18multiEventOneEventEv>:
+ 64a:	1f 93       	push	r17
+ 64c:	cf 93       	push	r28
+ 64e:	df 93       	push	r29
+ 650:	ec 01       	movw	r28, r24
+ 652:	1d 81       	ldd	r17, Y+5	; 0x05
+ 654:	1f 5f       	subi	r17, 0xFF	; 255
+ 656:	1d 83       	std	Y+5, r17	; 0x05
+ 658:	e8 81       	ld	r30, Y
+ 65a:	f9 81       	ldd	r31, Y+1	; 0x01
+ 65c:	02 80       	ldd	r0, Z+2	; 0x02
+ 65e:	f3 81       	ldd	r31, Z+3	; 0x03
+ 660:	e0 2d       	mov	r30, r0
+ 662:	09 95       	icall
+ 664:	18 17       	cp	r17, r24
+ 666:	61 f4       	brne	.+24     	; 0x680 <_ZN15EventController18multiEventOneEventEv+0x36>
+ 668:	8e 81       	ldd	r24, Y+6	; 0x06
+ 66a:	88 3c       	cpi	r24, 0xC8	; 200
+ 66c:	48 f4       	brcc	.+18     	; 0x680 <_ZN15EventController18multiEventOneEventEv+0x36>
+ 66e:	e8 81       	ld	r30, Y
+ 670:	f9 81       	ldd	r31, Y+1	; 0x01
+ 672:	02 84       	ldd	r0, Z+10	; 0x0a
+ 674:	f3 85       	ldd	r31, Z+11	; 0x0b
+ 676:	e0 2d       	mov	r30, r0
+ 678:	ce 01       	movw	r24, r28
+ 67a:	09 95       	icall
+ 67c:	1d 82       	std	Y+5, r1	; 0x05
+ 67e:	1e 82       	std	Y+6, r1	; 0x06
+ 680:	df 91       	pop	r29
+ 682:	cf 91       	pop	r28
+ 684:	1f 91       	pop	r17
+ 686:	08 95       	ret
+
+00000688 <_ZN15EventController15multiEventEventEv>:
+ 688:	fc 01       	movw	r30, r24
+ 68a:	85 81       	ldd	r24, Z+5	; 0x05
+ 68c:	88 23       	and	r24, r24
+ 68e:	19 f0       	breq	.+6      	; 0x696 <_ZN15EventController15multiEventEventEv+0xe>
+ 690:	86 81       	ldd	r24, Z+6	; 0x06
+ 692:	8f 5f       	subi	r24, 0xFF	; 255
+ 694:	86 83       	std	Z+6, r24	; 0x06
+ 696:	86 81       	ldd	r24, Z+6	; 0x06
+ 698:	89 3c       	cpi	r24, 0xC9	; 201
+ 69a:	10 f0       	brcs	.+4      	; 0x6a0 <_ZN15EventController15multiEventEventEv+0x18>
+ 69c:	15 82       	std	Z+5, r1	; 0x05
+ 69e:	16 82       	std	Z+6, r1	; 0x06
+ 6a0:	08 95       	ret
+
+000006a2 <_ZN15EventController6onTickEv>:
+ 6a2:	cf 93       	push	r28
+ 6a4:	df 93       	push	r29
+ 6a6:	ec 01       	movw	r28, r24
+ 6a8:	e8 81       	ld	r30, Y
+ 6aa:	f9 81       	ldd	r31, Y+1	; 0x01
+ 6ac:	01 90       	ld	r0, Z+
+ 6ae:	f0 81       	ld	r31, Z
+ 6b0:	e0 2d       	mov	r30, r0
+ 6b2:	09 95       	icall
+ 6b4:	98 2f       	mov	r25, r24
+ 6b6:	81 30       	cpi	r24, 0x01	; 1
+ 6b8:	c9 f4       	brne	.+50     	; 0x6ec <_ZN15EventController6onTickEv+0x4a>
+ 6ba:	8b 81       	ldd	r24, Y+3	; 0x03
+ 6bc:	88 23       	and	r24, r24
+ 6be:	19 f4       	brne	.+6      	; 0x6c6 <_ZN15EventController6onTickEv+0x24>
+ 6c0:	1a 82       	std	Y+2, r1	; 0x02
+ 6c2:	1c 82       	std	Y+4, r1	; 0x04
+ 6c4:	9b 83       	std	Y+3, r25	; 0x03
+ 6c6:	8a 81       	ldd	r24, Y+2	; 0x02
+ 6c8:	8e 31       	cpi	r24, 0x1E	; 30
+ 6ca:	11 f4       	brne	.+4      	; 0x6d0 <_ZN15EventController6onTickEv+0x2e>
+ 6cc:	81 e0       	ldi	r24, 0x01	; 1
+ 6ce:	8c 83       	std	Y+4, r24	; 0x04
+ 6d0:	8c 81       	ldd	r24, Y+4	; 0x04
+ 6d2:	81 30       	cpi	r24, 0x01	; 1
+ 6d4:	39 f4       	brne	.+14     	; 0x6e4 <_ZN15EventController6onTickEv+0x42>
+ 6d6:	e8 81       	ld	r30, Y
+ 6d8:	f9 81       	ldd	r31, Y+1	; 0x01
+ 6da:	06 80       	ldd	r0, Z+6	; 0x06
+ 6dc:	f7 81       	ldd	r31, Z+7	; 0x07
+ 6de:	e0 2d       	mov	r30, r0
+ 6e0:	ce 01       	movw	r24, r28
+ 6e2:	09 95       	icall
+ 6e4:	8a 81       	ldd	r24, Y+2	; 0x02
+ 6e6:	8f 5f       	subi	r24, 0xFF	; 255
+ 6e8:	8a 83       	std	Y+2, r24	; 0x02
+ 6ea:	19 c0       	rjmp	.+50     	; 0x71e <_ZN15EventController6onTickEv+0x7c>
+ 6ec:	8a 81       	ldd	r24, Y+2	; 0x02
+ 6ee:	88 23       	and	r24, r24
+ 6f0:	99 f0       	breq	.+38     	; 0x718 <_ZN15EventController6onTickEv+0x76>
+ 6f2:	8c 81       	ldd	r24, Y+4	; 0x04
+ 6f4:	e8 81       	ld	r30, Y
+ 6f6:	f9 81       	ldd	r31, Y+1	; 0x01
+ 6f8:	88 23       	and	r24, r24
+ 6fa:	49 f4       	brne	.+18     	; 0x70e <_ZN15EventController6onTickEv+0x6c>
+ 6fc:	04 80       	ldd	r0, Z+4	; 0x04
+ 6fe:	f5 81       	ldd	r31, Z+5	; 0x05
+ 700:	e0 2d       	mov	r30, r0
+ 702:	ce 01       	movw	r24, r28
+ 704:	09 95       	icall
+ 706:	ce 01       	movw	r24, r28
+ 708:	0e 94 25 03 	call	0x64a	; 0x64a <_ZN15EventController18multiEventOneEventEv>
+ 70c:	05 c0       	rjmp	.+10     	; 0x718 <_ZN15EventController6onTickEv+0x76>
+ 70e:	00 84       	ldd	r0, Z+8	; 0x08
+ 710:	f1 85       	ldd	r31, Z+9	; 0x09
+ 712:	e0 2d       	mov	r30, r0
+ 714:	ce 01       	movw	r24, r28
+ 716:	09 95       	icall
+ 718:	1b 82       	std	Y+3, r1	; 0x03
+ 71a:	1a 82       	std	Y+2, r1	; 0x02
+ 71c:	1c 82       	std	Y+4, r1	; 0x04
+ 71e:	ce 01       	movw	r24, r28
+ 720:	0e 94 44 03 	call	0x688	; 0x688 <_ZN15EventController15multiEventEventEv>
+ 724:	df 91       	pop	r29
+ 726:	cf 91       	pop	r28
+ 728:	08 95       	ret
+
+0000072a <_ZN8ListenerC2Ev>:
+ 72a:	fc 01       	movw	r30, r24
+ 72c:	11 82       	std	Z+1, r1	; 0x01
+ 72e:	10 82       	st	Z, r1
+ 730:	08 95       	ret
+
+00000732 <_ZN8ListenerC1Ev>:
+ 732:	fc 01       	movw	r30, r24
+ 734:	11 82       	std	Z+1, r1	; 0x01
+ 736:	10 82       	st	Z, r1
+ 738:	08 95       	ret
+
+0000073a <_ZN8Listener14removeListenerEP13ListenerAware>:
+ 73a:	cf 93       	push	r28
+ 73c:	df 93       	push	r29
+ 73e:	ec 01       	movw	r28, r24
+ 740:	dc 01       	movw	r26, r24
+ 742:	20 e0       	ldi	r18, 0x00	; 0
+ 744:	30 e0       	ldi	r19, 0x00	; 0
+ 746:	18 c0       	rjmp	.+48     	; 0x778 <_ZN8Listener14removeListenerEP13ListenerAware+0x3e>
+ 748:	12 96       	adiw	r26, 0x02	; 2
+ 74a:	8d 91       	ld	r24, X+
+ 74c:	9c 91       	ld	r25, X
+ 74e:	13 97       	sbiw	r26, 0x03	; 3
+ 750:	86 17       	cp	r24, r22
+ 752:	97 07       	cpc	r25, r23
+ 754:	71 f4       	brne	.+28     	; 0x772 <_ZN8Listener14removeListenerEP13ListenerAware+0x38>
+ 756:	31 97       	sbiw	r30, 0x01	; 1
+ 758:	f9 83       	std	Y+1, r31	; 0x01
+ 75a:	e8 83       	st	Y, r30
+ 75c:	31 96       	adiw	r30, 0x01	; 1
+ 75e:	ee 0f       	add	r30, r30
+ 760:	ff 1f       	adc	r31, r31
+ 762:	ec 0f       	add	r30, r28
+ 764:	fd 1f       	adc	r31, r29
+ 766:	80 81       	ld	r24, Z
+ 768:	91 81       	ldd	r25, Z+1	; 0x01
+ 76a:	13 96       	adiw	r26, 0x03	; 3
+ 76c:	9c 93       	st	X, r25
+ 76e:	8e 93       	st	-X, r24
+ 770:	12 97       	sbiw	r26, 0x02	; 2
+ 772:	2f 5f       	subi	r18, 0xFF	; 255
+ 774:	3f 4f       	sbci	r19, 0xFF	; 255
+ 776:	12 96       	adiw	r26, 0x02	; 2
+ 778:	e8 81       	ld	r30, Y
+ 77a:	f9 81       	ldd	r31, Y+1	; 0x01
+ 77c:	2e 17       	cp	r18, r30
+ 77e:	3f 07       	cpc	r19, r31
+ 780:	18 f3       	brcs	.-58     	; 0x748 <_ZN8Listener14removeListenerEP13ListenerAware+0xe>
+ 782:	df 91       	pop	r29
+ 784:	cf 91       	pop	r28
+ 786:	08 95       	ret
+
+00000788 <_ZN8Listener11addListenerEP13ListenerAware>:
+ 788:	ef 92       	push	r14
+ 78a:	ff 92       	push	r15
+ 78c:	0f 93       	push	r16
+ 78e:	1f 93       	push	r17
+ 790:	8c 01       	movw	r16, r24
+ 792:	7b 01       	movw	r14, r22
+ 794:	0e 94 9d 03 	call	0x73a	; 0x73a <_ZN8Listener14removeListenerEP13ListenerAware>
+ 798:	f8 01       	movw	r30, r16
+ 79a:	80 81       	ld	r24, Z
+ 79c:	91 81       	ldd	r25, Z+1	; 0x01
+ 79e:	01 96       	adiw	r24, 0x01	; 1
+ 7a0:	fc 01       	movw	r30, r24
+ 7a2:	ee 0f       	add	r30, r30
+ 7a4:	ff 1f       	adc	r31, r31
+ 7a6:	e0 0f       	add	r30, r16
+ 7a8:	f1 1f       	adc	r31, r17
+ 7aa:	f1 82       	std	Z+1, r15	; 0x01
+ 7ac:	e0 82       	st	Z, r14
+ 7ae:	f8 01       	movw	r30, r16
+ 7b0:	91 83       	std	Z+1, r25	; 0x01
+ 7b2:	80 83       	st	Z, r24
+ 7b4:	1f 91       	pop	r17
+ 7b6:	0f 91       	pop	r16
+ 7b8:	ff 90       	pop	r15
+ 7ba:	ef 90       	pop	r14
+ 7bc:	08 95       	ret
+
+000007be <_ZN8Listener9fireEventEPv>:
+ 7be:	cf 92       	push	r12
+ 7c0:	df 92       	push	r13
+ 7c2:	ef 92       	push	r14
+ 7c4:	ff 92       	push	r15
+ 7c6:	0f 93       	push	r16
+ 7c8:	1f 93       	push	r17
+ 7ca:	cf 93       	push	r28
+ 7cc:	df 93       	push	r29
+ 7ce:	7c 01       	movw	r14, r24
+ 7d0:	6b 01       	movw	r12, r22
+ 7d2:	8c 01       	movw	r16, r24
+ 7d4:	c0 e0       	ldi	r28, 0x00	; 0
+ 7d6:	d0 e0       	ldi	r29, 0x00	; 0
+ 7d8:	0c c0       	rjmp	.+24     	; 0x7f2 <_ZN8Listener9fireEventEPv+0x34>
+ 7da:	d8 01       	movw	r26, r16
+ 7dc:	ed 91       	ld	r30, X+
+ 7de:	fc 91       	ld	r31, X
+ 7e0:	a0 81       	ld	r26, Z
+ 7e2:	b1 81       	ldd	r27, Z+1	; 0x01
+ 7e4:	2d 91       	ld	r18, X+
+ 7e6:	3c 91       	ld	r19, X
+ 7e8:	cf 01       	movw	r24, r30
+ 7ea:	b6 01       	movw	r22, r12
+ 7ec:	f9 01       	movw	r30, r18
+ 7ee:	09 95       	icall
+ 7f0:	21 96       	adiw	r28, 0x01	; 1
+ 7f2:	0e 5f       	subi	r16, 0xFE	; 254
+ 7f4:	1f 4f       	sbci	r17, 0xFF	; 255
+ 7f6:	f7 01       	movw	r30, r14
+ 7f8:	80 81       	ld	r24, Z
+ 7fa:	91 81       	ldd	r25, Z+1	; 0x01
+ 7fc:	c8 17       	cp	r28, r24
+ 7fe:	d9 07       	cpc	r29, r25
+ 800:	60 f3       	brcs	.-40     	; 0x7da <_ZN8Listener9fireEventEPv+0x1c>
+ 802:	df 91       	pop	r29
+ 804:	cf 91       	pop	r28
+ 806:	1f 91       	pop	r17
+ 808:	0f 91       	pop	r16
+ 80a:	ff 90       	pop	r15
+ 80c:	ef 90       	pop	r14
+ 80e:	df 90       	pop	r13
+ 810:	cf 90       	pop	r12
+ 812:	08 95       	ret
+
+00000814 <_ZN10RingBufferC2Ev>:
+ 814:	fc 01       	movw	r30, r24
+ 816:	ee 57       	subi	r30, 0x7E	; 126
+ 818:	ff 4f       	sbci	r31, 0xFF	; 255
+ 81a:	80 81       	ld	r24, Z
+ 81c:	91 81       	ldd	r25, Z+1	; 0x01
+ 81e:	92 93       	st	-Z, r25
+ 820:	82 93       	st	-Z, r24
+ 822:	08 95       	ret
+
+00000824 <_ZN10RingBufferC1Ev>:
+ 824:	fc 01       	movw	r30, r24
+ 826:	ee 57       	subi	r30, 0x7E	; 126
+ 828:	ff 4f       	sbci	r31, 0xFF	; 255
+ 82a:	80 81       	ld	r24, Z
+ 82c:	91 81       	ldd	r25, Z+1	; 0x01
+ 82e:	92 93       	st	-Z, r25
+ 830:	82 93       	st	-Z, r24
+ 832:	08 95       	ret
+
+00000834 <_ZN10RingBuffer3addEc>:
+ 834:	0f 93       	push	r16
+ 836:	1f 93       	push	r17
+ 838:	9c 01       	movw	r18, r24
+ 83a:	46 2f       	mov	r20, r22
+ 83c:	8c 01       	movw	r16, r24
+ 83e:	00 58       	subi	r16, 0x80	; 128
+ 840:	1f 4f       	sbci	r17, 0xFF	; 255
+ 842:	d8 01       	movw	r26, r16
+ 844:	ed 91       	ld	r30, X+
+ 846:	fc 91       	ld	r31, X
+ 848:	cf 01       	movw	r24, r30
+ 84a:	01 96       	adiw	r24, 0x01	; 1
+ 84c:	60 e8       	ldi	r22, 0x80	; 128
+ 84e:	70 e0       	ldi	r23, 0x00	; 0
+ 850:	0e 94 f3 06 	call	0xde6	; 0xde6 <__divmodhi4>
+ 854:	bc 01       	movw	r22, r24
+ 856:	e2 0f       	add	r30, r18
+ 858:	f3 1f       	adc	r31, r19
+ 85a:	40 83       	st	Z, r20
+ 85c:	f8 01       	movw	r30, r16
+ 85e:	91 83       	std	Z+1, r25	; 0x01
+ 860:	80 83       	st	Z, r24
+ 862:	f9 01       	movw	r30, r18
+ 864:	ee 57       	subi	r30, 0x7E	; 126
+ 866:	ff 4f       	sbci	r31, 0xFF	; 255
+ 868:	80 81       	ld	r24, Z
+ 86a:	91 81       	ldd	r25, Z+1	; 0x01
+ 86c:	68 17       	cp	r22, r24
+ 86e:	79 07       	cpc	r23, r25
+ 870:	41 f4       	brne	.+16     	; 0x882 <_ZN10RingBuffer3addEc+0x4e>
+ 872:	cb 01       	movw	r24, r22
+ 874:	01 96       	adiw	r24, 0x01	; 1
+ 876:	60 e8       	ldi	r22, 0x80	; 128
+ 878:	70 e0       	ldi	r23, 0x00	; 0
+ 87a:	0e 94 f3 06 	call	0xde6	; 0xde6 <__divmodhi4>
+ 87e:	91 83       	std	Z+1, r25	; 0x01
+ 880:	80 83       	st	Z, r24
+ 882:	1f 91       	pop	r17
+ 884:	0f 91       	pop	r16
+ 886:	08 95       	ret
+
+00000888 <_ZN10RingBuffer3getEv>:
+ 888:	cf 93       	push	r28
+ 88a:	df 93       	push	r29
+ 88c:	fc 01       	movw	r30, r24
+ 88e:	ec 01       	movw	r28, r24
+ 890:	ce 57       	subi	r28, 0x7E	; 126
+ 892:	df 4f       	sbci	r29, 0xFF	; 255
+ 894:	28 81       	ld	r18, Y
+ 896:	39 81       	ldd	r19, Y+1	; 0x01
+ 898:	e0 58       	subi	r30, 0x80	; 128
+ 89a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 89c:	80 81       	ld	r24, Z
+ 89e:	91 81       	ldd	r25, Z+1	; 0x01
+ 8a0:	e0 58       	subi	r30, 0x80	; 128
+ 8a2:	f0 40       	sbci	r31, 0x00	; 0
+ 8a4:	82 17       	cp	r24, r18
+ 8a6:	93 07       	cpc	r25, r19
+ 8a8:	11 f4       	brne	.+4      	; 0x8ae <_ZN10RingBuffer3getEv+0x26>
+ 8aa:	4f ef       	ldi	r20, 0xFF	; 255
+ 8ac:	0b c0       	rjmp	.+22     	; 0x8c4 <_ZN10RingBuffer3getEv+0x3c>
+ 8ae:	e2 0f       	add	r30, r18
+ 8b0:	f3 1f       	adc	r31, r19
+ 8b2:	40 81       	ld	r20, Z
+ 8b4:	c9 01       	movw	r24, r18
+ 8b6:	01 96       	adiw	r24, 0x01	; 1
+ 8b8:	60 e8       	ldi	r22, 0x80	; 128
+ 8ba:	70 e0       	ldi	r23, 0x00	; 0
+ 8bc:	0e 94 f3 06 	call	0xde6	; 0xde6 <__divmodhi4>
+ 8c0:	99 83       	std	Y+1, r25	; 0x01
+ 8c2:	88 83       	st	Y, r24
+ 8c4:	84 2f       	mov	r24, r20
+ 8c6:	df 91       	pop	r29
+ 8c8:	cf 91       	pop	r28
+ 8ca:	08 95       	ret
+
+000008cc <_ZN10RingBuffer5flushEv>:
+ 8cc:	fc 01       	movw	r30, r24
+ 8ce:	ee 57       	subi	r30, 0x7E	; 126
+ 8d0:	ff 4f       	sbci	r31, 0xFF	; 255
+ 8d2:	80 81       	ld	r24, Z
+ 8d4:	91 81       	ldd	r25, Z+1	; 0x01
+ 8d6:	92 93       	st	-Z, r25
+ 8d8:	82 93       	st	-Z, r24
+ 8da:	08 95       	ret
+
+000008dc <_ZN6Timer0C1Ev>:
+ 8dc:	0f 93       	push	r16
+ 8de:	1f 93       	push	r17
+ 8e0:	df 93       	push	r29
+ 8e2:	cf 93       	push	r28
+ 8e4:	cd b7       	in	r28, 0x3d	; 61
+ 8e6:	de b7       	in	r29, 0x3e	; 62
+ 8e8:	27 97       	sbiw	r28, 0x07	; 7
+ 8ea:	0f b6       	in	r0, 0x3f	; 63
+ 8ec:	f8 94       	cli
+ 8ee:	de bf       	out	0x3e, r29	; 62
+ 8f0:	0f be       	out	0x3f, r0	; 63
+ 8f2:	cd bf       	out	0x3d, r28	; 61
+ 8f4:	8c 01       	movw	r16, r24
+ 8f6:	0e 94 fa 05 	call	0xbf4	; 0xbf4 <_ZN12TimerCounterC2Ev>
+ 8fa:	84 e4       	ldi	r24, 0x44	; 68
+ 8fc:	90 e0       	ldi	r25, 0x00	; 0
+ 8fe:	f8 01       	movw	r30, r16
+ 900:	92 83       	std	Z+2, r25	; 0x02
+ 902:	81 83       	std	Z+1, r24	; 0x01
+ 904:	85 e4       	ldi	r24, 0x45	; 69
+ 906:	90 e0       	ldi	r25, 0x00	; 0
+ 908:	94 83       	std	Z+4, r25	; 0x04
+ 90a:	83 83       	std	Z+3, r24	; 0x03
+ 90c:	87 e4       	ldi	r24, 0x47	; 71
+ 90e:	90 e0       	ldi	r25, 0x00	; 0
+ 910:	90 87       	std	Z+8, r25	; 0x08
+ 912:	87 83       	std	Z+7, r24	; 0x07
+ 914:	88 e4       	ldi	r24, 0x48	; 72
+ 916:	90 e0       	ldi	r25, 0x00	; 0
+ 918:	92 87       	std	Z+10, r25	; 0x0a
+ 91a:	81 87       	std	Z+9, r24	; 0x09
+ 91c:	86 e4       	ldi	r24, 0x46	; 70
+ 91e:	90 e0       	ldi	r25, 0x00	; 0
+ 920:	94 87       	std	Z+12, r25	; 0x0c
+ 922:	83 87       	std	Z+11, r24	; 0x0b
+ 924:	16 bc       	out	0x26, r1	; 38
+ 926:	ee e6       	ldi	r30, 0x6E	; 110
+ 928:	f0 e0       	ldi	r31, 0x00	; 0
+ 92a:	80 81       	ld	r24, Z
+ 92c:	81 60       	ori	r24, 0x01	; 1
+ 92e:	80 83       	st	Z, r24
+ 930:	ce 01       	movw	r24, r28
+ 932:	01 96       	adiw	r24, 0x01	; 1
+ 934:	0e 94 0f 06 	call	0xc1e	; 0xc1e <_ZN12TimerCounterC1Ev>
+ 938:	27 96       	adiw	r28, 0x07	; 7
+ 93a:	0f b6       	in	r0, 0x3f	; 63
+ 93c:	f8 94       	cli
+ 93e:	de bf       	out	0x3e, r29	; 62
+ 940:	0f be       	out	0x3f, r0	; 63
+ 942:	cd bf       	out	0x3d, r28	; 61
+ 944:	cf 91       	pop	r28
+ 946:	df 91       	pop	r29
+ 948:	1f 91       	pop	r17
+ 94a:	0f 91       	pop	r16
+ 94c:	08 95       	ret
+
+0000094e <_ZN6Timer0C2Ev>:
+ 94e:	0f 93       	push	r16
+ 950:	1f 93       	push	r17
+ 952:	df 93       	push	r29
+ 954:	cf 93       	push	r28
+ 956:	cd b7       	in	r28, 0x3d	; 61
+ 958:	de b7       	in	r29, 0x3e	; 62
+ 95a:	27 97       	sbiw	r28, 0x07	; 7
+ 95c:	0f b6       	in	r0, 0x3f	; 63
+ 95e:	f8 94       	cli
+ 960:	de bf       	out	0x3e, r29	; 62
+ 962:	0f be       	out	0x3f, r0	; 63
+ 964:	cd bf       	out	0x3d, r28	; 61
+ 966:	8c 01       	movw	r16, r24
+ 968:	0e 94 fa 05 	call	0xbf4	; 0xbf4 <_ZN12TimerCounterC2Ev>
+ 96c:	84 e4       	ldi	r24, 0x44	; 68
+ 96e:	90 e0       	ldi	r25, 0x00	; 0
+ 970:	f8 01       	movw	r30, r16
+ 972:	92 83       	std	Z+2, r25	; 0x02
+ 974:	81 83       	std	Z+1, r24	; 0x01
+ 976:	85 e4       	ldi	r24, 0x45	; 69
+ 978:	90 e0       	ldi	r25, 0x00	; 0
+ 97a:	94 83       	std	Z+4, r25	; 0x04
+ 97c:	83 83       	std	Z+3, r24	; 0x03
+ 97e:	87 e4       	ldi	r24, 0x47	; 71
+ 980:	90 e0       	ldi	r25, 0x00	; 0
+ 982:	90 87       	std	Z+8, r25	; 0x08
+ 984:	87 83       	std	Z+7, r24	; 0x07
+ 986:	88 e4       	ldi	r24, 0x48	; 72
+ 988:	90 e0       	ldi	r25, 0x00	; 0
+ 98a:	92 87       	std	Z+10, r25	; 0x0a
+ 98c:	81 87       	std	Z+9, r24	; 0x09
+ 98e:	86 e4       	ldi	r24, 0x46	; 70
+ 990:	90 e0       	ldi	r25, 0x00	; 0
+ 992:	94 87       	std	Z+12, r25	; 0x0c
+ 994:	83 87       	std	Z+11, r24	; 0x0b
+ 996:	16 bc       	out	0x26, r1	; 38
+ 998:	ee e6       	ldi	r30, 0x6E	; 110
+ 99a:	f0 e0       	ldi	r31, 0x00	; 0
+ 99c:	80 81       	ld	r24, Z
+ 99e:	81 60       	ori	r24, 0x01	; 1
+ 9a0:	80 83       	st	Z, r24
+ 9a2:	ce 01       	movw	r24, r28
+ 9a4:	01 96       	adiw	r24, 0x01	; 1
+ 9a6:	0e 94 0f 06 	call	0xc1e	; 0xc1e <_ZN12TimerCounterC1Ev>
+ 9aa:	27 96       	adiw	r28, 0x07	; 7
+ 9ac:	0f b6       	in	r0, 0x3f	; 63
+ 9ae:	f8 94       	cli
+ 9b0:	de bf       	out	0x3e, r29	; 62
+ 9b2:	0f be       	out	0x3f, r0	; 63
+ 9b4:	cd bf       	out	0x3d, r28	; 61
+ 9b6:	cf 91       	pop	r28
+ 9b8:	df 91       	pop	r29
+ 9ba:	1f 91       	pop	r17
+ 9bc:	0f 91       	pop	r16
+ 9be:	08 95       	ret
+
+000009c0 <_ZN6Timer1C1Ev>:
+ 9c0:	0f 93       	push	r16
+ 9c2:	1f 93       	push	r17
+ 9c4:	df 93       	push	r29
+ 9c6:	cf 93       	push	r28
+ 9c8:	cd b7       	in	r28, 0x3d	; 61
+ 9ca:	de b7       	in	r29, 0x3e	; 62
+ 9cc:	27 97       	sbiw	r28, 0x07	; 7
+ 9ce:	0f b6       	in	r0, 0x3f	; 63
+ 9d0:	f8 94       	cli
+ 9d2:	de bf       	out	0x3e, r29	; 62
+ 9d4:	0f be       	out	0x3f, r0	; 63
+ 9d6:	cd bf       	out	0x3d, r28	; 61
+ 9d8:	8c 01       	movw	r16, r24
+ 9da:	0e 94 fa 05 	call	0xbf4	; 0xbf4 <_ZN12TimerCounterC2Ev>
+ 9de:	80 e8       	ldi	r24, 0x80	; 128
+ 9e0:	90 e0       	ldi	r25, 0x00	; 0
+ 9e2:	d8 01       	movw	r26, r16
+ 9e4:	12 96       	adiw	r26, 0x02	; 2
+ 9e6:	9c 93       	st	X, r25
+ 9e8:	8e 93       	st	-X, r24
+ 9ea:	11 97       	sbiw	r26, 0x01	; 1
+ 9ec:	81 e8       	ldi	r24, 0x81	; 129
+ 9ee:	90 e0       	ldi	r25, 0x00	; 0
+ 9f0:	14 96       	adiw	r26, 0x04	; 4
+ 9f2:	9c 93       	st	X, r25
+ 9f4:	8e 93       	st	-X, r24
+ 9f6:	13 97       	sbiw	r26, 0x03	; 3
+ 9f8:	82 e8       	ldi	r24, 0x82	; 130
+ 9fa:	90 e0       	ldi	r25, 0x00	; 0
+ 9fc:	16 96       	adiw	r26, 0x06	; 6
+ 9fe:	9c 93       	st	X, r25
+ a00:	8e 93       	st	-X, r24
+ a02:	15 97       	sbiw	r26, 0x05	; 5
+ a04:	88 e8       	ldi	r24, 0x88	; 136
+ a06:	90 e0       	ldi	r25, 0x00	; 0
+ a08:	18 96       	adiw	r26, 0x08	; 8
+ a0a:	9c 93       	st	X, r25
+ a0c:	8e 93       	st	-X, r24
+ a0e:	17 97       	sbiw	r26, 0x07	; 7
+ a10:	8a e8       	ldi	r24, 0x8A	; 138
+ a12:	90 e0       	ldi	r25, 0x00	; 0
+ a14:	1a 96       	adiw	r26, 0x0a	; 10
+ a16:	9c 93       	st	X, r25
+ a18:	8e 93       	st	-X, r24
+ a1a:	19 97       	sbiw	r26, 0x09	; 9
+ a1c:	e4 e8       	ldi	r30, 0x84	; 132
+ a1e:	f0 e0       	ldi	r31, 0x00	; 0
+ a20:	1e 96       	adiw	r26, 0x0e	; 14
+ a22:	fc 93       	st	X, r31
+ a24:	ee 93       	st	-X, r30
+ a26:	1d 97       	sbiw	r26, 0x0d	; 13
+ a28:	11 82       	std	Z+1, r1	; 0x01
+ a2a:	10 82       	st	Z, r1
+ a2c:	ef e6       	ldi	r30, 0x6F	; 111
+ a2e:	f0 e0       	ldi	r31, 0x00	; 0
+ a30:	80 81       	ld	r24, Z
+ a32:	81 60       	ori	r24, 0x01	; 1
+ a34:	80 83       	st	Z, r24
+ a36:	ce 01       	movw	r24, r28
+ a38:	01 96       	adiw	r24, 0x01	; 1
+ a3a:	0e 94 0f 06 	call	0xc1e	; 0xc1e <_ZN12TimerCounterC1Ev>
+ a3e:	27 96       	adiw	r28, 0x07	; 7
+ a40:	0f b6       	in	r0, 0x3f	; 63
+ a42:	f8 94       	cli
+ a44:	de bf       	out	0x3e, r29	; 62
+ a46:	0f be       	out	0x3f, r0	; 63
+ a48:	cd bf       	out	0x3d, r28	; 61
+ a4a:	cf 91       	pop	r28
+ a4c:	df 91       	pop	r29
+ a4e:	1f 91       	pop	r17
+ a50:	0f 91       	pop	r16
+ a52:	08 95       	ret
+
+00000a54 <_ZN6Timer1C2Ev>:
+ a54:	0f 93       	push	r16
+ a56:	1f 93       	push	r17
+ a58:	df 93       	push	r29
+ a5a:	cf 93       	push	r28
+ a5c:	cd b7       	in	r28, 0x3d	; 61
+ a5e:	de b7       	in	r29, 0x3e	; 62
+ a60:	27 97       	sbiw	r28, 0x07	; 7
+ a62:	0f b6       	in	r0, 0x3f	; 63
+ a64:	f8 94       	cli
+ a66:	de bf       	out	0x3e, r29	; 62
+ a68:	0f be       	out	0x3f, r0	; 63
+ a6a:	cd bf       	out	0x3d, r28	; 61
+ a6c:	8c 01       	movw	r16, r24
+ a6e:	0e 94 fa 05 	call	0xbf4	; 0xbf4 <_ZN12TimerCounterC2Ev>
+ a72:	80 e8       	ldi	r24, 0x80	; 128
+ a74:	90 e0       	ldi	r25, 0x00	; 0
+ a76:	d8 01       	movw	r26, r16
+ a78:	12 96       	adiw	r26, 0x02	; 2
+ a7a:	9c 93       	st	X, r25
+ a7c:	8e 93       	st	-X, r24
+ a7e:	11 97       	sbiw	r26, 0x01	; 1
+ a80:	81 e8       	ldi	r24, 0x81	; 129
+ a82:	90 e0       	ldi	r25, 0x00	; 0
+ a84:	14 96       	adiw	r26, 0x04	; 4
+ a86:	9c 93       	st	X, r25
+ a88:	8e 93       	st	-X, r24
+ a8a:	13 97       	sbiw	r26, 0x03	; 3
+ a8c:	82 e8       	ldi	r24, 0x82	; 130
+ a8e:	90 e0       	ldi	r25, 0x00	; 0
+ a90:	16 96       	adiw	r26, 0x06	; 6
+ a92:	9c 93       	st	X, r25
+ a94:	8e 93       	st	-X, r24
+ a96:	15 97       	sbiw	r26, 0x05	; 5
+ a98:	88 e8       	ldi	r24, 0x88	; 136
+ a9a:	90 e0       	ldi	r25, 0x00	; 0
+ a9c:	18 96       	adiw	r26, 0x08	; 8
+ a9e:	9c 93       	st	X, r25
+ aa0:	8e 93       	st	-X, r24
+ aa2:	17 97       	sbiw	r26, 0x07	; 7
+ aa4:	8a e8       	ldi	r24, 0x8A	; 138
+ aa6:	90 e0       	ldi	r25, 0x00	; 0
+ aa8:	1a 96       	adiw	r26, 0x0a	; 10
+ aaa:	9c 93       	st	X, r25
+ aac:	8e 93       	st	-X, r24
+ aae:	19 97       	sbiw	r26, 0x09	; 9
+ ab0:	e4 e8       	ldi	r30, 0x84	; 132
+ ab2:	f0 e0       	ldi	r31, 0x00	; 0
+ ab4:	1e 96       	adiw	r26, 0x0e	; 14
+ ab6:	fc 93       	st	X, r31
+ ab8:	ee 93       	st	-X, r30
+ aba:	1d 97       	sbiw	r26, 0x0d	; 13
+ abc:	11 82       	std	Z+1, r1	; 0x01
+ abe:	10 82       	st	Z, r1
+ ac0:	ef e6       	ldi	r30, 0x6F	; 111
+ ac2:	f0 e0       	ldi	r31, 0x00	; 0
+ ac4:	80 81       	ld	r24, Z
+ ac6:	81 60       	ori	r24, 0x01	; 1
+ ac8:	80 83       	st	Z, r24
+ aca:	ce 01       	movw	r24, r28
+ acc:	01 96       	adiw	r24, 0x01	; 1
+ ace:	0e 94 0f 06 	call	0xc1e	; 0xc1e <_ZN12TimerCounterC1Ev>
+ ad2:	27 96       	adiw	r28, 0x07	; 7
+ ad4:	0f b6       	in	r0, 0x3f	; 63
+ ad6:	f8 94       	cli
+ ad8:	de bf       	out	0x3e, r29	; 62
+ ada:	0f be       	out	0x3f, r0	; 63
+ adc:	cd bf       	out	0x3d, r28	; 61
+ ade:	cf 91       	pop	r28
+ ae0:	df 91       	pop	r29
+ ae2:	1f 91       	pop	r17
+ ae4:	0f 91       	pop	r16
+ ae6:	08 95       	ret
+
+00000ae8 <_ZN6Timer2C1Ev>:
+ ae8:	0f 93       	push	r16
+ aea:	1f 93       	push	r17
+ aec:	df 93       	push	r29
+ aee:	cf 93       	push	r28
+ af0:	cd b7       	in	r28, 0x3d	; 61
+ af2:	de b7       	in	r29, 0x3e	; 62
+ af4:	27 97       	sbiw	r28, 0x07	; 7
+ af6:	0f b6       	in	r0, 0x3f	; 63
+ af8:	f8 94       	cli
+ afa:	de bf       	out	0x3e, r29	; 62
+ afc:	0f be       	out	0x3f, r0	; 63
+ afe:	cd bf       	out	0x3d, r28	; 61
+ b00:	8c 01       	movw	r16, r24
+ b02:	0e 94 fa 05 	call	0xbf4	; 0xbf4 <_ZN12TimerCounterC2Ev>
+ b06:	80 eb       	ldi	r24, 0xB0	; 176
+ b08:	90 e0       	ldi	r25, 0x00	; 0
+ b0a:	d8 01       	movw	r26, r16
+ b0c:	12 96       	adiw	r26, 0x02	; 2
+ b0e:	9c 93       	st	X, r25
+ b10:	8e 93       	st	-X, r24
+ b12:	11 97       	sbiw	r26, 0x01	; 1
+ b14:	81 eb       	ldi	r24, 0xB1	; 177
+ b16:	90 e0       	ldi	r25, 0x00	; 0
+ b18:	14 96       	adiw	r26, 0x04	; 4
+ b1a:	9c 93       	st	X, r25
+ b1c:	8e 93       	st	-X, r24
+ b1e:	13 97       	sbiw	r26, 0x03	; 3
+ b20:	83 eb       	ldi	r24, 0xB3	; 179
+ b22:	90 e0       	ldi	r25, 0x00	; 0
+ b24:	18 96       	adiw	r26, 0x08	; 8
+ b26:	9c 93       	st	X, r25
+ b28:	8e 93       	st	-X, r24
+ b2a:	17 97       	sbiw	r26, 0x07	; 7
+ b2c:	84 eb       	ldi	r24, 0xB4	; 180
+ b2e:	90 e0       	ldi	r25, 0x00	; 0
+ b30:	1a 96       	adiw	r26, 0x0a	; 10
+ b32:	9c 93       	st	X, r25
+ b34:	8e 93       	st	-X, r24
+ b36:	19 97       	sbiw	r26, 0x09	; 9
+ b38:	e2 eb       	ldi	r30, 0xB2	; 178
+ b3a:	f0 e0       	ldi	r31, 0x00	; 0
+ b3c:	1c 96       	adiw	r26, 0x0c	; 12
+ b3e:	fc 93       	st	X, r31
+ b40:	ee 93       	st	-X, r30
+ b42:	1b 97       	sbiw	r26, 0x0b	; 11
+ b44:	10 82       	st	Z, r1
+ b46:	e0 e7       	ldi	r30, 0x70	; 112
+ b48:	f0 e0       	ldi	r31, 0x00	; 0
+ b4a:	80 81       	ld	r24, Z
+ b4c:	81 60       	ori	r24, 0x01	; 1
+ b4e:	80 83       	st	Z, r24
+ b50:	ce 01       	movw	r24, r28
+ b52:	01 96       	adiw	r24, 0x01	; 1
+ b54:	0e 94 0f 06 	call	0xc1e	; 0xc1e <_ZN12TimerCounterC1Ev>
+ b58:	27 96       	adiw	r28, 0x07	; 7
+ b5a:	0f b6       	in	r0, 0x3f	; 63
+ b5c:	f8 94       	cli
+ b5e:	de bf       	out	0x3e, r29	; 62
+ b60:	0f be       	out	0x3f, r0	; 63
+ b62:	cd bf       	out	0x3d, r28	; 61
+ b64:	cf 91       	pop	r28
+ b66:	df 91       	pop	r29
+ b68:	1f 91       	pop	r17
+ b6a:	0f 91       	pop	r16
+ b6c:	08 95       	ret
+
+00000b6e <_ZN6Timer2C2Ev>:
+ b6e:	0f 93       	push	r16
+ b70:	1f 93       	push	r17
+ b72:	df 93       	push	r29
+ b74:	cf 93       	push	r28
+ b76:	cd b7       	in	r28, 0x3d	; 61
+ b78:	de b7       	in	r29, 0x3e	; 62
+ b7a:	27 97       	sbiw	r28, 0x07	; 7
+ b7c:	0f b6       	in	r0, 0x3f	; 63
+ b7e:	f8 94       	cli
+ b80:	de bf       	out	0x3e, r29	; 62
+ b82:	0f be       	out	0x3f, r0	; 63
+ b84:	cd bf       	out	0x3d, r28	; 61
+ b86:	8c 01       	movw	r16, r24
+ b88:	0e 94 fa 05 	call	0xbf4	; 0xbf4 <_ZN12TimerCounterC2Ev>
+ b8c:	80 eb       	ldi	r24, 0xB0	; 176
+ b8e:	90 e0       	ldi	r25, 0x00	; 0
+ b90:	d8 01       	movw	r26, r16
+ b92:	12 96       	adiw	r26, 0x02	; 2
+ b94:	9c 93       	st	X, r25
+ b96:	8e 93       	st	-X, r24
+ b98:	11 97       	sbiw	r26, 0x01	; 1
+ b9a:	81 eb       	ldi	r24, 0xB1	; 177
+ b9c:	90 e0       	ldi	r25, 0x00	; 0
+ b9e:	14 96       	adiw	r26, 0x04	; 4
+ ba0:	9c 93       	st	X, r25
+ ba2:	8e 93       	st	-X, r24
+ ba4:	13 97       	sbiw	r26, 0x03	; 3
+ ba6:	83 eb       	ldi	r24, 0xB3	; 179
+ ba8:	90 e0       	ldi	r25, 0x00	; 0
+ baa:	18 96       	adiw	r26, 0x08	; 8
+ bac:	9c 93       	st	X, r25
+ bae:	8e 93       	st	-X, r24
+ bb0:	17 97       	sbiw	r26, 0x07	; 7
+ bb2:	84 eb       	ldi	r24, 0xB4	; 180
+ bb4:	90 e0       	ldi	r25, 0x00	; 0
+ bb6:	1a 96       	adiw	r26, 0x0a	; 10
+ bb8:	9c 93       	st	X, r25
+ bba:	8e 93       	st	-X, r24
+ bbc:	19 97       	sbiw	r26, 0x09	; 9
+ bbe:	e2 eb       	ldi	r30, 0xB2	; 178
+ bc0:	f0 e0       	ldi	r31, 0x00	; 0
+ bc2:	1c 96       	adiw	r26, 0x0c	; 12
+ bc4:	fc 93       	st	X, r31
+ bc6:	ee 93       	st	-X, r30
+ bc8:	1b 97       	sbiw	r26, 0x0b	; 11
+ bca:	10 82       	st	Z, r1
+ bcc:	e0 e7       	ldi	r30, 0x70	; 112
+ bce:	f0 e0       	ldi	r31, 0x00	; 0
+ bd0:	80 81       	ld	r24, Z
+ bd2:	81 60       	ori	r24, 0x01	; 1
+ bd4:	80 83       	st	Z, r24
+ bd6:	ce 01       	movw	r24, r28
+ bd8:	01 96       	adiw	r24, 0x01	; 1
+ bda:	0e 94 0f 06 	call	0xc1e	; 0xc1e <_ZN12TimerCounterC1Ev>
+ bde:	27 96       	adiw	r28, 0x07	; 7
+ be0:	0f b6       	in	r0, 0x3f	; 63
+ be2:	f8 94       	cli
+ be4:	de bf       	out	0x3e, r29	; 62
+ be6:	0f be       	out	0x3f, r0	; 63
+ be8:	cd bf       	out	0x3d, r28	; 61
+ bea:	cf 91       	pop	r28
+ bec:	df 91       	pop	r29
+ bee:	1f 91       	pop	r17
+ bf0:	0f 91       	pop	r16
+ bf2:	08 95       	ret
+
+00000bf4 <_ZN12TimerCounterC2Ev>:
+ bf4:	dc 01       	movw	r26, r24
+ bf6:	13 96       	adiw	r26, 0x03	; 3
+ bf8:	ed 91       	ld	r30, X+
+ bfa:	fc 91       	ld	r31, X
+ bfc:	14 97       	sbiw	r26, 0x04	; 4
+ bfe:	10 82       	st	Z, r1
+ c00:	11 96       	adiw	r26, 0x01	; 1
+ c02:	ed 91       	ld	r30, X+
+ c04:	fc 91       	ld	r31, X
+ c06:	12 97       	sbiw	r26, 0x02	; 2
+ c08:	10 82       	st	Z, r1
+ c0a:	81 e0       	ldi	r24, 0x01	; 1
+ c0c:	8c 93       	st	X, r24
+ c0e:	13 96       	adiw	r26, 0x03	; 3
+ c10:	ed 91       	ld	r30, X+
+ c12:	fc 91       	ld	r31, X
+ c14:	14 97       	sbiw	r26, 0x04	; 4
+ c16:	80 81       	ld	r24, Z
+ c18:	88 7f       	andi	r24, 0xF8	; 248
+ c1a:	80 83       	st	Z, r24
+ c1c:	08 95       	ret
+
+00000c1e <_ZN12TimerCounterC1Ev>:
+ c1e:	dc 01       	movw	r26, r24
+ c20:	13 96       	adiw	r26, 0x03	; 3
+ c22:	ed 91       	ld	r30, X+
+ c24:	fc 91       	ld	r31, X
+ c26:	14 97       	sbiw	r26, 0x04	; 4
+ c28:	10 82       	st	Z, r1
+ c2a:	11 96       	adiw	r26, 0x01	; 1
+ c2c:	ed 91       	ld	r30, X+
+ c2e:	fc 91       	ld	r31, X
+ c30:	12 97       	sbiw	r26, 0x02	; 2
+ c32:	10 82       	st	Z, r1
+ c34:	81 e0       	ldi	r24, 0x01	; 1
+ c36:	8c 93       	st	X, r24
+ c38:	13 96       	adiw	r26, 0x03	; 3
+ c3a:	ed 91       	ld	r30, X+
+ c3c:	fc 91       	ld	r31, X
+ c3e:	14 97       	sbiw	r26, 0x04	; 4
+ c40:	80 81       	ld	r24, Z
+ c42:	88 7f       	andi	r24, 0xF8	; 248
+ c44:	80 83       	st	Z, r24
+ c46:	08 95       	ret
+
+00000c48 <_ZN12TimerCounter5startEv>:
+ c48:	fc 01       	movw	r30, r24
+ c4a:	a3 81       	ldd	r26, Z+3	; 0x03
+ c4c:	b4 81       	ldd	r27, Z+4	; 0x04
+ c4e:	8c 91       	ld	r24, X
+ c50:	88 7f       	andi	r24, 0xF8	; 248
+ c52:	8c 93       	st	X, r24
+ c54:	a3 81       	ldd	r26, Z+3	; 0x03
+ c56:	b4 81       	ldd	r27, Z+4	; 0x04
+ c58:	9c 91       	ld	r25, X
+ c5a:	80 81       	ld	r24, Z
+ c5c:	87 70       	andi	r24, 0x07	; 7
+ c5e:	89 2b       	or	r24, r25
+ c60:	8c 93       	st	X, r24
+ c62:	08 95       	ret
+
+00000c64 <_ZN12TimerCounter4stopEv>:
+ c64:	dc 01       	movw	r26, r24
+ c66:	13 96       	adiw	r26, 0x03	; 3
+ c68:	ed 91       	ld	r30, X+
+ c6a:	fc 91       	ld	r31, X
+ c6c:	14 97       	sbiw	r26, 0x04	; 4
+ c6e:	80 81       	ld	r24, Z
+ c70:	88 7f       	andi	r24, 0xF8	; 248
+ c72:	80 83       	st	Z, r24
+ c74:	08 95       	ret
+
+00000c76 <_ZN12TimerCounter12setPrescalerEc>:
+ c76:	fc 01       	movw	r30, r24
+ c78:	60 83       	st	Z, r22
+ c7a:	08 95       	ret
+
+00000c7c <_ZN12TimerCounter13setNormalModeEv>:
+ c7c:	dc 01       	movw	r26, r24
+ c7e:	11 96       	adiw	r26, 0x01	; 1
+ c80:	ed 91       	ld	r30, X+
+ c82:	fc 91       	ld	r31, X
+ c84:	12 97       	sbiw	r26, 0x02	; 2
+ c86:	80 81       	ld	r24, Z
+ c88:	8c 7f       	andi	r24, 0xFC	; 252
+ c8a:	80 83       	st	Z, r24
+ c8c:	13 96       	adiw	r26, 0x03	; 3
+ c8e:	ed 91       	ld	r30, X+
+ c90:	fc 91       	ld	r31, X
+ c92:	14 97       	sbiw	r26, 0x04	; 4
+ c94:	80 81       	ld	r24, Z
+ c96:	87 7e       	andi	r24, 0xE7	; 231
+ c98:	80 83       	st	Z, r24
+ c9a:	08 95       	ret
+
+00000c9c <_ZN12TimerCounter10setCtcModeEv>:
+ c9c:	dc 01       	movw	r26, r24
+ c9e:	11 96       	adiw	r26, 0x01	; 1
+ ca0:	ed 91       	ld	r30, X+
+ ca2:	fc 91       	ld	r31, X
+ ca4:	12 97       	sbiw	r26, 0x02	; 2
+ ca6:	80 81       	ld	r24, Z
+ ca8:	8c 7f       	andi	r24, 0xFC	; 252
+ caa:	80 83       	st	Z, r24
+ cac:	13 96       	adiw	r26, 0x03	; 3
+ cae:	ed 91       	ld	r30, X+
+ cb0:	fc 91       	ld	r31, X
+ cb2:	14 97       	sbiw	r26, 0x04	; 4
+ cb4:	80 81       	ld	r24, Z
+ cb6:	88 61       	ori	r24, 0x18	; 24
+ cb8:	80 83       	st	Z, r24
+ cba:	08 95       	ret
+
+00000cbc <_ZN12TimerCounter10setPwmModeEv>:
+ cbc:	dc 01       	movw	r26, r24
+ cbe:	11 96       	adiw	r26, 0x01	; 1
+ cc0:	ed 91       	ld	r30, X+
+ cc2:	fc 91       	ld	r31, X
+ cc4:	12 97       	sbiw	r26, 0x02	; 2
+ cc6:	80 81       	ld	r24, Z
+ cc8:	83 60       	ori	r24, 0x03	; 3
+ cca:	80 83       	st	Z, r24
+ ccc:	13 96       	adiw	r26, 0x03	; 3
+ cce:	ed 91       	ld	r30, X+
+ cd0:	fc 91       	ld	r31, X
+ cd2:	14 97       	sbiw	r26, 0x04	; 4
+ cd4:	80 81       	ld	r24, Z
+ cd6:	87 7e       	andi	r24, 0xE7	; 231
+ cd8:	80 83       	st	Z, r24
+ cda:	08 95       	ret
+
+00000cdc <_ZN12TimerCounter10setPwmModeEh>:
+ cdc:	dc 01       	movw	r26, r24
+ cde:	11 96       	adiw	r26, 0x01	; 1
+ ce0:	ed 91       	ld	r30, X+
+ ce2:	fc 91       	ld	r31, X
+ ce4:	12 97       	sbiw	r26, 0x02	; 2
+ ce6:	80 81       	ld	r24, Z
+ ce8:	8c 7f       	andi	r24, 0xFC	; 252
+ cea:	80 83       	st	Z, r24
+ cec:	11 96       	adiw	r26, 0x01	; 1
+ cee:	ed 91       	ld	r30, X+
+ cf0:	fc 91       	ld	r31, X
+ cf2:	12 97       	sbiw	r26, 0x02	; 2
+ cf4:	80 81       	ld	r24, Z
+ cf6:	63 70       	andi	r22, 0x03	; 3
+ cf8:	86 2b       	or	r24, r22
+ cfa:	80 83       	st	Z, r24
+ cfc:	13 96       	adiw	r26, 0x03	; 3
+ cfe:	ed 91       	ld	r30, X+
+ d00:	fc 91       	ld	r31, X
+ d02:	14 97       	sbiw	r26, 0x04	; 4
+ d04:	80 81       	ld	r24, Z
+ d06:	87 7e       	andi	r24, 0xE7	; 231
+ d08:	80 83       	st	Z, r24
+ d0a:	08 95       	ret
+
+00000d0c <_ZN12TimerCounter19outputNotConnectedAEv>:
+ d0c:	dc 01       	movw	r26, r24
+ d0e:	11 96       	adiw	r26, 0x01	; 1
+ d10:	ed 91       	ld	r30, X+
+ d12:	fc 91       	ld	r31, X
+ d14:	12 97       	sbiw	r26, 0x02	; 2
+ d16:	80 81       	ld	r24, Z
+ d18:	8f 73       	andi	r24, 0x3F	; 63
+ d1a:	80 83       	st	Z, r24
+ d1c:	08 95       	ret
+
+00000d1e <_ZN12TimerCounter19outputNotConnectedBEv>:
+ d1e:	dc 01       	movw	r26, r24
+ d20:	13 96       	adiw	r26, 0x03	; 3
+ d22:	ed 91       	ld	r30, X+
+ d24:	fc 91       	ld	r31, X
+ d26:	14 97       	sbiw	r26, 0x04	; 4
+ d28:	80 81       	ld	r24, Z
+ d2a:	8f 7c       	andi	r24, 0xCF	; 207
+ d2c:	80 83       	st	Z, r24
+ d2e:	08 95       	ret
+
+00000d30 <_ZN12TimerCounter16outputNotInvertAEv>:
+ d30:	dc 01       	movw	r26, r24
+ d32:	11 96       	adiw	r26, 0x01	; 1
+ d34:	ed 91       	ld	r30, X+
+ d36:	fc 91       	ld	r31, X
+ d38:	12 97       	sbiw	r26, 0x02	; 2
+ d3a:	80 81       	ld	r24, Z
+ d3c:	8f 73       	andi	r24, 0x3F	; 63
+ d3e:	80 83       	st	Z, r24
+ d40:	11 96       	adiw	r26, 0x01	; 1
+ d42:	ed 91       	ld	r30, X+
+ d44:	fc 91       	ld	r31, X
+ d46:	12 97       	sbiw	r26, 0x02	; 2
+ d48:	80 81       	ld	r24, Z
+ d4a:	80 68       	ori	r24, 0x80	; 128
+ d4c:	80 83       	st	Z, r24
+ d4e:	08 95       	ret
+
+00000d50 <_ZN12TimerCounter16outputNotInvertBEv>:
+ d50:	dc 01       	movw	r26, r24
+ d52:	11 96       	adiw	r26, 0x01	; 1
+ d54:	ed 91       	ld	r30, X+
+ d56:	fc 91       	ld	r31, X
+ d58:	12 97       	sbiw	r26, 0x02	; 2
+ d5a:	80 81       	ld	r24, Z
+ d5c:	8f 7c       	andi	r24, 0xCF	; 207
+ d5e:	80 83       	st	Z, r24
+ d60:	11 96       	adiw	r26, 0x01	; 1
+ d62:	ed 91       	ld	r30, X+
+ d64:	fc 91       	ld	r31, X
+ d66:	12 97       	sbiw	r26, 0x02	; 2
+ d68:	80 81       	ld	r24, Z
+ d6a:	80 83       	st	Z, r24
+ d6c:	08 95       	ret
+
+00000d6e <_ZN12TimerCounter13outputInvertAEv>:
+ d6e:	dc 01       	movw	r26, r24
+ d70:	11 96       	adiw	r26, 0x01	; 1
+ d72:	ed 91       	ld	r30, X+
+ d74:	fc 91       	ld	r31, X
+ d76:	12 97       	sbiw	r26, 0x02	; 2
+ d78:	80 81       	ld	r24, Z
+ d7a:	8f 73       	andi	r24, 0x3F	; 63
+ d7c:	80 83       	st	Z, r24
+ d7e:	11 96       	adiw	r26, 0x01	; 1
+ d80:	ed 91       	ld	r30, X+
+ d82:	fc 91       	ld	r31, X
+ d84:	12 97       	sbiw	r26, 0x02	; 2
+ d86:	80 81       	ld	r24, Z
+ d88:	80 6c       	ori	r24, 0xC0	; 192
+ d8a:	80 83       	st	Z, r24
+ d8c:	08 95       	ret
+
+00000d8e <_ZN12TimerCounter13outputInvertBEv>:
+ d8e:	dc 01       	movw	r26, r24
+ d90:	11 96       	adiw	r26, 0x01	; 1
+ d92:	ed 91       	ld	r30, X+
+ d94:	fc 91       	ld	r31, X
+ d96:	12 97       	sbiw	r26, 0x02	; 2
+ d98:	80 81       	ld	r24, Z
+ d9a:	8f 7c       	andi	r24, 0xCF	; 207
+ d9c:	80 83       	st	Z, r24
+ d9e:	11 96       	adiw	r26, 0x01	; 1
+ da0:	ed 91       	ld	r30, X+
+ da2:	fc 91       	ld	r31, X
+ da4:	12 97       	sbiw	r26, 0x02	; 2
+ da6:	80 81       	ld	r24, Z
+ da8:	80 63       	ori	r24, 0x30	; 48
+ daa:	80 83       	st	Z, r24
+ dac:	08 95       	ret
+ dae:	81 e0       	ldi	r24, 0x01	; 1
+ db0:	08 95       	ret
+ db2:	80 e1       	ldi	r24, 0x10	; 16
+ db4:	08 95       	ret
+ db6:	08 95       	ret
+
+00000db8 <_ZN11TestCommand10onOneEventEv>:
+ db8:	08 95       	ret
+
+00000dba <_ZN11TestCommand14onEndLongEventEv>:
+ dba:	08 95       	ret
+
+00000dbc <_ZThn7_N11TestCommand13getTargetNameEv>:
+ dbc:	07 97       	sbiw	r24, 0x07	; 7
+ dbe:	0e 94 e2 06 	call	0xdc4	; 0xdc4 <_ZN11TestCommand13getTargetNameEv>
+ dc2:	08 95       	ret
+
+00000dc4 <_ZN11TestCommand13getTargetNameEv>:
+ dc4:	88 e5       	ldi	r24, 0x58	; 88
+ dc6:	08 95       	ret
+
+00000dc8 <_ZN11TestCommand4testEii>:
+ dc8:	46 0f       	add	r20, r22
+ dca:	57 1f       	adc	r21, r23
+ dcc:	ca 01       	movw	r24, r20
+ dce:	08 95       	ret
+
+00000dd0 <_ZN11TestCommand11onLongEventEv>:
+ dd0:	08 95       	ret
+
+00000dd2 <_ZThn7_N11TestCommand9serializeEPcS0_>:
+ dd2:	07 97       	sbiw	r24, 0x07	; 7
+ dd4:	0e 94 ed 06 	call	0xdda	; 0xdda <_ZN11TestCommand9serializeEPcS0_>
+ dd8:	08 95       	ret
+
+00000dda <_ZN11TestCommand9serializeEPcS0_>:
+ dda:	ca 01       	movw	r24, r20
+ ddc:	64 e3       	ldi	r22, 0x34	; 52
+ dde:	71 e0       	ldi	r23, 0x01	; 1
+ de0:	0e 94 20 07 	call	0xe40	; 0xe40 <strcpy>
+ de4:	08 95       	ret
+
+00000de6 <__divmodhi4>:
+ de6:	97 fb       	bst	r25, 7
+ de8:	09 2e       	mov	r0, r25
+ dea:	07 26       	eor	r0, r23
+ dec:	0a d0       	rcall	.+20     	; 0xe02 <__divmodhi4_neg1>
+ dee:	77 fd       	sbrc	r23, 7
+ df0:	04 d0       	rcall	.+8      	; 0xdfa <__divmodhi4_neg2>
+ df2:	0c d0       	rcall	.+24     	; 0xe0c <__udivmodhi4>
+ df4:	06 d0       	rcall	.+12     	; 0xe02 <__divmodhi4_neg1>
+ df6:	00 20       	and	r0, r0
+ df8:	1a f4       	brpl	.+6      	; 0xe00 <__divmodhi4_exit>
+
+00000dfa <__divmodhi4_neg2>:
+ dfa:	70 95       	com	r23
+ dfc:	61 95       	neg	r22
+ dfe:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00000e00 <__divmodhi4_exit>:
+ e00:	08 95       	ret
+
+00000e02 <__divmodhi4_neg1>:
+ e02:	f6 f7       	brtc	.-4      	; 0xe00 <__divmodhi4_exit>
+ e04:	90 95       	com	r25
+ e06:	81 95       	neg	r24
+ e08:	9f 4f       	sbci	r25, 0xFF	; 255
+ e0a:	08 95       	ret
+
+00000e0c <__udivmodhi4>:
+ e0c:	aa 1b       	sub	r26, r26
+ e0e:	bb 1b       	sub	r27, r27
+ e10:	51 e1       	ldi	r21, 0x11	; 17
+ e12:	07 c0       	rjmp	.+14     	; 0xe22 <__udivmodhi4_ep>
+
+00000e14 <__udivmodhi4_loop>:
+ e14:	aa 1f       	adc	r26, r26
+ e16:	bb 1f       	adc	r27, r27
+ e18:	a6 17       	cp	r26, r22
+ e1a:	b7 07       	cpc	r27, r23
+ e1c:	10 f0       	brcs	.+4      	; 0xe22 <__udivmodhi4_ep>
+ e1e:	a6 1b       	sub	r26, r22
+ e20:	b7 0b       	sbc	r27, r23
+
+00000e22 <__udivmodhi4_ep>:
+ e22:	88 1f       	adc	r24, r24
+ e24:	99 1f       	adc	r25, r25
+ e26:	5a 95       	dec	r21
+ e28:	a9 f7       	brne	.-22     	; 0xe14 <__udivmodhi4_loop>
+ e2a:	80 95       	com	r24
+ e2c:	90 95       	com	r25
+ e2e:	bc 01       	movw	r22, r24
+ e30:	cd 01       	movw	r24, r26
+ e32:	08 95       	ret
+
+00000e34 <__tablejump2__>:
+ e34:	ee 0f       	add	r30, r30
+ e36:	ff 1f       	adc	r31, r31
+
+00000e38 <__tablejump__>:
+ e38:	05 90       	lpm	r0, Z+
+ e3a:	f4 91       	lpm	r31, Z+
+ e3c:	e0 2d       	mov	r30, r0
+ e3e:	09 94       	ijmp
+
+00000e40 <strcpy>:
+ e40:	fb 01       	movw	r30, r22
+ e42:	dc 01       	movw	r26, r24
+ e44:	01 90       	ld	r0, Z+
+ e46:	0d 92       	st	X+, r0
+ e48:	00 20       	and	r0, r0
+ e4a:	e1 f7       	brne	.-8      	; 0xe44 <strcpy+0x4>
+ e4c:	08 95       	ret
+
+00000e4e <_exit>:
+ e4e:	f8 94       	cli
+
+00000e50 <__stop_program>:
+ e50:	ff cf       	rjmp	.-2      	; 0xe50 <__stop_program>
