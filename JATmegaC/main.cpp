@@ -16,22 +16,22 @@ RSController rs;
 
 int main(void) {
 
+	//komendy
 	TestCommand testCommand;
 
-	sei();
-
-	DDRB |= _BV(2);
-
+	//konfiguracja protokolu
 	ProtocolController protocol;
 	rs.addListener(&protocol);
+
+	//powiazanie komend z protokoloem
 	protocol.registerProtocolTarget(&testCommand);
 
 
+	//main loop
+	sei();
 	for (;;) {
-		testCommand.onTick();
 		rs.onTick();
+		testCommand.onTick();
 	}
-
-
 }
 

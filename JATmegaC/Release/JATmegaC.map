@@ -141,7 +141,7 @@ LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xe26
+.text           0x00000000      0xe1e
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
                 0x00000000                __vectors
@@ -246,92 +246,92 @@ LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x0000056a                __cxa_guard_release
                 0x00000572                __cxa_guard_abort
                 0x00000556                __cxa_guard_acquire
- .text          0x00000576       0x84 ./main.o
+ .text          0x00000576       0x7c ./main.o
                 0x00000580                main
- .text          0x000005fa      0x112 ./util/EventController.o
-                0x00000618                EventController::EventController()
-                0x00000604                EventController::EventController()
-                0x000005fe                EventController::getMultiEventCount()
-                0x000005fa                EventController::getEvent()
-                0x00000684                EventController::onTick()
-                0x0000066a                EventController::multiEventEvent()
-                0x00000602                EventController::onMultiEvent()
-                0x0000062c                EventController::multiEventOneEvent()
- .text          0x0000070c        0x0 ./util/HexConverter.o
- .text          0x0000070c       0xea ./util/Listener.o
-                0x0000076a                Listener::addListener(ListenerAware*)
+ .text          0x000005f2      0x112 ./util/EventController.o
+                0x00000610                EventController::EventController()
+                0x000005fc                EventController::EventController()
+                0x000005f6                EventController::getMultiEventCount()
+                0x000005f2                EventController::getEvent()
+                0x0000067c                EventController::onTick()
+                0x00000662                EventController::multiEventEvent()
+                0x000005fa                EventController::onMultiEvent()
+                0x00000624                EventController::multiEventOneEvent()
+ .text          0x00000704        0x0 ./util/HexConverter.o
+ .text          0x00000704       0xea ./util/Listener.o
+                0x00000762                Listener::addListener(ListenerAware*)
+                0x00000704                Listener::Listener()
                 0x0000070c                Listener::Listener()
-                0x00000714                Listener::Listener()
-                0x000007a0                Listener::fireEvent(void*)
-                0x0000071c                Listener::removeListener(ListenerAware*)
- .text          0x000007f6       0xc8 ./util/RingBuffer.o
-                0x0000086a                RingBuffer::get()
-                0x00000806                RingBuffer::RingBuffer()
-                0x000007f6                RingBuffer::RingBuffer()
-                0x00000816                RingBuffer::add(char)
-                0x000008ae                RingBuffer::flush()
- .text          0x000008be       0xe4 ./timer168/Timer0.o
-                0x000008be                Timer0::Timer0()
-                0x00000930                Timer0::Timer0()
- .text          0x000009a2      0x128 ./timer168/Timer1.o
-                0x00000a36                Timer1::Timer1()
-                0x000009a2                Timer1::Timer1()
- .text          0x00000aca      0x10c ./timer168/Timer2.o
-                0x00000aca                Timer2::Timer2()
-                0x00000b50                Timer2::Timer2()
- .text          0x00000bd6      0x1ba ./timer168/TimerCounter.o
-                0x00000c5e                TimerCounter::setNormalMode()
-                0x00000d12                TimerCounter::outputNotInvertA()
-                0x00000d70                TimerCounter::outputInvertB()
-                0x00000d00                TimerCounter::outputNotConnectedB()
-                0x00000c58                TimerCounter::setPrescaler(char)
-                0x00000c2a                TimerCounter::start()
-                0x00000d50                TimerCounter::outputInvertA()
-                0x00000bd6                TimerCounter::TimerCounter()
-                0x00000c9e                TimerCounter::setPwmMode()
-                0x00000c7e                TimerCounter::setCtcMode()
-                0x00000cbe                TimerCounter::setPwmMode(unsigned char)
-                0x00000c00                TimerCounter::TimerCounter()
-                0x00000c46                TimerCounter::stop()
-                0x00000cee                TimerCounter::outputNotConnectedA()
-                0x00000d32                TimerCounter::outputNotInvertB()
- .text          0x00000d90       0x2a ./command/TestCommand.o
-                0x00000da6                non-virtual thunk to TestCommand::serialize(char*, char*)
-                0x00000d9c                TestCommand::test(int, int)
-                0x00000dae                TestCommand::serialize(char*, char*)
-                0x00000d98                TestCommand::getTargetName()
-                0x00000d90                non-virtual thunk to TestCommand::getTargetName()
-                0x00000da4                TestCommand::onTick()
- .text          0x00000dba        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
- .text          0x00000dba        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text          0x00000dba        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text          0x00000dba        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .text          0x00000dba        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
- .text          0x00000dba        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
- .text          0x00000dba        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
- .text          0x00000dba        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
-                0x00000dba                . = ALIGN (0x2)
+                0x00000798                Listener::fireEvent(void*)
+                0x00000714                Listener::removeListener(ListenerAware*)
+ .text          0x000007ee       0xc8 ./util/RingBuffer.o
+                0x00000862                RingBuffer::get()
+                0x000007fe                RingBuffer::RingBuffer()
+                0x000007ee                RingBuffer::RingBuffer()
+                0x0000080e                RingBuffer::add(char)
+                0x000008a6                RingBuffer::flush()
+ .text          0x000008b6       0xe4 ./timer168/Timer0.o
+                0x000008b6                Timer0::Timer0()
+                0x00000928                Timer0::Timer0()
+ .text          0x0000099a      0x128 ./timer168/Timer1.o
+                0x00000a2e                Timer1::Timer1()
+                0x0000099a                Timer1::Timer1()
+ .text          0x00000ac2      0x10c ./timer168/Timer2.o
+                0x00000ac2                Timer2::Timer2()
+                0x00000b48                Timer2::Timer2()
+ .text          0x00000bce      0x1ba ./timer168/TimerCounter.o
+                0x00000c56                TimerCounter::setNormalMode()
+                0x00000d0a                TimerCounter::outputNotInvertA()
+                0x00000d68                TimerCounter::outputInvertB()
+                0x00000cf8                TimerCounter::outputNotConnectedB()
+                0x00000c50                TimerCounter::setPrescaler(char)
+                0x00000c22                TimerCounter::start()
+                0x00000d48                TimerCounter::outputInvertA()
+                0x00000bce                TimerCounter::TimerCounter()
+                0x00000c96                TimerCounter::setPwmMode()
+                0x00000c76                TimerCounter::setCtcMode()
+                0x00000cb6                TimerCounter::setPwmMode(unsigned char)
+                0x00000bf8                TimerCounter::TimerCounter()
+                0x00000c3e                TimerCounter::stop()
+                0x00000ce6                TimerCounter::outputNotConnectedA()
+                0x00000d2a                TimerCounter::outputNotInvertB()
+ .text          0x00000d88       0x2a ./command/TestCommand.o
+                0x00000d9e                non-virtual thunk to TestCommand::serialize(char*, char*)
+                0x00000d94                TestCommand::test(int, int)
+                0x00000da6                TestCommand::serialize(char*, char*)
+                0x00000d90                TestCommand::getTargetName()
+                0x00000d88                non-virtual thunk to TestCommand::getTargetName()
+                0x00000d9c                TestCommand::onTick()
+ .text          0x00000db2        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00000db2        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text          0x00000db2        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000db2        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00000db2        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text          0x00000db2        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00000db2        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .text          0x00000db2        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                0x00000db2                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00000dba       0x26 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
-                0x00000dba                __divmodhi4
-                0x00000dba                _div
- .text.libgcc   0x00000de0        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00000de0        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000de0        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .text.libgcc   0x00000de0        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
- .text.libgcc   0x00000de0       0x28 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
-                0x00000de0                __udivmodhi4
- .text.libgcc   0x00000e08        0xc c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
-                0x00000e0c                __tablejump__
-                0x00000e08                __tablejump2__
+ .text.libgcc   0x00000db2       0x26 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                0x00000db2                __divmodhi4
+                0x00000db2                _div
+ .text.libgcc   0x00000dd8        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000dd8        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000dd8        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000dd8        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text.libgcc   0x00000dd8       0x28 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000dd8                __udivmodhi4
+ .text.libgcc   0x00000e00        0xc c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                0x00000e04                __tablejump__
+                0x00000e00                __tablejump2__
  .text.avr-libc
-                0x00000e14        0xe c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
-                0x00000e14                strcpy
-                0x00000e22                . = ALIGN (0x2)
+                0x00000e0c        0xe c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strcpy.o)
+                0x00000e0c                strcpy
+                0x00000e1a                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000e22        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00000e22                exit
-                0x00000e22                _exit
+ .fini9         0x00000e1a        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00000e1a                exit
+                0x00000e1a                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -350,11 +350,11 @@ LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000e22        0x4 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000e1a        0x4 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000e26                _etext = .
+                0x00000e1e                _etext = .
 
-.data           0x00800100       0x52 load address 0x00000e26
+.data           0x00800100       0x52 load address 0x00000e1e
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
@@ -423,8 +423,8 @@ LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.bss*)
  *(COMMON)
                 0x00800270                PROVIDE (__bss_end, .)
-                0x00000e26                __data_load_start = LOADADDR (.data)
-                0x00000e78                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000e1e                __data_load_start = LOADADDR (.data)
+                0x00000e70                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800270        0x0
                 0x00800270                PROVIDE (__noinit_start, .)
