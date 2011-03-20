@@ -19,7 +19,9 @@ public abstract class TestCommand implements ICommand {
 		this.b = b;
 	}
 	
-	public abstract void onSuccess(int c);
+	public int getC() {
+		return c;
+	}
 	
 	@Override
 	public String serialize() {

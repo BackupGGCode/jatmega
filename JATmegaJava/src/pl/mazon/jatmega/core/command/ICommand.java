@@ -7,6 +7,7 @@ package pl.mazon.jatmega.core.command;
  */
 
 public interface ICommand {
+	void onSuccess();
 	void onFailure();
 	
 	String serialize();

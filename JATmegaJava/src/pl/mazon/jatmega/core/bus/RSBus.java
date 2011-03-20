@@ -196,7 +196,7 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	            	   unfinischedBuffer += new String(readBuffer);
 	               }
 	               
-	               logger.info("Receive: " + new String(readBuffer));
+	               //logger.info("Receive: " + new String(readBuffer));
 	            }
 	         } catch (IOException e) {}
 	   
@@ -206,6 +206,10 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 
 	@Override
 	public void send(String message) {
+		if (!isOnLine()) {
+			logger.info("Bus is offline!");
+			return;
+		}
 		 try {
 			 outputStream.write(message.getBytes());
        } catch (IOException e) {
@@ -216,6 +220,10 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	
 	@Override
 	public void sendLine(String message) {
+		if (!isOnLine()) {
+			logger.info("Bus is offline!");
+			return;
+		}
 		 try {
 			 outputStream.write(message.getBytes());
 			 outputStream.write(EOL);

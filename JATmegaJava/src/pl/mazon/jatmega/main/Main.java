@@ -38,11 +38,10 @@ public class Main {
 			@Override
 			public void onFailure() {
 				int i=0; i++;
-				
 			}
 			
 			@Override
-			public void onSuccess(int c) {
+			public void onSuccess() {
 				int i=0; i++;	
 			}
 		});

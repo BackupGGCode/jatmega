@@ -1,9 +1,16 @@
 package pl.mazon.jatmega.core;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import pl.mazon.jatmega.core.bus.IBus;
+import pl.mazon.jatmega.core.bus.IBusReceiveCallback;
 import pl.mazon.jatmega.core.command.ICommand;
 
 /**
@@ -16,16 +23,91 @@ import pl.mazon.jatmega.core.command.ICommand;
 
 public class ProtocolManager extends Thread {
 
+	private static final long TIME_OUT_COMMAND = 4000;
+	
+	class ProtocolInfo {
+		private char targetName;
+		private char signature;
+		private long timestamp;
+		private long timeout;
+		public ProtocolInfo(char targetName, char signature) {
+			this.targetName = targetName;
+			this.signature = signature;
+			this.timestamp = new Date().getTime();
+			this.timeout = TIME_OUT_COMMAND;
+		}
+		
+		public boolean isTimeout() {
+			return new Date().getTime() > (timestamp - timeout);
+		}
+		
+		public char getTargetName() {
+			return targetName;
+		}
+		
+		public char getSignature() {
+			return signature;
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + signature;
+			result = prime * result + targetName;
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			ProtocolInfo other = (ProtocolInfo) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (signature != other.signature)
+				return false;
+			if (targetName != other.targetName)
+				return false;
+			return true;
+		}
+
+		private ProtocolManager getOuterType() {
+			return ProtocolManager.this;
+		}
+		
+		
+	}
+	
 	private static ProtocolManager instance;
 	
-	private List<ICommand> protocolList;
+	/**
+	 * przechowuje aktualnie wyslana komende
+	 * (odebrane sa jeszcze nie oprogramowane)
+	 */
+	private Map<ProtocolInfo, ICommand> commandMap;
+	
+	/**
+	 * Przechowuje numer ostatnio wygenerowanej komendy
+	 */
+	private Map<String, String> counterMap;
 	
 	private IBus bus;
 	
+	private List<String> receiveMessage;
+	
+	private Log logger = LogFactory.getLog(ProtocolManager.class);
+	
 	private ProtocolManager() {		
 		super("ProtocolManager");
-		protocolList = new ArrayList<ICommand>();
-		start();
+		commandMap = new HashMap<ProtocolInfo, ICommand>();
+		counterMap = new HashMap<String, String>();
+		receiveMessage = new ArrayList<String>();
 	}
 	
 	public static ProtocolManager getInstance() {
@@ -35,13 +117,71 @@ public class ProtocolManager extends Thread {
 		return instance;
 	}
 	
+	private synchronized void putMessage(String message) {
+		receiveMessage.add(message);
+	}
+	
+	private synchronized String getMessage() {
+		if (receiveMessage.size() == 0){ 
+			return null;
+		} 
+		String message = receiveMessage.get(0);
+		receiveMessage.remove(0);
+		return message;
+		
+	}
+	
+	private synchronized void wakeup() {
+		notify();
+	}
+	
 	@Override
-	public void run() {
-		int i=0; i++;
+	public synchronized void run() {
+		final ProtocolManager thisPointer = this;
+		bus.addReceiverCallback(new IBusReceiveCallback() {
+			
+			@Override
+			public void receiveLine(String message) {
+				putMessage(message);
+				wakeup();
+			}
+		});
+		
+		boolean run = true;
+		while(run) {
+			
+			//obsługa odebranej wiadomości
+			String message = getMessage();
+			if (message != null && message.length() > 3) {
+				applyMessage(message);
+			}
+			
+			//obsługa timeoutów...
+			for (ProtocolInfo protocolInfo : commandMap.keySet()) {
+				if (protocolInfo.isTimeout()) {
+					ICommand command = commandMap.get(protocolInfo);
+					commandMap.remove(protocolInfo);					
+					command.onFailure();
+				}
+			}
+			
+			try {
+				wait(TIME_OUT_COMMAND);
+			} catch (InterruptedException e) {
+				logger.error("Protocol manager stopped.");
+				run = false;
+			}
+		}
 	}
 
 	public void setBus(IBus bus) {
-		this.bus = bus;
+		if (this.bus == null) {
+			this.bus = bus;
+			start();
+		} else {
+			throw new IllegalStateException("Protocol manager not support multi bus.");
+		}
+		
 	}
 
 	
@@ -52,8 +192,43 @@ public class ProtocolManager extends Thread {
 	 * która jest przekazywana w onSuccess jako parametr.
 	 * @param testProtocol
 	 */
-	public void apply(ICommand protocol) {
-		protocolList.add(protocol);
-		notify();
+	public void apply(ICommand command) {
+		char targetName = command.getTargetName();
+		char signature = getNextFreeSirgature(targetName);
+		ProtocolInfo key = new ProtocolInfo(targetName, signature);
+		commandMap.put(key, command);
+		String message = "" + key.getTargetName() + key.getSignature() + command.serialize();
+		logger.info("send: " + message);
+		bus.sendLine(message);
+	}
+	
+	/**
+	 * Odebrano wiadomość
+	 * @param message
+	 */
+	private synchronized void applyMessage(String message) {
+		boolean onSuccess = true;
+		logger.info("receive: " + message);
+		ProtocolInfo protocolInfo = new ProtocolInfo(message.charAt(0), message.charAt(1));
+		ICommand command = commandMap.get(protocolInfo);
+		if (command == null) {
+			logger.error("No command for: " + message);
+			return;
+		}
+		commandMap.remove(protocolInfo);
+		try {
+			command.deserialize(message);
+		}catch (Exception e) {
+			command.onFailure();
+			onSuccess = false;
+		}
+		if (onSuccess) {
+			command.onSuccess();
+		}
+	}
+
+	
+	private char getNextFreeSirgature(char targetName) {
+		return 'a';
 	}
 }
