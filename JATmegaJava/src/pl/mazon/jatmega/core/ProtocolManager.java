@@ -216,6 +216,7 @@ public class ProtocolManager extends Thread {
 			return;
 		}
 		commandMap.remove(protocolInfo);
+		message = message.substring(2);
 		try {
 			command.deserialize(message);
 		}catch (Exception e) {

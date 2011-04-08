@@ -48,18 +48,18 @@ public class IntegerModel implements IModel {
 	}
 
 	public void fromString(String from) {
-		// FFFFFF
-		if ( ! (from.length()%2 != 0) ) {
+		// FFAAFF
+		if (from.length()%2 != 0) {
 			throw new IllegalStateException("from="+from);
 		}
 		
 		data[0] = Integer.parseInt(from.substring(0, 2), 16);
 		index = 1;
-		if (from.length() >=5) {
+		if (from.length() >=4) {
 			data[1] = Integer.parseInt(from.substring(2, 4), 16);
 			index = 2;
 		} 
-		if (from.length() ==8) {
+		if (from.length() ==6) {
 			data[2] = Integer.parseInt(from.substring(4, 6), 16);
 			index = 3;
 		}
@@ -72,12 +72,21 @@ public class IntegerModel implements IModel {
 		String d3 = "";
 		if (index >=1) {
 			d1 = Integer.toHexString(data[0]);
+			if (d1.length() ==1) {
+				d1 = "0" + d1;
+			}
 		}
 		if (index >=2) {
 			d2 = Integer.toHexString(data[1]);
+			if (d2.length() ==1) {
+				d2 = "0" + d2;
+			}
 		}
 		if (index >=3) {
 			d3 = Integer.toHexString(data[2]);
+			if (d2.length() ==1) {
+				d2 = "0" + d2;
+			}
 		}
 		String result= d1 + d2 + d3;
 		return result.toUpperCase();

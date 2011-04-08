@@ -21,7 +21,7 @@ public abstract class TestCommand implements ICommand {
 	}
 	
 	public int getResponse() {
-		return response.getA();
+		return response.getC();
 	}
 	
 	@Override
