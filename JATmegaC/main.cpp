@@ -10,6 +10,9 @@
 #include "RSController_168.h"
 #include "ProtocolController.h"
 #include "command/TestCommand.h"
+#include <stdlib.h>
+
+#include "model/IntegerModel.h"
 
 RSController rs;
 
@@ -29,6 +32,7 @@ int main(void) {
 
 	//main loop
 	sei();
+
 	for (;;) {
 		rs.onTick();
 		testCommand.onTick();

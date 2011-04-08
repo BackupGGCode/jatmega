@@ -6,7 +6,7 @@
  */
 
 #include "TestCommand.h"
-#include "../util/HexConverter.h"
+#include <stdlib.h>
 
 
 
@@ -15,10 +15,9 @@ int TestCommand::test(int a, int b) {
 }
 
 void TestCommand::serialize(char* message, char* result) {
-	//X12+43
-	//=55 HexConverter::DecToInt(message)
-	//return HexConverter::intToDec(55);
-	strcpy(result, "odpowiedz");
+	integerModel.fromString(message);
+	integerModel.setC(test(integerModel.getA(), integerModel.getB()));
+	integerModel.toString(result);
 }
 
 void TestCommand::onTick() {

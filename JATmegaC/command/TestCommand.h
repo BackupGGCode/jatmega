@@ -10,6 +10,7 @@
 
 #include "../util/ITick.h"
 #include "../ProtocolTarget.h"
+#include "../model/IntegerModel.h"
 #include <string.h>
 
 class TestCommand : public ITick, public ProtocolTarget {
@@ -18,9 +19,10 @@ public:
 
 	void serialize(char* message, char* result);
 	char getTargetName(){return 'X';}
+
 private:
 	int test(int a, int b);
-
+	IntegerModel integerModel;
 };
 
 #endif /* TESTTASK_H_ */
