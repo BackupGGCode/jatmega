@@ -1,5 +1,7 @@
 package pl.mazon.jatmega.core.command;
 
+import pl.mazon.jatmega.core.model.IntegerModel;
+
 /**
  * Test polega na przeliczeniu wartości
  * a i b. Wynik w odpowiedzi z atmega zawieta c=a+b
@@ -8,29 +10,29 @@ package pl.mazon.jatmega.core.command;
 
 public abstract class TestCommand implements ICommand {
 
-	private int a;
+	private IntegerModel request;
 	
-	private int b;
-	
-	private int c;
+	private IntegerModel response;
 	
 	public TestCommand(int a, int b) {
-		this.a = a;
-		this.b = b;
+		request = new IntegerModel();
+		request.setA(a);
+		request.setB(b);
 	}
 	
-	public int getC() {
-		return c;
+	public int getResponse() {
+		return response.getA();
 	}
 	
 	@Override
 	public String serialize() {
-		return ""+a+","+b;
+		return request.toString();
 	}
 
 	@Override
 	public void deserialize(String message) {
-		c = Integer.parseInt(message);
+		response = new IntegerModel();
+		response.fromString(message);
 	}
 	
 	@Override

@@ -3,7 +3,6 @@ package pl.mazon.jatmega.core;
 import gnu.io.SerialPort;
 
 import java.io.IOException;
-import java.util.Observable;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
@@ -19,7 +18,7 @@ import pl.mazon.jatmega.core.bus.RSBusConfig;
  * @author rmazon
  *
  */
-public class BusManager extends Observable {
+public class BusManager {
 
 	private static BusManager instance = new BusManager();
 	

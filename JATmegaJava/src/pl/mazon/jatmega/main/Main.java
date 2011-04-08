@@ -42,7 +42,8 @@ public class Main {
 			
 			@Override
 			public void onSuccess() {
-				int i=0; i++;	
+				int wynik = getResponse();
+				wynik++;
 			}
 		});
 		
