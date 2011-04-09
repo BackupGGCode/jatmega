@@ -9,11 +9,11 @@
 #define TESTTASK_H_
 
 #include "../util/ITick.h"
-#include "../ProtocolTarget.h"
+#include "ICommand.h"
 #include "../model/IntegerModel.h"
 #include <string.h>
 
-class TestCommand : public ITick, public ProtocolTarget {
+class TestCommand : public ITick, public ICommand {
 public:
 	void onTick();
 

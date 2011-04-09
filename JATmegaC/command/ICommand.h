@@ -8,9 +8,9 @@
 #ifndef PROTOCOLTARGET_H_
 #define PROTOCOLTARGET_H_
 
-class ProtocolTarget {
+class ICommand {
 public:
-	virtual void serialize(char* message, char* result)=0;
+	virtual void serialize(char* request, char* response)=0;
 	virtual char getTargetName()=0;
 };
 

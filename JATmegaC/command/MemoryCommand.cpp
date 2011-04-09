@@ -7,6 +7,6 @@
 
 #include "MemoryCommand.h"
 
-void MemoryCommand::serialize(char* message, char* result) {
+void MemoryCommand::serialize(char* request, char* response) {
 
 }

@@ -391,7 +391,7 @@ LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00800112                vtable for ITick
  .data          0x00800118        0x0 ./avrcore.o
  .data          0x00800118        0xe ./main.o
-                0x0080011e                vtable for ProtocolTarget
+                0x0080011e                vtable for ICommand
  .data          0x00800126       0x10 ./util/EventController.o
                 0x00800126                vtable for EventController
  .data          0x00800136        0x0 ./util/Listener.o
@@ -606,8 +606,8 @@ RSController::sendLine(char*)                     ./RSController_168.o
                                                   ./ProtocolController.o
 RSController::usartInit(unsigned int)             ./RSController_168.o
 RingBuffer::RingBuffer()                          ./util/RingBuffer.o
-RingBuffer::RingBuffer()                          ./util/RingBuffer.o
                                                   ./RSController_168.o
+RingBuffer::RingBuffer()                          ./util/RingBuffer.o
 RingBuffer::add(char)                             ./util/RingBuffer.o
                                                   ./RSController_168.o
 RingBuffer::flush()                               ./util/RingBuffer.o
@@ -730,13 +730,13 @@ rs                                                ./main.o
 strrev                                            c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
                                                   c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
 vtable for EventController                        ./util/EventController.o
+vtable for ICommand                               ./main.o
 vtable for IModel                                 ./model/IntegerModel.o
 vtable for ITick                                  ./RSController_168.o
 vtable for IntegerModel                           ./model/IntegerModel.o
 vtable for ListenerAware                          ./ProtocolController.o
 vtable for MemoryCommand                          ./command/MemoryCommand.o
 vtable for ProtocolController                     ./ProtocolController.o
-vtable for ProtocolTarget                         ./main.o
 vtable for RSController                           ./RSController_168.o
 vtable for TestCommand                            ./command/TestCommand.o
                                                   ./main.o

@@ -9,9 +9,9 @@
 
 #ifndef MEMORYCOMMAND_H_
 #define MEMORYCOMMAND_H_
-#include "../ProtocolTarget.h"
+#include "ICommand.h"
 
-class MemoryCommand : public ProtocolTarget {
+class MemoryCommand : public ICommand {
 	void serialize(char* message, char* result);
 	char getTargetName(){return 'M';}
 };

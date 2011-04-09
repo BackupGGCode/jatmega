@@ -14,10 +14,10 @@ int TestCommand::test(int a, int b) {
 	return a+b;
 }
 
-void TestCommand::serialize(char* message, char* result) {
-	integerModel.fromString(message);
+void TestCommand::serialize(char* request, char* response) {
+	integerModel.fromString(request);
 	integerModel.setC(test(integerModel.getA(), integerModel.getB()));
-	integerModel.toString(result);
+	integerModel.toString(response);
 }
 
 void TestCommand::onTick() {
