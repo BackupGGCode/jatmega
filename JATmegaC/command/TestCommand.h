@@ -21,7 +21,6 @@ public:
 	char getTargetName(){return 'X';}
 
 private:
-	int test(int a, int b);
 	IntegerModel integerModel;
 };
 

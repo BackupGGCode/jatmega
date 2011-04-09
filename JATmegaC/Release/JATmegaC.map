@@ -145,7 +145,7 @@ LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1138
+.text           0x00000000     0x1130
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
                 0x00000000                __vectors
@@ -316,47 +316,46 @@ LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .text          0x00001006        0x6 ./command/MemoryCommand.o
                 0x00001006                MemoryCommand::getTargetName()
                 0x0000100a                MemoryCommand::serialize(char*, char*)
- .text          0x0000100c       0x6c ./command/TestCommand.o
-                0x00001022                non-virtual thunk to TestCommand::serialize(char*, char*)
-                0x00001018                TestCommand::test(int, int)
-                0x0000102a                TestCommand::serialize(char*, char*)
+ .text          0x0000100c       0x64 ./command/TestCommand.o
+                0x0000101a                non-virtual thunk to TestCommand::serialize(char*, char*)
+                0x00001022                TestCommand::serialize(char*, char*)
                 0x00001014                TestCommand::getTargetName()
                 0x0000100c                non-virtual thunk to TestCommand::getTargetName()
-                0x00001020                TestCommand::onTick()
- .text          0x00001078        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
- .text          0x00001078        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text          0x00001078        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text          0x00001078        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .text          0x00001078        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
- .text          0x00001078        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
- .text          0x00001078        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
- .text          0x00001078        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
- .text          0x00001078        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x00001078                . = ALIGN (0x2)
+                0x00001018                TestCommand::onTick()
+ .text          0x00001070        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+ .text          0x00001070        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text          0x00001070        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text          0x00001070        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00001070        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text          0x00001070        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x00001070        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+ .text          0x00001070        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+ .text          0x00001070        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00001070                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00001078       0x26 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
-                0x00001078                __divmodhi4
-                0x00001078                _div
- .text.libgcc   0x0000109e        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x0000109e        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x0000109e        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .text.libgcc   0x0000109e        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
- .text.libgcc   0x0000109e       0x28 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
-                0x0000109e                __udivmodhi4
- .text.libgcc   0x000010c6        0xc c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
-                0x000010ca                __tablejump__
-                0x000010c6                __tablejump2__
+ .text.libgcc   0x00001070       0x26 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                0x00001070                __divmodhi4
+                0x00001070                _div
+ .text.libgcc   0x00001096        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00001096        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00001096        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00001096        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ctors.o)
+ .text.libgcc   0x00001096       0x28 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                0x00001096                __udivmodhi4
+ .text.libgcc   0x000010be        0xc c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_tablejump.o)
+                0x000010c2                __tablejump__
+                0x000010be                __tablejump2__
  .text.avr-libc
-                0x000010d2       0x42 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
-                0x000010d2                itoa
+                0x000010ca       0x42 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(itoa.o)
+                0x000010ca                itoa
  .text.avr-libc
-                0x00001114       0x20 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x00001114                strrev
-                0x00001134                . = ALIGN (0x2)
+                0x0000110c       0x20 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x0000110c                strrev
+                0x0000112c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001134        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00001134                exit
-                0x00001134                _exit
+ .fini9         0x0000112c        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x0000112c                exit
+                0x0000112c                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -375,11 +374,11 @@ LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001134        0x4 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x0000112c        0x4 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00001138                _etext = .
+                0x00001130                _etext = .
 
-.data           0x00800100       0x60 load address 0x00001138
+.data           0x00800100       0x60 load address 0x00001130
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm168.o
@@ -457,8 +456,8 @@ LOAD c:/program files/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.bss*)
  *(COMMON)
                 0x0080027e                PROVIDE (__bss_end, .)
-                0x00001138                __data_load_start = LOADADDR (.data)
-                0x00001198                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00001130                __data_load_start = LOADADDR (.data)
+                0x00001190                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080027e        0x0
                 0x0080027e                PROVIDE (__noinit_start, .)
@@ -563,8 +562,8 @@ IModel::atoi2(char*)                              ./model/IModel.o
                                                   ./model/IntegerModel.o
 IModel::convertHalfHex(char)                      ./model/IModel.o
 IntegerModel::IntegerModel()                      ./model/IntegerModel.o
-IntegerModel::IntegerModel()                      ./model/IntegerModel.o
                                                   ./main.o
+IntegerModel::IntegerModel()                      ./model/IntegerModel.o
 IntegerModel::fromString(char*)                   ./model/IntegerModel.o
                                                   ./command/TestCommand.o
 IntegerModel::getA()                              ./model/IntegerModel.o
@@ -595,8 +594,8 @@ ProtocolController::addProtocolFrame(char*, char, char) ./ProtocolController.o
 ProtocolController::onEvent(void*)                ./ProtocolController.o
 ProtocolController::removeProtocolFrame(char*)    ./ProtocolController.o
 RSController::RSController()                      ./RSController_168.o
-RSController::RSController()                      ./RSController_168.o
                                                   ./main.o
+RSController::RSController()                      ./RSController_168.o
 RSController::onRx()                              ./RSController_168.o
 RSController::onTick()                            ./RSController_168.o
                                                   ./main.o
@@ -617,7 +616,6 @@ TestCommand::getTargetName()                      ./command/TestCommand.o
 TestCommand::onTick()                             ./command/TestCommand.o
                                                   ./main.o
 TestCommand::serialize(char*, char*)              ./command/TestCommand.o
-TestCommand::test(int, int)                       ./command/TestCommand.o
 Timer0::Timer0()                                  ./timer168/Timer0.o
 Timer0::Timer0()                                  ./timer168/Timer0.o
 Timer1::Timer1()                                  ./timer168/Timer1.o

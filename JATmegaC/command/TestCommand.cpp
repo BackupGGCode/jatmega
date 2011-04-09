@@ -9,14 +9,11 @@
 #include <stdlib.h>
 
 
-
-int TestCommand::test(int a, int b) {
-	return a+b;
-}
-
 void TestCommand::serialize(char* request, char* response) {
 	integerModel.fromString(request);
-	integerModel.setC(test(integerModel.getA(), integerModel.getB()));
+	integerModel.setC(
+			integerModel.getA() + integerModel.getB()
+			);
 	integerModel.toString(response);
 }
 

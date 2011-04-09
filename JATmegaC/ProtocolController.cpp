@@ -63,16 +63,16 @@ void ProtocolController::onEvent(void* __message) {
 
 void ProtocolController::removeProtocolFrame(char* message) {
 	int index =0;
-	while (message[index] != NULL) {
+	while (message[index] != 0) {
 		message[index] = message[index+2];
 		index++;
 	}
-	message[index] = NULL;
+	message[index] = 0;
 }
 
 void ProtocolController::addProtocolFrame(char* message, char targetName, char targetNum) {
 	int index =0;
-	while (message[index] != NULL){
+	while (message[index] != 0){
 		index++;
 	}
 	for (; index>=0; index--) {
