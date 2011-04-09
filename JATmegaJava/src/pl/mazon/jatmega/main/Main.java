@@ -8,6 +8,7 @@ import pl.mazon.jatmega.core.ProtocolManager;
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.bus.IBusEventCallback;
 import pl.mazon.jatmega.core.command.TestCommand;
+import pl.mazon.jatmega.core.model.IntegerModel;
 
 /**
  * 
@@ -17,7 +18,7 @@ import pl.mazon.jatmega.core.command.TestCommand;
 
 public class Main {
 	
-	private Log logger = LogFactory.getLog(Main.class);
+	private static final Log logger = LogFactory.getLog(Main.class);
 	
 	/**
 	 * @param args
@@ -37,13 +38,12 @@ public class Main {
 			
 			@Override
 			public void onFailure() {
-				int i=0; i++;
+				//fatal :(
 			}
 			
 			@Override
-			public void onSuccess() {
-				int wynik = getResponse();
-				wynik++;
+			public void onSuccess(IntegerModel response) {
+				logger.info("wynik = " + response.getC());
 			}
 		});
 		

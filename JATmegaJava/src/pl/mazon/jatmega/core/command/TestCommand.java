@@ -1,5 +1,6 @@
 package pl.mazon.jatmega.core.command;
 
+import pl.mazon.jatmega.core.model.IModel;
 import pl.mazon.jatmega.core.model.IntegerModel;
 
 /**
@@ -8,7 +9,7 @@ import pl.mazon.jatmega.core.model.IntegerModel;
  * @author radomir.mazon
  */
 
-public abstract class TestCommand implements ICommand {
+public abstract class TestCommand implements ICommand<IntegerModel, IntegerModel> {
 
 	private IntegerModel request;
 	
@@ -16,25 +17,21 @@ public abstract class TestCommand implements ICommand {
 	
 	public TestCommand(int a, int b) {
 		request = new IntegerModel();
+		response = new IntegerModel();
 		request.setA(a);
 		request.setB(b);
 	}
 	
-	public int getResponse() {
-		return response.getC();
+	@Override
+	public IntegerModel getResponse() {
+		return response;
 	}
 	
 	@Override
-	public String serialize() {
-		return request.toString();
+	public IntegerModel getRequest() {
+		return request;
 	}
 
-	@Override
-	public void deserialize(String message) {
-		response = new IntegerModel();
-		response.fromString(message);
-	}
-	
 	@Override
 	public char getTargetName() {
 		return 'X';

@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.bus.IBusReceiveCallback;
 import pl.mazon.jatmega.core.command.ICommand;
+import pl.mazon.jatmega.core.model.IModel;
 
 /**
  * Menadzer jest wątkiem wysyłającym polecenia do ATMEGA
@@ -197,7 +198,8 @@ public class ProtocolManager extends Thread {
 		char signature = getNextFreeSirgature(targetName);
 		ProtocolInfo key = new ProtocolInfo(targetName, signature);
 		commandMap.put(key, command);
-		String message = "" + key.getTargetName() + key.getSignature() + command.serialize();
+		IModel request = command.getRequest();
+		String message = "" + key.getTargetName() + key.getSignature() + request.toString();
 		logger.info("send: " + message);
 		bus.sendLine(message);
 	}
@@ -218,13 +220,13 @@ public class ProtocolManager extends Thread {
 		commandMap.remove(protocolInfo);
 		message = message.substring(2);
 		try {
-			command.deserialize(message);
+			command.getResponse().fromString(message);
 		}catch (Exception e) {
 			command.onFailure();
 			onSuccess = false;
 		}
 		if (onSuccess) {
-			command.onSuccess();
+			command.onSuccess(command.getResponse());
 		}
 	}
 
