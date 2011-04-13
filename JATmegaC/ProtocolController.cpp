@@ -17,6 +17,7 @@
 
 #include "ProtocolController.h"
 #include "RSController_168.h"
+#include <string.h>
 
 extern RSController rs;
 
@@ -30,8 +31,8 @@ ProtocolController::ProtocolController() {
 void ProtocolController::onEvent(void* __message) {
 	char* _message = (char*)__message;
 
-	int len = 0;
-	while (*(_message+len)) {len++;}
+	uint8_t len = 0;
+	while (_message[len]) {len++;}
 	if (len<3) {
 		return;
 	}
@@ -42,18 +43,13 @@ void ProtocolController::onEvent(void* __message) {
 	message[0] = 0;
 	char result[120];
 	result[0] = 0;
-	int index = 0;
-	while (_message[index]) {
-		message[index] = _message[index];
-		index++;
-	}
-	message[index] = _message[index];
+	strcpy(message, _message);
 
 	removeProtocolFrame(message);
 
-	for (int i=0; i<tabIndex; i++) {
+	for (uint8_t i=0; i<tabIndex; i++) {
 		if (targetTab[i]->getTargetName() == targetName) {
-			targetTab[i]->serialize(message, result);
+			targetTab[i]->apply(message, result);
 			addProtocolFrame(result, targetName, targetNum);
 			rs.sendLine(result);
 			break;
@@ -62,7 +58,7 @@ void ProtocolController::onEvent(void* __message) {
 }
 
 void ProtocolController::removeProtocolFrame(char* message) {
-	int index =0;
+	uint8_t index =0;
 	while (message[index] != 0) {
 		message[index] = message[index+2];
 		index++;
@@ -71,7 +67,7 @@ void ProtocolController::removeProtocolFrame(char* message) {
 }
 
 void ProtocolController::addProtocolFrame(char* message, char targetName, char targetNum) {
-	int index =0;
+	int8_t index =0;
 	while (message[index] != 0){
 		index++;
 	}

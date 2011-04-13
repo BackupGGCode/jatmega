@@ -12,7 +12,8 @@
 #include "command/TestCommand.h"
 #include <stdlib.h>
 
-#include "model/IntegerModel.h"
+#include "model/ByteModel.h"
+#include "incubarot/Tds18b20.h"
 
 RSController rs;
 
@@ -29,13 +30,13 @@ int main(void) {
 	//powiazanie komend z protokoloem
 	protocol.registerProtocolTarget(&testCommand);
 
-
 	//main loop
 	sei();
 
 	for (;;) {
 		rs.onTick();
-		testCommand.onTick();
 	}
 }
+
+
 

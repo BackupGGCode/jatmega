@@ -14,7 +14,7 @@ RingBuffer::RingBuffer() {
 
 void RingBuffer::add(char c)
 {
-  int i = (head + 1) % BUFFOR_SIZE;
+  uint8_t i = (head + 1) % BUFFOR_SIZE;
 
   buffer[head] = c;
   head = i;

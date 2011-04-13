@@ -25,7 +25,7 @@
 class RSController : public Listener , public ITick {
 public:
 	RSController();
-	void usartInit(unsigned int baud);
+	void usartInit(uint8_t baud);
 	void send(char* string);
 	void sendLine(char* string);
 	void onRx();
@@ -36,7 +36,7 @@ public:
 private:
 	RingBuffer sendRingBuffer;
 	RingBuffer receiveRingBuffer;
-	int lineDetect;
+	uint8_t lineDetect;
 };
 
 #endif /* RSCONTROLLER_H_ */

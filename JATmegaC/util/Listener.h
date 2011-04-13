@@ -9,6 +9,7 @@
 #define LISTENER_H_
 
 #include "ListenerAware.h"
+#include <stdint.h>
 
 class Listener {
 public:
@@ -18,7 +19,7 @@ public:
 protected:
 	void fireEvent(void* event);
 private:
-	unsigned listener_count;
+	uint8_t listener_count;
 	/* array of function pointers */
 	ListenerAware *listener_list[8];
 };

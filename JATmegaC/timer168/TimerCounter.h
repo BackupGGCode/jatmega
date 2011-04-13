@@ -31,21 +31,21 @@ public:
 	void stop();
 
 	/**
-	 * Wyjœcie nie pod³¹czone
+	 * Wyjï¿½cie nie podï¿½ï¿½czone
 	 */
 	void outputNotConnectedA();
 	void outputNotConnectedB();
 	/**
-	 * Wyjœcie kasowane podczas porównania przy liczeniu w górê
-	 * Wyjœcie ustawiane podczas porównania przy liczeniu w du³
+	 * Wyjï¿½cie kasowane podczas porï¿½wnania przy liczeniu w gï¿½rï¿½
+	 * Wyjï¿½cie ustawiane podczas porï¿½wnania przy liczeniu w duï¿½
 	 * PWM bez inversji
 	 */
 	void outputNotInvertA();
 	void outputNotInvertB();
 	/**
-	 * Wyjœcie kasowane podczas porównania przy liczeniu w du³
-	 * Wyjœcie ustawiane podczas porównania przy liczeniu w górê
-	 * PWM z inwersj¹
+	 * Wyjï¿½cie kasowane podczas porï¿½wnania przy liczeniu w duï¿½
+	 * Wyjï¿½cie ustawiane podczas porï¿½wnania przy liczeniu w gï¿½rï¿½
+	 * PWM z inwersjï¿½
 	 */
 	void outputInvertA();
 	void outputInvertB();
@@ -60,7 +60,7 @@ public:
 	void setPwmMode(uint8_t mode);
 
 	/**
-	 * Tryb  z prze³¹dowaniem
+	 * Tryb  z przeï¿½ï¿½dowaniem
 	 */
 	void setCtcMode();
 	/**
@@ -116,28 +116,28 @@ protected:
 	volatile uint16_t* icrPointer;
 	volatile uint16_t* tcntPointer;
 public:
-	int getCounter() {
+	uint8_t getCounter() {
 		return *tcntPointer;
 	}
-	void setCounter(int counter) {
+	void setCounter(uint8_t counter) {
 		*tcntPointer = counter;
 	}
-	int getOutputCompareA() {
+	uint8_t getOutputCompareA() {
 		return *ocrAPointer;
 	}
-	void setOutputCompareA(int ocA) {
+	void setOutputCompareA(uint8_t ocA) {
 		*ocrAPointer = ocA;
 	}
-	int getOutputCompareB() {
+	uint8_t getOutputCompareB() {
 			return *ocrBPointer;
 	}
-	void setOutputCompareB(int ocB) {
+	void setOutputCompareB(uint8_t ocB) {
 			*ocrBPointer = ocB;
 	}
-	int getInputCapture() {
+	uint8_t getInputCapture() {
 			return *icrPointer;
 	}
-	void setInputCapture(int ic) {
+	void setInputCapture(uint8_t ic) {
 			*icrPointer = ic;
 	}
 };

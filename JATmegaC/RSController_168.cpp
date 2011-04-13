@@ -24,7 +24,7 @@ RSController::RSController() {
 	lineDetect = 0;
 }
 
-void RSController::usartInit(unsigned int baud)
+void RSController::usartInit(uint8_t baud)
 {
 	//Set baud rate
 	UBRR0 = baud;
@@ -62,7 +62,6 @@ void RSController::onRx() {
 	if (bit_is_clear(UCSR0A, RXC0)) {
 		return;
 	}
-
 	char data = UDR0;
 	receiveRingBuffer.add(data);
 
@@ -79,7 +78,7 @@ void RSController::onTick() {
 	}
 
 	char line[BUFFOR_SIZE] = {0};
-	int index = 0;
+	uint8_t index = 0;
 	char c = receiveRingBuffer.get();
 	while(!(c == RING_EMPTY || c == EOL)) {
 		if (index == 0) {
@@ -105,4 +104,3 @@ void RSController::onTx() {
 	}
 	UDR0 = c;
 }
-

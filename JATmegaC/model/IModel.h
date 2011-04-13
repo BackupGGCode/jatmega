@@ -8,15 +8,17 @@
 #ifndef IMODEL_H_
 #define IMODEL_H_
 
+#include <avr/io.h>
+
 class IModel {
 public:
 	virtual char* toString(char* p)=0;
 	virtual void fromString(char* c)=0;
 protected:
-	int atoi2(char* temp);
+	uint8_t atoi2(char* temp);
 	void addZero(char* temp);
 private:
-	int convertHalfHex(char temp);
+	uint8_t convertHalfHex(uint8_t temp);
 
 };
 

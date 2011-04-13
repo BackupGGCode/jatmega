@@ -7,11 +7,11 @@
 
 #include "IModel.h"
 
-	int IModel::atoi2(char* temp) {
+	uint8_t IModel::atoi2(char* temp) {
 		return (convertHalfHex(temp[0])<<4) | convertHalfHex(temp[1]);
 	}
 
-	int IModel::convertHalfHex(char temp) {
+	uint8_t IModel::convertHalfHex(uint8_t temp) {
 		if (temp >= 'a') {
 			temp = temp - 20;
 		}

@@ -10,18 +10,18 @@
 
 #include "../util/ITick.h"
 #include "ICommand.h"
-#include "../model/IntegerModel.h"
+#include "../model/ByteModel.h"
 #include <string.h>
 
-class TestCommand : public ITick, public ICommand {
+class TestCommand : public ICommand {
 public:
-	void onTick();
 
-	void serialize(char* message, char* result);
+	void apply(char* message, char* result);
 	char getTargetName(){return 'X';}
 
 private:
-	IntegerModel integerModel;
+
+	ByteModel byteModel;
 };
 
 #endif /* TESTTASK_H_ */

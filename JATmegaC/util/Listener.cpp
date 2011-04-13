@@ -6,6 +6,7 @@
  */
 
 #include "Listener.h"
+#include <stdint.h>
 
 Listener::Listener() {
 	listener_count = 0;
@@ -33,9 +34,9 @@ void Listener::addListener(ListenerAware* fp)
 
 void Listener::fireEvent(void* event)
 {
-  unsigned i;
-  for( i = 0; i < listener_count; ++i )
-  {
-    listener_list[i]->onEvent(event);
-  }
+	uint8_t i = 0;
+	for(; i < listener_count; i++ )
+	{
+		listener_list[i]->onEvent(event);
+	}
 }

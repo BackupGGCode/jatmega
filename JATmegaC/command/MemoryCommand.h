@@ -3,6 +3,7 @@
  *
  *	Podstawowe operacje zapisu pamięci.
  *
+ *
  *  Created on: 20-03-2011
  *      Author: radomir.mazon
  */
@@ -12,7 +13,7 @@
 #include "ICommand.h"
 
 class MemoryCommand : public ICommand {
-	void serialize(char* message, char* result);
+	void apply(char* message, char* result);
 	char getTargetName(){return 'M';}
 };
 

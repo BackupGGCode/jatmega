@@ -10,7 +10,7 @@
 
 class ICommand {
 public:
-	virtual void serialize(char* request, char* response)=0;
+	virtual void apply(char* request, char* response)=0;
 	virtual char getTargetName()=0;
 };
 

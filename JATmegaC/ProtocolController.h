@@ -23,7 +23,7 @@ private:
 	void removeProtocolFrame(char* message);
 	void addProtocolFrame(char* message, char targetName, char targetNum);
 	ICommand* targetTab[TARGET_NUM];
-	int tabIndex;
+	uint8_t tabIndex;
 };
 
 #endif /* PROTOCOLCONTROLLER_H_ */

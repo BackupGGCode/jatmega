@@ -9,14 +9,10 @@
 #include <stdlib.h>
 
 
-void TestCommand::serialize(char* request, char* response) {
-	integerModel.fromString(request);
-	integerModel.setC(
-			integerModel.getA() + integerModel.getB()
+void TestCommand::apply(char* request, char* response) {
+	byteModel.fromString(request);
+	byteModel.add(
+			byteModel.get(0) + byteModel.get(1)
 			);
-	integerModel.toString(response);
-}
-
-void TestCommand::onTick() {
-
+	byteModel.toString(response);
 }

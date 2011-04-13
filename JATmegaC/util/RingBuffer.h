@@ -22,8 +22,8 @@ public:
 private:
 	//unsigned char buffer[];
 	unsigned char buffer[BUFFOR_SIZE];
-	int head;
-	int tail;
+	uint8_t head;
+	uint8_t tail;
 };
 
 #endif /* RINGBUFFER_H_ */

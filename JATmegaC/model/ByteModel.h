@@ -9,21 +9,18 @@
 #define INTEGERMODEL_H_
 
 #include "IModel.h"
+#define MAX_SIZE 10
 
-class IntegerModel : public  IModel {
+class ByteModel : public  IModel {
 public:
-	IntegerModel();
+	ByteModel();
 	char* toString(char* p);
 	void fromString(char* c);
-	void setA(int a);
-	void setB(int b);
-	void setC(int c);
-	int getA();
-	int getB();
-	int getC();
+	void add(uint8_t a);
+	uint8_t get(uint8_t index);
 private:
-	int offset;
-	int tab[3];
+	uint8_t size;
+	uint8_t data[MAX_SIZE];
 };
 
 #endif /* INTEGERMODEL_H_ */
