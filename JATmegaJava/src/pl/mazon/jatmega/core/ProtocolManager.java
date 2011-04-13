@@ -200,7 +200,6 @@ public class ProtocolManager extends Thread {
 		commandMap.put(key, command);
 		IModel request = command.getRequest();
 		String message = "" + key.getTargetName() + key.getSignature() + request.toString();
-		logger.info("send: " + message);
 		bus.sendLine(message);
 	}
 	

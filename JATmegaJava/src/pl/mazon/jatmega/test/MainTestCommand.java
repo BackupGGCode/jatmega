@@ -26,10 +26,28 @@ public class MainTestCommand {
 		ProtocolManager protocolManager = ProtocolManager.getInstance();
 		
 		IBus bus = BusManager.getInstance().getBus();
-
+		
+		//test powiadomień z Bus
+		bus.addEventCallback(new IBusEventCallback() {
+			
+			@Override
+			public void driverLoadFailuerEvent() {
+				logger.info("Sterownik nie załadowany...");
+			}
+			
+			@Override
+			public void disconnectEvent() {
+				logger.info("Rozłączony...");
+			}
+			
+			@Override
+			public void connectEvent() {
+				logger.info("Połaczono...");
+			}
+		});
+		
 		//menadzer protokolu musi miec przez co sie komunikowac.
 		protocolManager.setBus(bus);
-		
 		
 		//test komunikacji 
 		//TestProtocol zwraca sumę liczb
@@ -47,23 +65,6 @@ public class MainTestCommand {
 		});
 		
 		
-		//test powiadomień z Bus
-		bus.addEventCallback(new IBusEventCallback() {
-			
-			@Override
-			public void driverLoadFailuerEvent() {
-				int i=0; i++;
-			}
-			
-			@Override
-			public void disconnectEvent() {
-				int i=0; i++;
-			}
-			
-			@Override
-			public void connectEvent() {
-				int i=0; i++;
-			}
-		});
+		
 	}
 }

@@ -50,7 +50,7 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 
 		if (commDriver != null) {
 			logger.info("Driver ok.");
-			connect();
+			//connect(); - wykomentowane, ponieważ połączenie następowało przed dodaniem lisynera ecentów.
 		} else {
 			throw new IllegalStateException("Driver Fatal ERROR...");
 		}
@@ -227,6 +227,7 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 		 try {
 			 outputStream.write(message.getBytes());
 			 outputStream.write(EOL);
+			 logger.info("send: " + message);
        } catch (IOException e) {
     	   logger.info("RSBus: Can't write to port... Disconnect...");
     	   disconnect();
