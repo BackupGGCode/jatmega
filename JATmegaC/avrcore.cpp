@@ -1,13 +1,13 @@
 /**
- * @autor Radomir Mazoñ
+ * @autor Radomir Mazoï¿½
  */
 
 
 #include "avrcore.h"
-//#include <stdlib.h>
+#include <stdlib.h>
 
 
-/*
+
 void * operator new(size_t size)
 {
   return malloc(size);
@@ -17,8 +17,6 @@ void operator delete(void * ptr)
 {
   free(ptr);
 }
-
-*/
 
 __extension__ typedef int __guard __attribute__((mode (__DI__)));
 extern "C" int __cxa_guard_acquire(__guard *);
