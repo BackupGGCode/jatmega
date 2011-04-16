@@ -39,7 +39,7 @@ public class ProtocolManager extends Thread {
 		}
 		
 		public boolean isTimeout() {
-			return new Date().getTime() > (timestamp - timeout);
+			return new Date().getTime() > (timestamp + timeout);
 		}
 		
 		public char getTargetName() {
@@ -82,6 +82,10 @@ public class ProtocolManager extends Thread {
 			return ProtocolManager.this;
 		}
 		
+		@Override
+		public String toString() {
+			return "[" + targetName + signature + "]" + new Date().getTime() + "/" + (timestamp + timeout) +"/"+ isTimeout();
+		}
 		
 	}
 	
@@ -166,11 +170,10 @@ public class ProtocolManager extends Thread {
 			//obsługa timeoutów...
 			for (ProtocolInfo protocolInfo : commandMap.keySet()) {
 				if (protocolInfo.isTimeout()) {
-					/*ICommand command = commandMap.get(protocolInfo);
+					ICommand command = commandMap.get(protocolInfo);
 					commandMap.remove(protocolInfo);	
 					logger.debug("Timeout for command: " + protocolInfo);
 					command.onFailure();
-					*/
 				}
 			}
 			
