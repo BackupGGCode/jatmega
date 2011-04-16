@@ -94,6 +94,11 @@ public class ProtocolManager extends Thread {
 	private Map<ProtocolInfo, ICommand> commandMap;
 	
 	/**
+	 * Licznik sygnatur, dla namego targetName
+	 */
+	private Map<Character, Character> signatureMap;
+	
+	/**
 	 * Przechowuje numer ostatnio wygenerowanej komendy
 	 */
 	private Map<String, String> counterMap;
@@ -109,6 +114,7 @@ public class ProtocolManager extends Thread {
 		commandMap = new HashMap<ProtocolInfo, ICommand>();
 		counterMap = new HashMap<String, String>();
 		receiveMessage = new ArrayList<String>();
+		signatureMap = new HashMap<Character, Character>();
 	}
 	
 	public static ProtocolManager getInstance() {
@@ -160,9 +166,11 @@ public class ProtocolManager extends Thread {
 			//obsługa timeoutów...
 			for (ProtocolInfo protocolInfo : commandMap.keySet()) {
 				if (protocolInfo.isTimeout()) {
-					ICommand command = commandMap.get(protocolInfo);
-					commandMap.remove(protocolInfo);					
+					/*ICommand command = commandMap.get(protocolInfo);
+					commandMap.remove(protocolInfo);	
+					logger.debug("Timeout for command: " + protocolInfo);
 					command.onFailure();
+					*/
 				}
 			}
 			
@@ -180,7 +188,9 @@ public class ProtocolManager extends Thread {
 			this.bus = bus;
 			start();
 		} else {
-			throw new IllegalStateException("Protocol manager not support multi bus.");
+			if (this.bus != bus) {
+				throw new IllegalStateException("Protocol manager not support multi bus.");
+			}
 		}
 		
 	}
@@ -231,6 +241,15 @@ public class ProtocolManager extends Thread {
 
 	
 	private char getNextFreeSirgature(char targetName) {
-		return 'a';
+		Character sig = signatureMap.get(new Character(targetName));
+		if (sig == null) {
+			sig = '0';
+		}
+		if (sig.equals('z')) {
+			sig = '0';
+		}
+		sig++;
+		signatureMap.put(targetName, sig);
+		return sig.charValue();
 	}
 }

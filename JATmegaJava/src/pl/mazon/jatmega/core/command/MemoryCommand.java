@@ -1,11 +1,36 @@
 package pl.mazon.jatmega.core.command;
 
-import pl.mazon.jatmega.core.model.IModel;
+import pl.mazon.jatmega.core.address.Address8;
+import pl.mazon.jatmega.core.model.ByteModel;
 
-public abstract   class MemoryCommand implements ICommand {
+/**
+ * 
+ * @author radomir.mazon
+ * 
+ *     bajt		opis
+ *     0		Adres RAM
+ *     1		Wartosc
+ *     2		Operacja
+ *
+ *     rodzaj operacji:
+ *     S		=
+ *     A		AND
+ *     O		OR
+ *
+ */
+public abstract class MemoryCommand implements ICommand<ByteModel, ByteModel> {
 	
-	public MemoryCommand() {
-		// TODO Auto-generated constructor stub
+	private ByteModel request;
+	
+	public static final int AND = 'A';
+	public static final int OR = 'O';
+	public static final int SET = 'S';
+	
+	public MemoryCommand(int operation, Address8 addr8, int value) {
+		request = new ByteModel();
+		request.add(addr8.intValue());
+		request.add(value);
+		request.add(SET);
 	}
 	
 	@Override
@@ -14,15 +39,12 @@ public abstract   class MemoryCommand implements ICommand {
 	}
 	
 	@Override
-	public IModel getRequest() {
-		// TODO Auto-generated method stub
-		return null;
+	public ByteModel getRequest() {
+		return request;
 	}
 	
 	@Override
-	public IModel getResponse() {
-		// TODO Auto-generated method stub
-		return null;
+	public ByteModel getResponse() {
+		return request;
 	}
-
 }

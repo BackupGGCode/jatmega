@@ -8,8 +8,10 @@ public class ATMEGAFactory {
 	
 	public static ATMEGA getATMEGA(String model) {
 		if (model.equals(ATMEGA168)) {
-			new ATMEGA168();
-		}
+			return new ATMEGA168();
+		} 
+			
+		
 		throw new IllegalStateException("Unknown uC " + model);
 	}
 }
