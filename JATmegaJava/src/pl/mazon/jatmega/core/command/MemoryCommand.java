@@ -30,7 +30,7 @@ public abstract class MemoryCommand implements ICommand<ByteModel, ByteModel> {
 		request = new ByteModel();
 		request.add(addr8.intValue());
 		request.add(value);
-		request.add(SET);
+		request.add(operation);
 	}
 	
 	@Override
