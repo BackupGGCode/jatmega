@@ -116,28 +116,28 @@ protected:
 	volatile uint16_t* icrPointer;
 	volatile uint16_t* tcntPointer;
 public:
-	uint8_t getCounter() {
+	uint16_t getCounter() {
 		return *tcntPointer;
 	}
-	void setCounter(uint8_t counter) {
+	void setCounter(uint16_t counter) {
 		*tcntPointer = counter;
 	}
-	uint8_t getOutputCompareA() {
+	uint16_t getOutputCompareA() {
 		return *ocrAPointer;
 	}
-	void setOutputCompareA(uint8_t ocA) {
+	void setOutputCompareA(uint16_t ocA) {
 		*ocrAPointer = ocA;
 	}
-	uint8_t getOutputCompareB() {
+	uint16_t getOutputCompareB() {
 			return *ocrBPointer;
 	}
-	void setOutputCompareB(uint8_t ocB) {
+	void setOutputCompareB(uint16_t ocB) {
 			*ocrBPointer = ocB;
 	}
-	uint8_t getInputCapture() {
+	uint16_t getInputCapture() {
 			return *icrPointer;
 	}
-	void setInputCapture(uint8_t ic) {
+	void setInputCapture(uint16_t ic) {
 			*icrPointer = ic;
 	}
 };

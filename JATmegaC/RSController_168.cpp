@@ -51,7 +51,6 @@ void RSController::sendLine(char* string) {
 			string++;
 	}
 	sendRingBuffer.add((unsigned char)EOL);
-	sendRingBuffer.add('\n');
 	onTx();
 }
 

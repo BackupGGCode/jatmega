@@ -8,12 +8,15 @@
 #include "IModel.h"
 
 	uint8_t IModel::atoi2(char* temp) {
-		return (convertHalfHex(temp[0])<<4) | convertHalfHex(temp[1]);
+		return ((convertHalfHex(temp[0]))<<4) | convertHalfHex(temp[1]);
 	}
 
+	/**
+	 * Konwertuje wartosc ascii na 4 bity (0-f)
+	 */
 	uint8_t IModel::convertHalfHex(uint8_t temp) {
 		if (temp >= 'a') {
-			temp = temp - 20;
+			temp = temp - 0x20;
 		}
 		if (temp >= '9') {
 			temp = temp - 7;
