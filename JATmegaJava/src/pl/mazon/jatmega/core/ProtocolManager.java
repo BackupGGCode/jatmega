@@ -168,6 +168,7 @@ public class ProtocolManager extends Thread {
 			}
 			
 			//obsługa timeoutów...
+		
 			for (ProtocolInfo protocolInfo : commandMap.keySet()) {
 				if (protocolInfo.isTimeout()) {
 					ICommand command = commandMap.get(protocolInfo);
@@ -175,7 +176,8 @@ public class ProtocolManager extends Thread {
 					logger.debug("Timeout for command: " + protocolInfo);
 					command.onFailure();
 				}
-			}
+			}	
+		
 			
 			try {
 				wait(TIME_OUT_COMMAND);

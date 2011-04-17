@@ -1,24 +1,15 @@
 package pl.mazon.jatmega.core.address;
 
-public class Address16 implements Address<Short> {
+/**
+ *
+ * @author radomir.mazon
+ *
+ */
 
-	private Short address;
+public class Address16 extends Address<Short> {
 	
 	public Address16(int address) {
-		this.address = new Short((short)address);
-	}
-	
-	public Short getAddress() {
-		return address;
-	}
-	
-	@Override
-	public String toString() {
-		return address.toString();
+		super(address);
 	}
 
-	@Override
-	public int intValue() {
-		return address.intValue();
-	}
 }

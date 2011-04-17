@@ -1,7 +1,7 @@
 package pl.mazon.jatmega.core.command;
 
-import pl.mazon.jatmega.core.address.Address8;
-import pl.mazon.jatmega.core.model.ByteModel;
+import pl.mazon.jatmega.core.address.Address16;
+import pl.mazon.jatmega.core.model.WordModel;
 
 /**
  * 
@@ -18,17 +18,17 @@ import pl.mazon.jatmega.core.model.ByteModel;
  *     O		OR
  *
  */
-public abstract class MemoryCommand implements ICommand<ByteModel, ByteModel> {
+public abstract class Memory16Command implements ICommand<WordModel, WordModel> {
 	
-	private ByteModel request;
+	private WordModel request;
 	
 	public static final int AND = 'A';
 	public static final int OR = 'O';
 	public static final int SET = 'S';
 	
-	public MemoryCommand(int operation, Address8 addr8, int value) {
-		request = new ByteModel();
-		request.add(addr8.intValue());
+	public Memory16Command(int operation, Address16 addr16, int value) {
+		request = new WordModel();
+		request.add(addr16.intValue());
 		request.add(value);
 		request.add(operation);
 	}
@@ -39,12 +39,12 @@ public abstract class MemoryCommand implements ICommand<ByteModel, ByteModel> {
 	}
 	
 	@Override
-	public ByteModel getRequest() {
+	public WordModel getRequest() {
 		return request;
 	}
 	
 	@Override
-	public ByteModel getResponse() {
+	public WordModel getResponse() {
 		return request;
 	}
 }

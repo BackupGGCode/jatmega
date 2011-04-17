@@ -5,11 +5,14 @@ import org.apache.commons.logging.LogFactory;
 
 import pl.mazon.jatmega.core.BusManager;
 import pl.mazon.jatmega.core.ProtocolManager;
+import pl.mazon.jatmega.core.address.Address16;
 import pl.mazon.jatmega.core.address.Address8;
 import pl.mazon.jatmega.core.bus.IBus;
-import pl.mazon.jatmega.core.command.MemoryCommand;
+import pl.mazon.jatmega.core.command.Memory16Command;
+import pl.mazon.jatmega.core.command.Memory8Command;
 import pl.mazon.jatmega.core.command.TestCommand;
 import pl.mazon.jatmega.core.model.ByteModel;
+import pl.mazon.jatmega.core.model.WordModel;
 
 public class ATMEGA {
 
@@ -47,14 +50,13 @@ public class ATMEGA {
 	}
 	
 	public void set(final Address8 addr8, final int value) {
-		protocolManager.apply(new MemoryCommand(MemoryCommand.SET, addr8, value) {
+		protocolManager.apply(new Memory8Command(Memory8Command.SET, addr8, value) {
 			
 			@Override
 			public void onSuccess(ByteModel response) {
 				if (!response.get(0).equals(new Integer(value))) {
 					throw new IllegalStateException("Value set error: " + addr8.toString() + "," + value + "->" + response.get(0));
 				}
-				
 			}
 			
 			@Override
@@ -62,6 +64,24 @@ public class ATMEGA {
 				throw new IllegalStateException("Value not set: " + addr8.toString() + "," + value);
 				
 			}
+		});
+	}
+	
+	public void set(final Address16 addr16, final int value) {
+		protocolManager.apply(new Memory16Command(Memory16Command.SET, addr16, value) {
+
+			@Override
+			public void onSuccess(WordModel response) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFailure() {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		});
 	}
 }
