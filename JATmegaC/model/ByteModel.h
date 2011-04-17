@@ -18,6 +18,7 @@ public:
 	void fromString(char* c);
 	void add(uint8_t a);
 	uint8_t get(uint8_t index);
+	uint8_t getSize();
 private:
 	uint8_t size;
 	uint8_t data[MAX_SIZE];
