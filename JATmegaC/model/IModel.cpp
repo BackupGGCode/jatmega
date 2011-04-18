@@ -18,7 +18,7 @@
 		if (temp >= 'a') {
 			temp = temp - 0x20;
 		}
-		if (temp >= '9') {
+		if (temp > '9') {
 			temp = temp - 7;
 		}
 		return temp - '0';
