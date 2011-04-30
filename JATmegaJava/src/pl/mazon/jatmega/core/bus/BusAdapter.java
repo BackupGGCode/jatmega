@@ -46,7 +46,7 @@ public abstract class BusAdapter implements IBus {
 	
 	public void sendLine(String message) {
 		if (!isOnLine()) {
-			logger.info("Bus is offline!");
+			logger.info("Bus is offline! Can't send.");
 			return;
 		}
 		 try {
@@ -60,13 +60,13 @@ public abstract class BusAdapter implements IBus {
 	@Override
 	public void send(String message) {
 		if (!isOnLine()) {
-			logger.info("Bus is offline!");
+			logger.info("Bus is offline! Can't send.");
 			return;
 		}
 		 try {
 			 sendInternal(message);
        } catch (IOException e) {
-    	   logger.info("RSBus: Can't write to port... Disconnect...");
+    	   logger.info("Can't write to port... Disconnect...");
     	   disconnect();
        } 
 	}
@@ -83,7 +83,7 @@ public abstract class BusAdapter implements IBus {
 			logger.debug("Bus connected success.");
 			onConnectEvent();
 		} else {
-			logger.debug("Bus connection is offline.");
+			logger.debug("Bus connection failure.");
 			onDisconnectEvent();
 		}
 	}
