@@ -1,8 +1,5 @@
 package pl.mazon.jatmega.api;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import pl.mazon.jatmega.core.BusManager;
 import pl.mazon.jatmega.core.ProtocolManager;
 import pl.mazon.jatmega.core.address.Address16;
@@ -13,10 +10,12 @@ import pl.mazon.jatmega.core.command.Memory8Command;
 import pl.mazon.jatmega.core.command.TestCommand;
 import pl.mazon.jatmega.core.model.ByteModel;
 import pl.mazon.jatmega.core.model.WordModel;
+import pl.mazon.jatmega.logger.LogFactory;
+import pl.mazon.jatmega.logger.Logger;
 
 public class ATMEGA {
 
-	private static final Log logger = LogFactory.getLog(ATMEGA.class);
+	private static final Logger logger = LogFactory.getLog(ATMEGA.class);
 	
 	private ProtocolManager protocolManager;
 	

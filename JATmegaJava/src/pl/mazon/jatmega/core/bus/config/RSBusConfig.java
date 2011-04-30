@@ -1,4 +1,6 @@
-package pl.mazon.jatmega.core.bus;
+package pl.mazon.jatmega.core.bus.config;
+
+import pl.mazon.jatmega.core.bus.IBusConfig;
 
 /**
  * 
@@ -7,8 +9,6 @@ package pl.mazon.jatmega.core.bus;
  */
 
 public class RSBusConfig implements IBusConfig {
-
-	private String interfacee;
 	
 	private String name;
 	
@@ -22,8 +22,7 @@ public class RSBusConfig implements IBusConfig {
 	
 	private int pariti;
 	
-	public RSBusConfig(String interfacee, String portName, String driverName, int baudRate, int dataBits, int stopBits, int pariti) {
-		this.interfacee = interfacee;
+	public RSBusConfig(String portName, String driverName, int baudRate, int dataBits, int stopBits, int pariti) {
 		this.name = portName;
 		this.driverName = driverName;
 		this.baudRate = baudRate;
@@ -57,8 +56,8 @@ public class RSBusConfig implements IBusConfig {
 	}
 	
 	@Override
-	public String getInterfacee() {
-		return interfacee;
+	public String getClassName() {
+		return "pl.mazon.jatmega.core.bus.RSBus";
 	}
 	
 }

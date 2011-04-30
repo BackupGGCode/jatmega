@@ -1,17 +1,14 @@
 package pl.mazon.jatmega.core;
 
-import gnu.io.SerialPort;
-
 import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.bus.IBusConfig;
-import pl.mazon.jatmega.core.bus.RSBus;
-import pl.mazon.jatmega.core.bus.RSBusConfig;
+import pl.mazon.jatmega.core.bus.config.RSBusConfig;
+import pl.mazon.jatmega.core.bus.config.SocketBusConfig;
+import pl.mazon.jatmega.logger.LogFactory;
+import pl.mazon.jatmega.logger.Logger;
 
 /**
  * Zarządzanie magistralą
@@ -22,7 +19,7 @@ public class BusManager {
 
 	private static BusManager instance = new BusManager();
 	
-	private Log logger = LogFactory.getLog(BusManager.class);
+	private Logger logger = LogFactory.getLog(BusManager.class);
 	
 	public IBus getBus() {
 		IBusConfig config = getConfig();
@@ -31,12 +28,14 @@ public class BusManager {
 	
 	public IBus getBus(IBusConfig config) {
 		IBus bus = null;
-		if (config instanceof RSBusConfig) {
-			bus = new RSBus((RSBusConfig) config);
-		} else {
-			logger.error("Unknow BUS " + config.getInterfacee());
-			throw new IllegalStateException();
+		try {
+			bus = (IBus) Class.forName(config.getClassName()).newInstance();
+		} catch (Exception e) {
+			logger.error("Bus " + config.getClassName() + " loaded error; driver: ");
+			throw new IllegalStateException(e.getMessage());
 		}
+		logger.info("Bus " + config.getClassName() + " loaded success.");
+		bus.init(config);
 		return bus;
 	}
 	
@@ -75,14 +74,15 @@ public class BusManager {
 			Integer baudRate = new Integer(properties.getProperty("baudRate"));
 			String portName = properties.getProperty(osPrefix+"port");
 			String driverName = properties.getProperty(osPrefix+"driver");			
-			config = new RSBusConfig(
-					interfacee, 
+			config = new RSBusConfig( 
 					portName, 
 					driverName, 
 					baudRate, 
-					SerialPort.DATABITS_8, 
-					SerialPort.STOPBITS_1, 
-					SerialPort.PARITY_NONE);
+					8, 
+					1, 
+					0);
+		} else if (interfacee.equals("AndroidBluetooth")) {
+			config = new SocketBusConfig();
 		}
 		
 		if (config == null) {

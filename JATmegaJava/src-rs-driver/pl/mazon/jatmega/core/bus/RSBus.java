@@ -15,8 +15,9 @@ import java.util.List;
 import java.util.TooManyListenersException;
 import java.util.Vector;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import pl.mazon.jatmega.core.bus.config.RSBusConfig;
+import pl.mazon.jatmega.logger.LogFactory;
+import pl.mazon.jatmega.logger.Logger;
 
 /**
  * Sterownik magistrali RS232
@@ -26,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 
-	private Log logger = LogFactory.getLog(RSBus.class);
+	private Logger logger = LogFactory.getLog(RSBus.class);
 	
 	private SerialPort serialPort;
 	
@@ -42,11 +43,18 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	
 	private CommDriver commDriver;
 	
+	public RSBus() {
+	}
+	
 	public RSBus(RSBusConfig config) {
-		this.config = config;
+		init(config);
+	}
+	
+	public void init(IBusConfig config) {
+		this.config = (RSBusConfig) config;
 		unfinischedBuffer = "";
 		
-		commDriver = loadDriver(config.getDriverName());
+		commDriver = loadDriver(this.config.getDriverName());
 
 		if (commDriver != null) {
 			logger.info("Driver ok.");
@@ -55,12 +63,12 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 			throw new IllegalStateException("Driver Fatal ERROR...");
 		}
 		
-		logger.info("Serial list: ");
+		/*logger.info("Serial list: ");
 		for (String name : getSerialPortNames()) {
 			logger.info(name);
-		}
+		}*/
 	}
-	
+
 	private List<String> getSerialPortNames()
 	{
 		CommPortIdentifier portId;
@@ -195,8 +203,6 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	               } else {
 	            	   unfinischedBuffer += new String(readBuffer);
 	               }
-	               
-	               //logger.info("Receive: " + new String(readBuffer));
 	            }
 	         } catch (IOException e) {}
 	   
@@ -227,7 +233,6 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 		 try {
 			 outputStream.write(message.getBytes());
 			 outputStream.write(EOL);
-			 logger.info("send: " + message);
        } catch (IOException e) {
     	   logger.info("RSBus: Can't write to port... Disconnect...");
     	   disconnect();

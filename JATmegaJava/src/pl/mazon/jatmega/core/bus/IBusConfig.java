@@ -2,5 +2,5 @@ package pl.mazon.jatmega.core.bus;
 
 public interface IBusConfig {
 
-	public String getInterfacee();
+	public String getClassName();
 }

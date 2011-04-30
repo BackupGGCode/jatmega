@@ -3,16 +3,16 @@ package pl.mazon.jatmega.core;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.bus.IBusReceiveCallback;
 import pl.mazon.jatmega.core.command.ICommand;
 import pl.mazon.jatmega.core.model.IModel;
+import pl.mazon.jatmega.logger.LogFactory;
+import pl.mazon.jatmega.logger.Logger;
 
 /**
  * Menadzer jest wątkiem wysyłającym polecenia do ATMEGA
@@ -111,7 +111,7 @@ public class ProtocolManager extends Thread {
 	
 	private List<String> receiveMessage;
 	
-	private Log logger = LogFactory.getLog(ProtocolManager.class);
+	private Logger logger = LogFactory.getLog(ProtocolManager.class);
 	
 	private ProtocolManager() {		
 		super("ProtocolManager");
@@ -169,10 +169,13 @@ public class ProtocolManager extends Thread {
 			
 			//obsługa timeoutów...
 		
-			for (ProtocolInfo protocolInfo : commandMap.keySet()) {
+			Iterator<ProtocolInfo> it = commandMap.keySet().iterator();
+			while (it.hasNext())
+			{
+				ProtocolInfo protocolInfo = it.next();
 				if (protocolInfo.isTimeout()) {
 					ICommand command = commandMap.get(protocolInfo);
-					commandMap.remove(protocolInfo);	
+					it.remove();	
 					logger.debug("Timeout for command: " + protocolInfo);
 					command.onFailure();
 				}
@@ -215,6 +218,7 @@ public class ProtocolManager extends Thread {
 		commandMap.put(key, command);
 		IModel request = command.getRequest();
 		String message = "" + key.getTargetName() + key.getSignature() + request.toString();
+		logger.info("send: "+ message);
 		bus.sendLine(message);
 	}
 	

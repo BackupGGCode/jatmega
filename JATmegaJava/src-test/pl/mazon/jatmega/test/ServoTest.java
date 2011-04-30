@@ -25,21 +25,27 @@ public class ServoTest {
 
 		atmega.set(atmega.io.DDRB, 0xFF);
 		atmega.set(atmega.io.DDRD, 0xFF);
-
-		while(true)
+		while(true) {
+		for (int i=320; i<480; i = i+1)
 		{
-			atmega.set(atmega.io.OCR1A, 130);	//0 dgree min
-
-			wait(500);
-			atmega.set(atmega.io.OCR1A, 380);  //90
-
-			wait(500);
-			atmega.set(atmega.io.OCR1A, 630);  //180 degree
+				//atmega.set(atmega.io.OCR1A, 130);	//0 dgree min
+			//atmega.set(atmega.io.OCR1A, 320);  //180 degree
+			//wait(500);
+				//atmega.set(atmega.io.OCR1A, 380);  //90
+			atmega.set(atmega.io.OCR1A, i);  //90
+			//wait(500);
+			//atmega.set(atmega.io.OCR1A, 630);  //180 degree
+			//atmega.set(atmega.io.OCR1A, 480);  //180 degree
 			//OCR1A=650;  //Max
-			wait(500);
-			atmega.set(atmega.io.OCR1A, 380);  //180 degree
-			wait(500);
+			//wait(500);
+			//atmega.set(atmega.io.OCR1A, 380);  //180 degree
+			wait(200);
 	   }
+		for (int i=480; i>320; i = i-1)
+		{
+			atmega.set(atmega.io.OCR1A, i);  //90
+			wait(200);
+	   }}
 
 	}
 
