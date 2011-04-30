@@ -14,5 +14,9 @@ public interface IBus {
 	void addEventCallback(IBusEventCallback callback);
 	
 	boolean isOnLine();
+	
+	void connect();
+	
+	void disconnect();
 
 }

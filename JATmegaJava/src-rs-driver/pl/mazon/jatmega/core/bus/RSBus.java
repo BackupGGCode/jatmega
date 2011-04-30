@@ -39,8 +39,6 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	
 	private RSBusConfig config;
 	
-	private boolean initResult;
-	
 	private CommDriver commDriver;
 	
 	public RSBus() {
@@ -105,50 +103,41 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 		return result;
 	}
 	
-	private void connect() 
-	{
-		initResult = false;
+	@Override
+	protected void connectInternal() {
 		commDriver.initialize();
 		String portName = config.getName();
-				try {
-                    serialPort = (SerialPort) commDriver.getCommPort(portName, CommPortIdentifier.PORT_SERIAL);
-                    if (serialPort != null) {
-	                 	outputStream = serialPort.getOutputStream();
-	                 	inputStream = serialPort.getInputStream();
-	                 	serialPort.addEventListener(this);
-	                 	serialPort.notifyOnDataAvailable(true);
-	                 	serialPort.notifyOnBreakInterrupt(true);
-	                 	serialPort.notifyOnCTS(true);
-	                 	serialPort.notifyOnOverrunError(true);
-	                 	serialPort.setSerialPortParams(
-	                    		 config.getBaudRate(),
-	                    		 config.getDataBits(),
-	                    		 config.getStopBits(),
-	                         	 config.getPariti());
-	                 	initResult = true;
-	                    logger.info("RSBus is online...");
-                    }
-                 } catch (IOException e) {
-                	 initResult = false;
-                 } catch (UnsupportedCommOperationException e) {
-                	 logger.error("Unsupported BUS operation.("+portName+")");
-                	 initResult = false;
-                 } catch (TooManyListenersException e) {
-                	 logger.error("Too many listeners to receive.("+portName+")");
-                	 initResult = false;
-				}
-             
-		if (initResult) {
-			logger.debug("Starting RS-BUS OK.("+portName+")");
-			onConnectEvent();
-		} else {
-			logger.debug("RS-BUS is offline. ("+portName+")");
-			onDisconnectEvent();
-		}
+		try {
+            serialPort = (SerialPort) commDriver.getCommPort(portName, CommPortIdentifier.PORT_SERIAL);
+            if (serialPort != null) {
+             	outputStream = serialPort.getOutputStream();
+             	inputStream = serialPort.getInputStream();
+             	serialPort.addEventListener(this);
+             	serialPort.notifyOnDataAvailable(true);
+             	serialPort.notifyOnBreakInterrupt(true);
+             	serialPort.notifyOnCTS(true);
+             	serialPort.notifyOnOverrunError(true);
+             	serialPort.setSerialPortParams(
+                		 config.getBaudRate(),
+                		 config.getDataBits(),
+                		 config.getStopBits(),
+                     	 config.getPariti());
+             	initResult = true;
+                logger.info("RSBus is online...");
+            }
+         } catch (IOException e) {
+        	 initResult = false;
+         } catch (UnsupportedCommOperationException e) {
+        	 logger.error("Unsupported BUS operation.("+portName+")");
+        	 initResult = false;
+         } catch (TooManyListenersException e) {
+        	 logger.error("Too many listeners to receive.("+portName+")");
+        	 initResult = false;
+		}	
 	}
 	
-	private void disconnect() {
-		initResult = false;
+	@Override
+	protected void disconnectInternal() {
 		try {
 			serialPort.removeEventListener();
 			serialPort.close();
@@ -156,18 +145,8 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 			logger.info("Can not interrupt receiver thread ! FATAL ERROR");
 			throw new RuntimeException("Can not interrupt receiver thread ! FATAL ERROR");
 		}
-		/*ThreadGroup rootGroup = Thread.currentThread( ).getThreadGroup( );
-		Thread[] list = new Thread[rootGroup.activeCount()];
-		rootGroup.enumerate(list);
-		for (Thread t : list) {
-			if (t.getName().contains("Win32SerialPort")) {
-				t.interrupt();
-			}
-		}
-		*/
-		onDisconnectEvent();
 	}
-
+	
 	synchronized public void serialEvent(SerialPortEvent event) {
 	      switch (event.getEventType()) {
 	      case SerialPortEvent.BI:
@@ -208,46 +187,20 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	   
 	         break;
 	      }
-	   } 
-
+	   }
+	
 	@Override
-	public void send(String message) {
-		if (!isOnLine()) {
-			logger.info("Bus is offline!");
-			return;
-		}
-		 try {
-			 outputStream.write(message.getBytes());
-       } catch (IOException e) {
-    	   logger.info("RSBus: Can't write to port... Disconnect...");
-    	   disconnect();
-       } 
+	protected void sendLineInternal(String message) throws IOException {
+		outputStream.write(message.getBytes());
+		outputStream.write(EOL); 
 	}
 	
 	@Override
-	public void sendLine(String message) {
-		if (!isOnLine()) {
-			logger.info("Bus is offline!");
-			return;
-		}
-		 try {
-			 outputStream.write(message.getBytes());
-			 outputStream.write(EOL);
-       } catch (IOException e) {
-    	   logger.info("RSBus: Can't write to port... Disconnect...");
-    	   disconnect();
-       } 
+	protected void sendInternal(String message) throws IOException {
+		outputStream.write(message.getBytes()); 
 	}
 
 	public SerialPort getSerialPort() {
 		return serialPort;
-	}
-
-	@Override
-	public boolean isOnLine() {
-		if (initResult == false) {
-			connect();
-		}
-		return initResult;
 	}
 }
