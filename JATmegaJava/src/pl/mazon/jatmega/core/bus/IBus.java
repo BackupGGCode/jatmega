@@ -5,9 +5,9 @@ public interface IBus {
 
 	void init(IBusConfig config);
 	
-	void send(String message);
+	boolean send(String message);
 	
-	void sendLine(String message);
+	boolean sendLine(String message);
 	
 	void addReceiverCallback(IBusReceiveCallback callback);
 	
@@ -18,5 +18,7 @@ public interface IBus {
 	void connect();
 	
 	void disconnect();
+
+	void setIsAutoConnect(boolean isAutoConnect);
 
 }

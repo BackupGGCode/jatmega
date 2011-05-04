@@ -13,6 +13,12 @@ import pl.mazon.jatmega.core.model.WordModel;
 import pl.mazon.jatmega.logger.LogFactory;
 import pl.mazon.jatmega.logger.Logger;
 
+/**
+ * 
+ * @author radomir.mazon
+ *
+ */
+
 public class ATMEGA {
 
 	private static final Logger logger = LogFactory.getLog(ATMEGA.class);
@@ -26,7 +32,7 @@ public class ATMEGA {
 		this.bus = BusManager.getInstance().getBus();
 		protocolManager.setBus(bus);
 		//test
-		protocolManager.apply(new TestCommand(13,7) {
+		/*protocolManager.apply(new TestCommand(13,7) {
 			
 			@Override
 			public void onSuccess(ByteModel response) {
@@ -43,7 +49,7 @@ public class ATMEGA {
 				logger.error("Test aborted");
 			}
 		});
-		
+		*/
 		//version veryfication
 		//todo...
 	}
@@ -54,13 +60,13 @@ public class ATMEGA {
 			@Override
 			public void onSuccess(ByteModel response) {
 				if (!response.get(0).equals(new Integer(value))) {
-					throw new IllegalStateException("Value set error: " + addr8.toString() + "," + value + "->" + response.get(0));
+					logger.error("Value set error: " + addr8.toString() + "," + value + "->" + response.get(0));
 				}
 			}
 			
 			@Override
 			public void onFailure() {
-				throw new IllegalStateException("Value not set: " + addr8.toString() + "," + value);
+				logger.error("Value not set: " + addr8.toString() + "," + value);
 				
 			}
 		});
@@ -71,13 +77,14 @@ public class ATMEGA {
 
 			@Override
 			public void onSuccess(WordModel response) {
-				// TODO Auto-generated method stub
-				
+				if (!response.get(0).equals(new Integer(value))) {
+					logger.error("Value set error: " + addr16.toString() + "," + value + "->" + response.get(0));
+				}
 			}
 
 			@Override
 			public void onFailure() {
-				// TODO Auto-generated method stub
+				logger.error("Value not set: " + addr16.toString() + "," + value);
 				
 			}
 			

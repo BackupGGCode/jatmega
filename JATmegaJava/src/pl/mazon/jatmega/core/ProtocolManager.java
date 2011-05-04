@@ -24,7 +24,7 @@ import pl.mazon.jatmega.logger.Logger;
 
 public class ProtocolManager extends Thread {
 
-	private static final long TIME_OUT_COMMAND = 4000;
+	private static final long TIME_OUT_COMMAND = 6000;
 	
 	class ProtocolInfo {
 		private char targetName;
@@ -84,7 +84,7 @@ public class ProtocolManager extends Thread {
 		
 		@Override
 		public String toString() {
-			return "[" + targetName + signature + "]" + new Date().getTime() + "/" + (timestamp + timeout) +"/"+ isTimeout();
+			return "[" + targetName + signature + "]";
 		}
 		
 	}
@@ -102,11 +102,6 @@ public class ProtocolManager extends Thread {
 	 */
 	private Map<Character, Character> signatureMap;
 	
-	/**
-	 * Przechowuje numer ostatnio wygenerowanej komendy
-	 */
-	private Map<String, String> counterMap;
-	
 	private IBus bus;
 	
 	private List<String> receiveMessage;
@@ -116,7 +111,6 @@ public class ProtocolManager extends Thread {
 	private ProtocolManager() {		
 		super("ProtocolManager");
 		commandMap = new HashMap<ProtocolInfo, ICommand>();
-		counterMap = new HashMap<String, String>();
 		receiveMessage = new ArrayList<String>();
 		signatureMap = new HashMap<Character, Character>();
 	}
@@ -148,11 +142,12 @@ public class ProtocolManager extends Thread {
 	
 	@Override
 	public synchronized void run() {
-		final ProtocolManager thisPointer = this;
+		
+		//final ProtocolManager thisPointer = this;
 		bus.addReceiverCallback(new IBusReceiveCallback() {
 			
 			@Override
-			public void receiveLine(String message) {
+			public synchronized void receiveLine(String message) {
 				putMessage(message);
 				wakeup();
 			}
@@ -168,18 +163,23 @@ public class ProtocolManager extends Thread {
 			}
 			
 			//obsługa timeoutów...
-		
-			Iterator<ProtocolInfo> it = commandMap.keySet().iterator();
-			while (it.hasNext())
-			{
-				ProtocolInfo protocolInfo = it.next();
-				if (protocolInfo.isTimeout()) {
-					ICommand command = commandMap.get(protocolInfo);
-					it.remove();	
-					logger.debug("Timeout for command: " + protocolInfo);
-					command.onFailure();
-				}
-			}	
+			
+			synchronized (commandMap) {
+				Iterator<ProtocolInfo> it = commandMap.keySet().iterator();
+				while (it.hasNext())
+				{
+					ProtocolInfo protocolInfo = it.next();
+					if (protocolInfo.isTimeout()) {
+						ICommand command = commandMap.get(protocolInfo);
+						it.remove();
+						logger.debug("Timeout for command: " + protocolInfo);
+						try {
+							command.onFailure();
+						}catch (Exception e) {}	
+					}
+					
+				}	
+			}
 		
 			
 			try {
@@ -189,6 +189,7 @@ public class ProtocolManager extends Thread {
 				run = false;
 			}
 		}
+		
 	}
 
 	public void setBus(IBus bus) {
@@ -211,15 +212,18 @@ public class ProtocolManager extends Thread {
 	 * która jest przekazywana w onSuccess jako parametr.
 	 * @param testProtocol
 	 */
-	public void apply(ICommand command) {
-		char targetName = command.getTargetName();
-		char signature = getNextFreeSirgature(targetName);
-		ProtocolInfo key = new ProtocolInfo(targetName, signature);
-		commandMap.put(key, command);
-		IModel request = command.getRequest();
-		String message = "" + key.getTargetName() + key.getSignature() + request.toString();
-		logger.info("send: "+ message);
-		bus.sendLine(message);
+	public synchronized void apply(ICommand command) {
+		synchronized (commandMap) {
+			char targetName = command.getTargetName();
+			char signature = getNextFreeSirgature(targetName);
+			ProtocolInfo key = new ProtocolInfo(targetName, signature);
+			IModel request = command.getRequest();
+			String message = "" + key.getTargetName() + key.getSignature() + request.toString();
+			if (bus.sendLine(message)) {
+				commandMap.put(key, command);
+				logger.info("send: "+ message);
+			}
+		}
 	}
 	
 	/**
@@ -227,24 +231,30 @@ public class ProtocolManager extends Thread {
 	 * @param message
 	 */
 	private synchronized void applyMessage(String message) {
-		boolean onSuccess = true;
-		logger.info("receive: " + message);
-		ProtocolInfo protocolInfo = new ProtocolInfo(message.charAt(0), message.charAt(1));
-		ICommand command = commandMap.get(protocolInfo);
-		if (command == null) {
-			logger.error("No command for: " + message);
-			return;
-		}
-		commandMap.remove(protocolInfo);
-		message = message.substring(2);
-		try {
-			command.getResponse().fromString(message);
-		}catch (Exception e) {
-			command.onFailure();
-			onSuccess = false;
-		}
-		if (onSuccess) {
-			command.onSuccess(command.getResponse());
+		synchronized (commandMap) {
+			boolean onSuccess = true;
+			logger.info("receive: " + message);
+			ProtocolInfo protocolInfo = new ProtocolInfo(message.charAt(0), message.charAt(1));
+			ICommand command = commandMap.get(protocolInfo);
+			if (command == null) {
+				logger.error("No command for: " + message);
+				return;
+			}
+			commandMap.remove(protocolInfo);
+			message = message.substring(2);
+			try {
+				command.getResponse().fromString(message);
+			}catch (Exception e) {
+				try {
+					command.onFailure();
+				} catch (Exception ee) {}
+				onSuccess = false;
+			}
+			if (onSuccess) {
+				try {
+					command.onSuccess(command.getResponse());
+				}catch (Exception e) {}
+			}
 		}
 	}
 
@@ -262,3 +272,5 @@ public class ProtocolManager extends Thread {
 		return sig.charValue();
 	}
 }
+
+	

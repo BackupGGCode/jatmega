@@ -17,13 +17,18 @@ import pl.mazon.jatmega.logger.Logger;
  */
 public class BusManager {
 
-	private static BusManager instance = new BusManager();
+	private static BusManager instance;
 	
 	private Logger logger = LogFactory.getLog(BusManager.class);
 	
+	private IBus bus;
+	
 	public IBus getBus() {
-		IBusConfig config = getConfig();
-		return getBus(config);
+		if (bus == null) {
+			IBusConfig config = getConfig();
+			bus = getBus(config);
+		}
+		return bus; 
 	}
 	
 	public IBus getBus(IBusConfig config) {
@@ -82,7 +87,8 @@ public class BusManager {
 					1, 
 					0);
 		} else if (interfacee.equals("AndroidBluetooth")) {
-			config = new SocketBusConfig();
+			String mac = properties.getProperty(osPrefix+"bluetooth.receiver.mac");
+			config = new SocketBusConfig(mac);
 		}
 		
 		if (config == null) {
@@ -93,6 +99,9 @@ public class BusManager {
 	}
 
 	public static BusManager getInstance() {
+		if (instance == null) {
+			instance = new BusManager();
+		}
 		return instance;
 	}
 /*

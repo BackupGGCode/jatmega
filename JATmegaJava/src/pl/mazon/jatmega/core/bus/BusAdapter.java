@@ -15,7 +15,9 @@ import pl.mazon.jatmega.logger.Logger;
 
 public abstract class BusAdapter implements IBus {
 
-	protected boolean initResult;
+	private boolean initResult;
+	
+	private boolean isAutoConnect;
 	
 	private Logger logger = LogFactory.getLog(BusAdapter.class);
 	
@@ -34,41 +36,48 @@ public abstract class BusAdapter implements IBus {
 	public BusAdapter() {
 		receiveCallbackList = new ArrayList<IBusReceiveCallback>();
 		eventCallbackList = new ArrayList<IBusEventCallback>();
+		initResult = false;
+		isAutoConnect = true;
 	}
 	
 	@Override
 	public boolean isOnLine() {
 		if (initResult == false) {
-			connect();
+			if (isAutoConnect) {
+				connect();
+			}
 		}
 		return initResult;
 	}
 	
-	public void sendLine(String message) {
+	@Override
+	public boolean sendLine(String message) {
 		if (!isOnLine()) {
-			logger.info("Bus is offline! Can't send.");
-			return;
+			return false;
 		}
 		 try {
 			 sendLineInternal(message);
        } catch (IOException e) {
     	   logger.info("Can't write to port... Disconnect...");
     	   disconnect();
+    	   return false;
        } 
+       return true;
 	}
 	
 	@Override
-	public void send(String message) {
+	public boolean send(String message) {
 		if (!isOnLine()) {
-			logger.info("Bus is offline! Can't send.");
-			return;
+			return false;
 		}
 		 try {
 			 sendInternal(message);
        } catch (IOException e) {
     	   logger.info("Can't write to port... Disconnect...");
     	   disconnect();
+    	   return false;
        } 
+       return true;
 	}
 	
 	abstract protected void sendLineInternal(String message) throws IOException;
@@ -77,8 +86,7 @@ public abstract class BusAdapter implements IBus {
 	
 	@Override
 	public void connect() {
-		initResult = false;
-		connectInternal();
+		initResult = connectInternal();
 		if (initResult) {
 			logger.debug("Bus connected success.");
 			onConnectEvent();
@@ -92,11 +100,16 @@ public abstract class BusAdapter implements IBus {
 	public void disconnect() {
 		initResult = false;
 		disconnectInternal();
-		logger.info("Bus disconnection.");
+		logger.info("Bus disconnected.");
 		onDisconnectEvent();
 	}
 	
-	abstract protected void connectInternal();
+	@Override
+	public void setIsAutoConnect(boolean isAutoConnect) {
+		this.isAutoConnect = isAutoConnect;
+	}
+	
+	abstract protected boolean connectInternal();
 	
 	abstract protected void disconnectInternal();
 	
@@ -124,6 +137,11 @@ public abstract class BusAdapter implements IBus {
 		}
 	}
 	
+	protected void onOperationFailureBusConnecting() {
+		for (IBusEventCallback eventCallback : eventCallbackList) {
+			eventCallback.operationFailureBusConnecting();
+		}
+	}
 	@Override
 	public void addReceiverCallback(IBusReceiveCallback callback) {
 		receiveCallbackList.remove(callback);

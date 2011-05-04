@@ -10,8 +10,10 @@ import pl.mazon.jatmega.core.bus.IBusConfig;
 
 public class SocketBusConfig implements IBusConfig {
 
+	private String remoteDeviceAddress;
 	
-	public SocketBusConfig() {
+	public SocketBusConfig(String remoteDeviceAddress) {
+		this.remoteDeviceAddress = remoteDeviceAddress;
 	}
 	
 	@Override
@@ -19,4 +21,7 @@ public class SocketBusConfig implements IBusConfig {
 		return "pl.mazon.jatmega.core.bus.SocketBus";
 	}
 
+	public String getRemoteDeviceAddress() {
+		return remoteDeviceAddress;
+	}
 }

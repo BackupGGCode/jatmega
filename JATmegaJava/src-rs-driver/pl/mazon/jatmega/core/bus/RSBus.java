@@ -104,7 +104,8 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	}
 	
 	@Override
-	protected void connectInternal() {
+	protected boolean connectInternal() {
+		boolean result = false;
 		commDriver.initialize();
 		String portName = config.getName();
 		try {
@@ -122,18 +123,19 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
                 		 config.getDataBits(),
                 		 config.getStopBits(),
                      	 config.getPariti());
-             	initResult = true;
+             	result = true;
                 logger.info("RSBus is online...");
             }
          } catch (IOException e) {
-        	 initResult = false;
+        	 result = false;
          } catch (UnsupportedCommOperationException e) {
         	 logger.error("Unsupported BUS operation.("+portName+")");
-        	 initResult = false;
+        	 result = false;
          } catch (TooManyListenersException e) {
         	 logger.error("Too many listeners to receive.("+portName+")");
-        	 initResult = false;
-		}	
+        	 result = false;
+		}
+        return result;
 	}
 	
 	@Override

@@ -44,6 +44,11 @@ public class MainTestCommand {
 			public void connectEvent() {
 				logger.info("Połaczono...");
 			}
+
+			@Override
+			public void operationFailureBusConnecting() {
+				logger.info("Operation failure. Bus connecting...");
+			}
 		});
 		
 		//menadzer protokolu musi miec przez co sie komunikowac.

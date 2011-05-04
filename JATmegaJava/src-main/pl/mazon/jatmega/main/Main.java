@@ -48,6 +48,11 @@ public class Main {
 			public void connectEvent() {
 				int i=0; i++;
 			}
+
+			@Override
+			public void operationFailureBusConnecting() {
+				int i=0; i++;
+			}
 		});
 	}
 }
