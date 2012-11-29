@@ -11,7 +11,7 @@
 #include "../ProtocolController.h"
 
 
-void tc_apply(uint8_t code, int value);
+void tc_apply(saf_Event event);
 
 
 #endif /* TESTTASK_H_ */
