@@ -2,15 +2,13 @@
 //EVENT_doKogo_co
 
 #define EVENT_NULL			0x00
-#define EVENT_SAFTICK		0x01
-#define EVENT_RS_SEND		0x02
-#define EVENT_RS_RECEIVE	0x03
-#define EVENT_BUTTON_DOWN	0x04
-#define EVENT_BUTTON_UP		0x05
-#define EVENT_TEST			0x06
+#define EVENT_INIT			0x01
+#define EVENT_SAFTICK		0x03
+#define EVENT_RS_SEND		0x03
+#define EVENT_RS_RECEIVE	0x04
+#define EVENT_BUTTON_DOWN	0x05
+#define EVENT_BUTTON_UP		0x06
 #define EVENT_ERROR			0x07
-
-
 
 
 

@@ -14,7 +14,6 @@
 int main() {
 
 	saf_init();
-	rs_init();
 
 	//core event handler
 	saf_addEventHandler(rs_onEvent);
@@ -27,7 +26,6 @@ int main() {
 	sei();
 	while(1) {
 		saf_process();
-		sleep_mode();
 	}
 
 }

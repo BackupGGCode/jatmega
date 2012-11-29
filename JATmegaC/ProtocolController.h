@@ -95,7 +95,7 @@ typedef struct {
  * Odbiera znak i zapisuje go w commandBuffer, po odebraniu znaku nowej linii
  * Pasuje ramke wiadomosci i tworzy wiadomosc w messagebuffer
  */
-void pc_onEnevt(uint8_t code, int value);
+void pc_onEnevt(saf_Event event);
 
 /**
  * Zostala odebrana pelna wiadomosc (linia), nalezy wywolac event obslugi

@@ -29,11 +29,10 @@ uint8_t _pc_frameIndex =0; //zawsze pokazuje na pierwszy wolny...
 uint8_t _pc_requestIndex =0;
 uint8_t _pc_isReceivedPEOM = 0;
 
-void pc_onEnevt(uint8_t code, int value) {
+void pc_onEnevt(saf_Event event) {
 
-	if (code == EVENT_RS_RECEIVE) {
-		uint8_t messageChar = (uint8_t)value;
-		if (messageChar == PEOM) {
+	if (event.code == EVENT_RS_RECEIVE) {
+		if (event.value == PEOM) {
 			if (_pc_isReceivedPEOM == 0) {
 				_pc_isReceivedPEOM = 1;
 			} else {
@@ -41,12 +40,12 @@ void pc_onEnevt(uint8_t code, int value) {
 			}
 		}
 
-		if (messageChar == EOM && _pc_isReceivedPEOM == 0) {
+		if (event.value == EOM && _pc_isReceivedPEOM == 0) {
 			_pc_applyCommand();
 			_pc_frameIndex = 0;
 		} else {
 			if (_pc_frameIndex<COMMAND_BUFFER_SIZE) {
-				_pc_frameBuffer[_pc_frameIndex] = messageChar;
+				_pc_frameBuffer[_pc_frameIndex] = event.value;
 			}
 		}
 
@@ -54,22 +53,22 @@ void pc_onEnevt(uint8_t code, int value) {
 		if (_pc_frameIndex>COMMAND_BUFFER_SIZE) {
 			//koniec zasiegu... cos poszlo nie tak, odebrano wicej znakow niz przewidziano w ramce
 			_pc_frameIndex = COMMAND_BUFFER_SIZE;
-			saf_eventBusSend(EVENT_ERROR, ERROR_RECIVE_TOO_MANY);
+			saf_eventBusSend_(EVENT_ERROR, ERROR_RECIVE_TOO_MANY);
 		}
 	}
 
 	/**
 	 * przyechwytywanie wszystkich RESPONSE_
 	 */
-	if ((code & 0xF0) == RESPONSE_GROUP) {
-		_pc_applyResponse(code, value);
+	if ((event.code & 0xF0) == RESPONSE_GROUP) {
+		_pc_applyResponse(event.code, event.value);
 	}
 }
 
 void _pc_applyCommand() {
 	//walidacja
 	if (_pc_frameIndex == 0 || _pc_frameIndex) {
-		saf_eventBusSend(EVENT_ERROR, ERROR_INDEX_FRAME);
+		saf_eventBusSend_(EVENT_ERROR, ERROR_INDEX_FRAME);
 		return;
 	}
 
@@ -81,25 +80,25 @@ void _pc_applyCommand() {
 	for (uint8_t i=0; i<_pc_frameIndex; i++) {
 		requestBuffer[messageIndex].operand[i] = _pc_frameBuffer[i+1];
 	}
-	saf_eventBusSend(eventCommandCode, _pc_requestIndex);
+	saf_eventBusSend_(eventCommandCode, _pc_requestIndex);
 }
 
 void _pc_applyResponse(uint8_t code, int value) {
 	//walidacja
 	if (value >=MESSAGE_BUFFER_SIZE || responseBuffer[value].count >(COMMAND_BUFFER_SIZE-1)) {
-		saf_eventBusSend(EVENT_ERROR, ERROR_RESPONSE);
+		saf_eventBusSend_(EVENT_ERROR, ERROR_RESPONSE);
 		return;
 	}
 
 	uint8_t commandCode = code << 4;
 	//tutaj powinna byc policzona suma kontrolna i dodana do commandCode na 4 mlodszych bitach
-	saf_eventBusSend(EVENT_RS_SEND, commandCode);
+	saf_eventBusSend_(EVENT_RS_SEND, commandCode);
 	for (uint8_t i=0; i<responseBuffer[value].count; i++) {
 		uint8_t tosend = responseBuffer[value].operand[i];
 		if (tosend == EOM) {
-			saf_eventBusSend(EVENT_RS_SEND, PEOM);
+			saf_eventBusSend_(EVENT_RS_SEND, PEOM);
 		}
-		saf_eventBusSend(EVENT_RS_SEND, tosend);
+		saf_eventBusSend_(EVENT_RS_SEND, tosend);
 	}
 }
 
