@@ -1,25 +1,28 @@
 /*
- * MemoryCommand.cpp
+ * MemoryCommand_16.c
  *
- *  Created on: 20-03-2011
+ *  Created on: 28-11-2011
  *      Author: radomir.mazon
  *
- *     bajt		opis
- *     0		Adres RAM
- *     1		Wartosc
- *     2		Operacja
+ *	Operacja zapisu komórki pamieci o 16 bitowym adresie
+ *	*(operandA_operandB) = operandC
  *
- *     rodzaj operacji:
- *     S		=
- *     A		AND
- *     O		OR
- *
- *     W odpowiedzi zawartosc zmienionego adresu pamięci
+ *	Operacja nie zwraca odpowiedzi
+
  */
 
-#include "MemoryCommand.h"
-#include "../model/ByteModel.h"
+#include "MemoryCommand_16.h"
 
+extern Message_t requestBuffer[MESSAGE_BUFFER_SIZE];
+extern Message_t responseBuffer[MESSAGE_BUFFER_SIZE];
+
+void mc16_apply(uint8_t code, int value) {
+	if (code == COMMAND_MEMORY_16) {
+		//TODO
+	}
+}
+
+/**
 void MemoryCommand::apply(char* request, char* response) {
 	ByteModel model;
 	ByteModel resp;
@@ -57,3 +60,4 @@ void MemoryCommand::apply(char* request, char* response) {
 
 	resp.toString(response);
 }
+**/

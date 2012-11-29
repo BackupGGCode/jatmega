@@ -7,21 +7,11 @@
 
 #ifndef TESTTASK_H_
 #define TESTTASK_H_
+#include "../saf2core.h"
+#include "../ProtocolController.h"
 
-#include "../util/ITick.h"
-#include "ICommand.h"
-#include "../model/ByteModel.h"
-#include <string.h>
 
-class TestCommand : public ICommand {
-public:
+void tc_apply(uint8_t code, int value);
 
-	void apply(char* message, char* result);
-	char getTargetName(){return 'X';}
-
-private:
-
-	ByteModel byteModel;
-};
 
 #endif /* TESTTASK_H_ */
