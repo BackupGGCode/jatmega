@@ -16,8 +16,8 @@
 extern Message_t requestBuffer[MESSAGE_BUFFER_SIZE];
 extern Message_t responseBuffer[MESSAGE_BUFFER_SIZE];
 
-void mc16_apply(uint8_t code, int value) {
-	if (code == COMMAND_MEMORY_16) {
+void mc16_apply(saf_Event event) {
+	if (event.code == COMMAND_MEMORY_16) {
 		//TODO
 	}
 }

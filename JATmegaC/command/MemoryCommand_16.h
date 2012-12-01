@@ -13,6 +13,6 @@
 #include "../saf2core.h"
 #include "../ProtocolController.h"
 
-void mc16_apply(uint8_t, int value);
+void mc16_apply(saf_Event event);
 
 #endif /* MEMORYCOMMAND_H16_ */

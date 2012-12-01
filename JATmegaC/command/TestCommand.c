@@ -15,8 +15,10 @@ extern Message_t responseBuffer[MESSAGE_BUFFER_SIZE];
 
 void tc_apply(saf_Event event) {
 	if (event.code == COMMAND_TEST) {
-		responseBuffer[event.value].operand[0] = requestBuffer[event.value].operand[0] +
-			requestBuffer[event.value].operand[1] + requestBuffer[event.value].operand[2];
+		responseBuffer[event.value].operand[0] = 0;
+		for (uint8_t i=0; i<requestBuffer[event.value].count; i++) {
+			responseBuffer[event.value].operand[0] += requestBuffer[event.value].operand[i];
+		}
 		responseBuffer[event.value].count = 1;
 		saf_eventBusSend_(RESPONSE_TEST, event.value);
 	}
