@@ -57,6 +57,16 @@
  * ramka moze miec zmienna wielkosc, jednak nie wiecej niz n (COMMAND_BUFFER_SIZE-1)
  * Protocol Controller powiadamia odpowiednia command wysylajac jedno ze zdarzen COMMAND_ (z pliku Event.h), w polu value zdarzenia
  * przesylany jest index w tablicy globalnej requestBuffer.
+ * DODATKOWO:
+ * Ramka wiadomosci powinna miescic sie miedzy 2 a 5 bajty. Ilosc przeslanych operandow jest uzalezniona wylacznie od polecanie
+ * jake chcemy wykonac. Mozemy nie przesylac żadnych oderandow i wtedy ramka zawiera jeden bajt lub przeslac pelne 3 operandy
+ * i wtedy mamy 5 bajty. Co ciekawe istnieje mozliwosc przeslania strumienia o sowolnej ilosci bajtow, ktory nalezy zospoczac
+ * od 4 bajtow standardowej ramki poleceniem F: 0xF0 0x00 0x00 0x00 a nastepnie zamiast wysylac piaty bajt konca (0x13)
+ * rozpoczynamy wysylanie dowolnej ilosci bajtow strumienia. Protocol Controller nie bedzie ich zapisywal w buforach,
+ * poniewaz sa one juz zajete przez odebrane 4 bajtu. Potraktuje je jako nadmiarowe i wyscia kolejno zdarzeniem przepelnienia
+ * ramki EVENT_FRAME_OVERFLOW. Takie zdarzenie moze odebrac command obslugujacy strumien. Aby zamknac strumien wysylamy standardowy
+ * znak konca wiadomosci 0x13. W operandach wiadomosci mozna zakodowac jakas informacje dodatkowe, jednak nalezy pamietac ze
+ * na event bus najpierw pojawi sie strumien danych, a nastepnie nasza wiadomosc.
  */
 
 /**
@@ -78,12 +88,11 @@
  * UWAGA: obecna wersja ma mozliwosc zaadresowania 16 roznym chmend do wykonania.
  */
 
-#define COMMAND_BUFFER_SIZE 4
-#define MESSAGE_BUFFER_SIZE 4
+#define FRAME_BUFFER_SIZE 4
+#define MESSAGE_BUFFER_SIZE 3
 
 typedef struct {
-	//tablica operandow
-	uint8_t operand[COMMAND_BUFFER_SIZE-1];
+	uint8_t operand[FRAME_BUFFER_SIZE-1];
 	uint8_t count;
 } Message_t;
 

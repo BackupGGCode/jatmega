@@ -24,7 +24,7 @@ Message_t responseBuffer[MESSAGE_BUFFER_SIZE];
 Message_t requestBuffer[MESSAGE_BUFFER_SIZE];
 
 
-uint8_t _pc_frameBuffer[COMMAND_BUFFER_SIZE];
+uint8_t _pc_frameBuffer[FRAME_BUFFER_SIZE];
 uint8_t _pc_frameIndex =0; //zawsze pokazuje na pierwszy wolny...
 uint8_t _pc_requestIndex =0;
 uint8_t _pc_isReceivedPEOM = 0;
@@ -32,28 +32,26 @@ uint8_t _pc_isReceivedPEOM = 0;
 void pc_onEnevt(saf_Event event) {
 
 	if (event.code == EVENT_RS_RECEIVE) {
-		if (event.value == PEOM) {
-			if (_pc_isReceivedPEOM == 0) {
-				_pc_isReceivedPEOM = 1;
-			} else {
-				_pc_isReceivedPEOM = 0;
-			}
+		uint8_t isEOM = event.value == EOM && _pc_isReceivedPEOM == 0;
+		if (event.value == PEOM && _pc_isReceivedPEOM == 0) {
+			_pc_isReceivedPEOM = 1;
+			return;
 		}
+		_pc_isReceivedPEOM = 0;
 
-		if (event.value == EOM && _pc_isReceivedPEOM == 0) {
+		if (isEOM) {
 			_pc_applyCommand();
 			_pc_frameIndex = 0;
 		} else {
-			if (_pc_frameIndex<COMMAND_BUFFER_SIZE) {
+			if (_pc_frameIndex < FRAME_BUFFER_SIZE) {
 				_pc_frameBuffer[_pc_frameIndex] = event.value;
 			}
-		}
-
-		_pc_frameIndex++;
-		if (_pc_frameIndex>COMMAND_BUFFER_SIZE) {
-			//koniec zasiegu... cos poszlo nie tak, odebrano wicej znakow niz przewidziano w ramce
-			_pc_frameIndex = COMMAND_BUFFER_SIZE;
-			saf_eventBusSend_(EVENT_ERROR, ERROR_RECIVE_TOO_MANY);
+			_pc_frameIndex++;
+			if (_pc_frameIndex>FRAME_BUFFER_SIZE) {
+				//Cala ramka zostala odebrama. Odebrano jedka dodatkowe dane
+				_pc_frameIndex = FRAME_BUFFER_SIZE;
+				saf_eventBusSend_(EVENT_FRAME_OVERFLOW, event.value);
+			}
 		}
 	}
 
@@ -67,7 +65,7 @@ void pc_onEnevt(saf_Event event) {
 
 void _pc_applyCommand() {
 	//walidacja
-	if (_pc_frameIndex == 0 || _pc_frameIndex) {
+	if (_pc_frameIndex == 0) {
 		saf_eventBusSend_(EVENT_ERROR, ERROR_INDEX_FRAME);
 		return;
 	}
@@ -76,16 +74,16 @@ void _pc_applyCommand() {
 	//uint8_t controllCode	 = commandBuffer[0] & 0x0F;
 	uint8_t messageIndex = pc_getMessageIndex();
 
-	requestBuffer[messageIndex].count = _pc_frameIndex;
-	for (uint8_t i=0; i<_pc_frameIndex; i++) {
+	requestBuffer[messageIndex].count = _pc_frameIndex-1;
+	for (uint8_t i=0; i<_pc_frameIndex-1; i++) {
 		requestBuffer[messageIndex].operand[i] = _pc_frameBuffer[i+1];
 	}
-	saf_eventBusSend_(eventCommandCode, _pc_requestIndex);
+	saf_eventBusSend_(eventCommandCode, messageIndex);
 }
 
 void _pc_applyResponse(uint8_t code, int value) {
 	//walidacja
-	if (value >=MESSAGE_BUFFER_SIZE || responseBuffer[value].count >(COMMAND_BUFFER_SIZE-1)) {
+	if (value >=MESSAGE_BUFFER_SIZE || responseBuffer[value].count >(FRAME_BUFFER_SIZE-1)) {
 		saf_eventBusSend_(EVENT_ERROR, ERROR_RESPONSE);
 		return;
 	}
@@ -100,6 +98,7 @@ void _pc_applyResponse(uint8_t code, int value) {
 		}
 		saf_eventBusSend_(EVENT_RS_SEND, tosend);
 	}
+	saf_eventBusSend_(EVENT_RS_SEND, EOM);
 }
 
 uint8_t pc_getMessageIndex() {

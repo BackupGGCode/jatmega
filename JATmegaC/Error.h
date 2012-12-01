@@ -9,7 +9,6 @@
 #define ERROR_H_
 
 #define ERROR_INDEX_FRAME 	0
-#define ERROR_RECIVE_TOO_MANY	1
-#define ERROR_RESPONSE		2
+#define ERROR_RESPONSE		1
 
 #endif /* ERROR_H_ */
