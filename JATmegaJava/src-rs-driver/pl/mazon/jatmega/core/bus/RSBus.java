@@ -10,12 +10,8 @@ import gnu.io.UnsupportedCommOperationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.TooManyListenersException;
-import java.util.Vector;
 
-import pl.mazon.jatmega.core.bus.config.RSBusConfig;
 import pl.mazon.jatmega.logger.LogFactory;
 import pl.mazon.jatmega.logger.Logger;
 
@@ -35,14 +31,16 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	
 	private InputStream inputStream;
 	
-	private String unfinischedBuffer;
-	
 	private RSBusConfig config;
 	
 	private CommDriver commDriver;
 	
-	public RSBus() {
-	}
+	private byte[] unfinischedBuffer;
+	private int unfinischedBufferIndex;
+	
+	private boolean isReceivedPEOM;
+	
+	public RSBus() {}
 	
 	public RSBus(RSBusConfig config) {
 		init(config);
@@ -50,8 +48,11 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	
 	public void init(IBusConfig config) {
 		this.config = (RSBusConfig) config;
-		unfinischedBuffer = "";
+		unfinischedBuffer = new byte[1024];
+		unfinischedBufferIndex = 0;
 		
+		isReceivedPEOM = false;
+				
 		commDriver = loadDriver(this.config.getDriverName());
 
 		if (commDriver != null) {
@@ -66,7 +67,7 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 			logger.info(name);
 		}*/
 	}
-
+/*
 	private List<String> getSerialPortNames()
 	{
 		CommPortIdentifier portId;
@@ -86,7 +87,7 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 
 		return listData;
 	}
-
+*/
 	
 	private CommDriver loadDriver(String driverName) {
 		CommDriver result = null;
@@ -97,7 +98,7 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 			logger.error(e.getMessage());
 			onDriverLoadFailureEvent();
 		} catch (Error ee) {
-			logger.info("Serial driver load failure.");
+			logger.info("Serial driver load failure. " + ee.getMessage());
 			onDriverLoadFailureEvent();
 		}
 		return result;
@@ -171,18 +172,26 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	         break;
 	      case SerialPortEvent.DATA_AVAILABLE:
 	         // we get here if data has been received
-	         byte[] readBuffer = new byte[1];
 	         try {
-	        	
+	        	byte[] readValue = new byte[1];
 	            // read data
 	            while (inputStream.available() > 0) {
-	               inputStream.read(readBuffer);
-	               
-	               if (readBuffer[0] == EOL && unfinischedBuffer != "") {
-	            	   onReceive(unfinischedBuffer);
-	            	   unfinischedBuffer = "";
+	               inputStream.read(readValue);
+	               boolean isEOM = readValue[0] == EOM && isReceivedPEOM == false;
+	               if (readValue[0] == PEOM && isReceivedPEOM == false) {
+	            	   isReceivedPEOM = true;
+	            	   continue;
+	               }
+	               isReceivedPEOM = false;
+	               if (isEOM) {
+	            	   byte[] receiveBuffer = new byte[unfinischedBufferIndex];
+	            	   for (int i=0; i<unfinischedBufferIndex; i++) {
+	            		   receiveBuffer[i] = unfinischedBuffer[i];
+	            	   }
+	            	   unfinischedBufferIndex =0;
+	            	   onReceive(receiveBuffer);
 	               } else {
-	            	   unfinischedBuffer += new String(readBuffer);
+	            	   unfinischedBuffer[unfinischedBufferIndex++] = readValue[0];
 	               }
 	            }
 	         } catch (IOException e) {}
@@ -192,14 +201,17 @@ public class RSBus extends BusAdapter implements IBus, SerialPortEventListener {
 	   }
 	
 	@Override
-	protected void sendLineInternal(String message) throws IOException {
-		outputStream.write(message.getBytes());
-		outputStream.write(EOL); 
-	}
-	
-	@Override
-	protected void sendInternal(String message) throws IOException {
-		outputStream.write(message.getBytes()); 
+	protected void sendInternal(byte[] message) throws IOException {
+		byte[] item = new byte[1];
+		for (int i=0; i<message.length; i++) {
+			if (message[i] == PEOM || message[i] == EOM) {
+				item[0] = PEOM;
+				outputStream.write(item);
+			}
+			outputStream.write(message[i]);
+		}
+		item[0] = EOM;
+		outputStream.write(item);
 	}
 
 	public SerialPort getSerialPort() {

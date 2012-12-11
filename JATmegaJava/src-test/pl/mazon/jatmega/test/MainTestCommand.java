@@ -8,7 +8,7 @@ import pl.mazon.jatmega.core.ProtocolManager;
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.bus.IBusEventCallback;
 import pl.mazon.jatmega.core.command.TestCommand;
-import pl.mazon.jatmega.core.model.ByteModel;
+import pl.mazon.jatmega.core.model.MetaModel;
 
 /**
  * 
@@ -54,9 +54,12 @@ public class MainTestCommand {
 		//menadzer protokolu musi miec przez co sie komunikowac.
 		protocolManager.setBus(bus);
 		
+		bus.connect();
+		
+		
 		//test komunikacji 
 		//TestProtocol zwraca sumę liczb
-		protocolManager.apply(new TestCommand(13, 7) {
+		TestCommand test = new TestCommand((byte)19, (byte)9) {
 			
 			@Override
 			public void onFailure() {
@@ -64,10 +67,11 @@ public class MainTestCommand {
 			}
 			
 			@Override
-			public void onSuccess(ByteModel response) {
-				logger.info("wynik = " + response.get(2));
+			public void onSuccess(MetaModel response) {
+				logger.info("wynik = " + response.getOperandA());
 			}
-		});
+		};
+		protocolManager.apply(test);
 		
 		
 		
