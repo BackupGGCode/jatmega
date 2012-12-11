@@ -7,7 +7,6 @@ import pl.mazon.jatmega.core.address.Address8;
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.command.Memory16Command;
 import pl.mazon.jatmega.core.command.Memory8Command;
-import pl.mazon.jatmega.core.command.TestCommand;
 import pl.mazon.jatmega.core.model.ByteModel;
 import pl.mazon.jatmega.core.model.WordModel;
 import pl.mazon.jatmega.logger.LogFactory;
@@ -69,6 +68,11 @@ public class ATMEGA {
 				logger.error("Value not set: " + addr8.toString() + "," + value);
 				
 			}
+
+			@Override
+			public boolean isResponseMendatory() {
+				return true;
+			}
 		});
 	}
 	
@@ -86,6 +90,11 @@ public class ATMEGA {
 			public void onFailure() {
 				logger.error("Value not set: " + addr16.toString() + "," + value);
 				
+			}
+
+			@Override
+			public boolean isResponseMendatory() {
+				return true;
 			}
 			
 		});
