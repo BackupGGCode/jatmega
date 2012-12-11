@@ -29,7 +29,7 @@
  * Uwaga:
  * Dane przesylane przez RS sa binarne, moga zatem przyjmowac wartosci od 0 do 255
  * Jednak jedna z wartosci jest szczegolna i oznacza koniec wiadomosci EOM (End of Message)
- * Poniewaz dlugosc przesylanej wiadomosci moze byc zmienny od 1 do 4 bajtow na EOM moze
+ * Poniewaz dlugosc przesylanej wiadomosci moze byc zmienny od 1 do FRAME_BUFFER_SIZE bajtow na EOM moze
  * wystapic na pozycji 1,2,3 lub 4. Nie ma mozliwosci odroznienia czy na danej pozycji wystapil EOM
  * czy miala byc to rzeczywiscie taka wartosc i nie jest to koniec wiadomosci (ramki)
  * Problem ten zostal rozwiazany nastepujaco.
@@ -88,11 +88,12 @@
  * UWAGA: obecna wersja ma mozliwosc zaadresowania 16 roznym chmend do wykonania.
  */
 
-#define FRAME_BUFFER_SIZE 4
-#define MESSAGE_BUFFER_SIZE 3
+#define FRAME_BUFFER_SIZE 5
+
+#define MESSAGE_BUFFER_SIZE FRAME_BUFFER_SIZE -1
 
 typedef struct {
-	uint8_t operand[FRAME_BUFFER_SIZE-1];
+	uint8_t operand[MESSAGE_BUFFER_SIZE];
 	uint8_t count;
 } Message_t;
 

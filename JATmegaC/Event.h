@@ -1,15 +1,17 @@
 //Budowa event:
 //EVENT_doKogo_co
 
-#define EVENT_NULL			0x00
-#define EVENT_INIT			0x01
-#define EVENT_SAFTICK		0x02
-#define EVENT_RS_SEND		0x03
-#define EVENT_RS_RECEIVE	0x04
-#define EVENT_BUTTON_DOWN	0x05
-#define EVENT_BUTTON_UP		0x06
-#define EVENT_ERROR			0x07
-#define EVENT_FRAME_OVERFLOW 0x08
+#define EVENT_NULL			0
+#define EVENT_INIT			1
+#define EVENT_START_APP		2
+#define EVENT_SAFTICK		3
+#define EVENT_ERROR			4
+#define EVENT_RS_SEND		5
+#define EVENT_RS_RECEIVE	6
+#define EVENT_BUTTON_DOWN	7
+#define EVENT_BUTTON_UP		8
+
+#define EVENT_FRAME_OVERFLOW 9
 
 
 

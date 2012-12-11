@@ -27,30 +27,6 @@ void onErrorEvent(saf_Event e) {
 	}
 }
 
-uint8_t s=1;
-uint8_t d=0;
-void onMaja(saf_Event e) {
-	if (e.code == EVENT_SAFTICK && e.value == 0) {
-		DDRC = 0xff;
-		DDRD = 0xff;
-		if (d==0) {
-			s =s<<1;
-			PORTC = ~s;
-			PORTD = ~s;
-		} else {
-			s = s>>1;
-			PORTC = ~s;
-			PORTD = ~s;
-		}
-		if (s == 1) {
-			d=0;
-		}
-		if (s == 0x80) {
-			d=1;
-		}
-	}
-}
-
 int main() {
 
 	saf_init();
@@ -64,8 +40,6 @@ int main() {
 	saf_addEventHandler(tc_apply);
 	saf_addEventHandler(mc16_apply);
 
-	saf_addEventHandler(onMaja);
-	sei();
 	while(1) {
 		saf_process();
 	}
