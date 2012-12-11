@@ -68,7 +68,7 @@ public class ProtocolManager extends Thread {
 		
 		@Override
 		public String toString() {
-			return "[" + targetName + "]";
+			return "[c:" + targetName + ", id:"+frameId+"]";
 		}
 		
 	}
@@ -255,7 +255,20 @@ public class ProtocolManager extends Thread {
 	}
 	
 	private byte getSum(byte[] message) {
-		return (byte)0;
+		byte sum = 0;
+		for (int i=0; i<message.length; i++) {
+			sum += message[i];
+		}
+		return sum;
+	}
+	
+	private boolean checkSum(Byte[] frame) {
+		byte frameSum = (byte)(frame[0] & 0x0f);
+		byte sum = 0;
+		for (int i=1; i<frame.length; i++) {
+			sum += frame[i];
+		}
+		return frameSum == (byte)(sum&0x0f);
 	}
 	
 	private byte getTargetName(Byte[] frame) {
@@ -277,6 +290,9 @@ public class ProtocolManager extends Thread {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private synchronized void applyMessage(Byte[] frame) {
+		if (!checkSum(frame)) {
+			logger.error("Wrong sum! f: " + ConvertHelper.ByteArrayToHex(frame));
+		}
 		synchronized (syncCommandList) {
 			
 			byte targetName = getTargetName(frame);
