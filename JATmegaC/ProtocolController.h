@@ -119,12 +119,15 @@ void _pc_applyCommand();
  * sie tez inicjace samej odpowiedzi, bez odebrania requesta. Nalezy wtedy spreparowac
  * odpowiedni event, lub bezposrednio wywolac protocol controller za pomoca EVENT_PC_RESPONSE
  */
-void _pc_applyResponse(uint8_t code, int value);
+void _pc_applyResponse(uint8_t code, uint8_t value);
 
 /**
  * Rezerwuje wolne miejsce w buforach do obslugi wiadomosci po za Protocol Controller
  */
 uint8_t pc_getMessageIndex();
+
+uint8_t _pc_getControllCode(uint8_t);
+uint8_t _pc_isControllCodeOK();
 
 #endif /* PROTOCOLCONTROLLER_H_ */
 

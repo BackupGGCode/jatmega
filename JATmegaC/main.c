@@ -25,6 +25,11 @@ void onErrorEvent(saf_Event e) {
 		saf_eventBusSend_(EVENT_RS_SEND, 'F');
 		saf_eventBusSend_(EVENT_RS_SEND, e.value);
 	}
+	if (e.code==EVENT_ERROR && e.value== ERROR_CONTROLL_CODE) {
+		saf_eventBusSend_(EVENT_RS_SEND, 'S');
+		saf_eventBusSend_(EVENT_RS_SEND, 'U');
+		saf_eventBusSend_(EVENT_RS_SEND, 'M');
+	}
 }
 
 int main() {

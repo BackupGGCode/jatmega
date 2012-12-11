@@ -63,6 +63,14 @@ void pc_onEnevt(saf_Event event) {
 	}
 }
 
+uint8_t _pc_isControllCodeOK() {
+	uint8_t sum = 0;
+	for (uint8_t i=1; i<_pc_frameIndex; i++) {
+		sum += _pc_frameBuffer[i];
+	}
+	return (_pc_frameBuffer[0] & 0x0F) == (sum&0x0f);
+}
+
 void _pc_applyCommand() {
 	//walidacja
 	if (_pc_frameIndex == 0) {
@@ -71,7 +79,10 @@ void _pc_applyCommand() {
 	}
 
 	uint8_t eventCommandCode = ((_pc_frameBuffer[0] & 0xF0)>>4 ) | 0xF0;
-	//uint8_t controllCode	 = commandBuffer[0] & 0x0F;
+	if (!_pc_isControllCodeOK()) {
+		saf_eventBusSend_(EVENT_ERROR, ERROR_CONTROLL_CODE);
+		return;
+	}
 	uint8_t messageIndex = pc_getMessageIndex();
 
 	requestBuffer[messageIndex].count = _pc_frameIndex-1;
@@ -81,14 +92,23 @@ void _pc_applyCommand() {
 	saf_eventBusSend_(eventCommandCode, messageIndex);
 }
 
-void _pc_applyResponse(uint8_t code, int value) {
+uint8_t _pc_getControllCode(uint8_t value) {
+	uint8_t sum =0;
+	for (uint8_t i=0; i<responseBuffer[value].count; i++) {
+		sum += responseBuffer[value].operand[i];
+	}
+	return sum;
+}
+
+
+void _pc_applyResponse(uint8_t code, uint8_t value) {
 	//walidacja
 	if (value >=MESSAGE_BUFFER_SIZE || responseBuffer[value].count >(FRAME_BUFFER_SIZE-1)) {
 		saf_eventBusSend_(EVENT_ERROR, ERROR_RESPONSE);
 		return;
 	}
 
-	uint8_t commandCode = code << 4;
+	uint8_t commandCode = (code << 4) | (_pc_getControllCode(value) & 0x0F);
 	//tutaj powinna byc policzona suma kontrolna i dodana do commandCode na 4 mlodszych bitach
 	saf_eventBusSend_(EVENT_RS_SEND, commandCode);
 	for (uint8_t i=0; i<responseBuffer[value].count; i++) {
