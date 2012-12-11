@@ -39,4 +39,16 @@ public class ByteModel extends ArrayList<Integer> implements IModel {
 		}
 		return result;
 	}
+
+	@Override
+	public byte[] serialize() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deserialize(byte[] m) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -34,7 +34,7 @@ public abstract class Memory8Command implements ICommand<ByteModel, ByteModel> {
 	}
 	
 	@Override
-	public char getTargetName() {
+	public byte getTargetName() {
 		return 'M';
 	}
 	
