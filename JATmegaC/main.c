@@ -8,27 +8,27 @@
 #include "saf2core.h"
 #include "adds/rscom.h"
 #include "ProtocolController.h"
-#include "command/MemoryCommand_16.h"
+#include "command/MemoryCommand.h"
 #include "command/TestCommand.h"
 
 
 void onErrorEvent(saf_Event e) {
 	if (e.code == EVENT_ERROR && e.value == ERROR_INDEX_FRAME) {
 		saf_eventBusSend_(EVENT_RS_SEND, 'I');
+		saf_eventBusSend_(EVENT_RS_SEND, 0x13);
 	}
 	if (e.code == EVENT_ERROR && e.value == ERROR_RESPONSE) {
 		saf_eventBusSend_(EVENT_RS_SEND, 'R');
+		saf_eventBusSend_(EVENT_RS_SEND, 0x13);
 	}
 	if (e.code==EVENT_FRAME_OVERFLOW) {
 		saf_eventBusSend_(EVENT_RS_SEND, 'O');
-		saf_eventBusSend_(EVENT_RS_SEND, 'V');
-		saf_eventBusSend_(EVENT_RS_SEND, 'F');
 		saf_eventBusSend_(EVENT_RS_SEND, e.value);
+		saf_eventBusSend_(EVENT_RS_SEND, 0x13);
 	}
 	if (e.code==EVENT_ERROR && e.value== ERROR_CONTROLL_CODE) {
 		saf_eventBusSend_(EVENT_RS_SEND, 'S');
-		saf_eventBusSend_(EVENT_RS_SEND, 'U');
-		saf_eventBusSend_(EVENT_RS_SEND, 'M');
+		saf_eventBusSend_(EVENT_RS_SEND, 0x13);
 	}
 }
 
@@ -43,7 +43,7 @@ int main() {
 
 	//command event handler
 	saf_addEventHandler(tc_apply);
-	saf_addEventHandler(mc16_apply);
+	saf_addEventHandler(mc_apply);
 
 	while(1) {
 		saf_process();

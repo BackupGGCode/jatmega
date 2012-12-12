@@ -20,12 +20,12 @@
 #define RESPONSE_GROUP	0xE0
 
 #define COMMAND_TEST		0xF0
-#define COMMAND_MEMORY_16	0xF1
-#define COMMAND_MEMORY_8	0xF2
-#define COMMAND_AND_16		0xF3
-#define COMMAND_AND_8		0xF4
-#define COMMAND_OR_16		0xF5
-#define COMMAND_OR_8		0xF6
+#define COMMAND_MEMORY		0xF1
+#define COMMAND_2			0xF2
+#define COMMAND_3			0xF3
+#define COMMAND_4			0xF4
+#define COMMAND_5			0xF5
+#define COMMAND_6			0xF6
 #define COMMAND_7			0xF7
 #define COMMAND_8			0xF8
 #define COMMAND_9			0xF9

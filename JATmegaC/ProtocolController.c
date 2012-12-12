@@ -63,6 +63,10 @@ void pc_onEnevt(saf_Event event) {
 	}
 }
 
+/**
+ * UWAGA. sume liczymy tylko z operandów.
+ * zatem do symy nie liczy sie znaku PEOM
+ */
 uint8_t _pc_isControllCodeOK() {
 	uint8_t sum = 0;
 	for (uint8_t i=1; i<_pc_frameIndex; i++) {
@@ -109,11 +113,12 @@ void _pc_applyResponse(uint8_t code, uint8_t value) {
 	}
 
 	uint8_t commandCode = (code << 4) | (_pc_getControllCode(value) & 0x0F);
-	//tutaj powinna byc policzona suma kontrolna i dodana do commandCode na 4 mlodszych bitach
+
 	saf_eventBusSend_(EVENT_RS_SEND, commandCode);
+	//tutaj jest blad !!! w FOR
 	for (uint8_t i=0; i<responseBuffer[value].count; i++) {
 		uint8_t tosend = responseBuffer[value].operand[i];
-		if (tosend == EOM) {
+		if (tosend == EOM || tosend == PEOM) {
 			saf_eventBusSend_(EVENT_RS_SEND, PEOM);
 		}
 		saf_eventBusSend_(EVENT_RS_SEND, tosend);
