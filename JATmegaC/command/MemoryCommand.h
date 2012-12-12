@@ -8,11 +8,11 @@
  *      Author: radomir.mazon
  */
 
-#ifndef MEMORYCOMMAND16_H_
-#define MEMORYCOMMAND16_H_
+#ifndef MEMORYCOMMAND_H_
+#define MEMORYCOMMAND_H_
 #include "../saf2core.h"
 #include "../ProtocolController.h"
 
-void mc16_apply(saf_Event event);
+void mc_apply(saf_Event event);
 
-#endif /* MEMORYCOMMAND_H16_ */
+#endif /* MEMORYCOMMAND_H_ */

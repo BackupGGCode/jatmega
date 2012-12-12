@@ -11,13 +11,13 @@
 
  */
 
-#include "MemoryCommand_16.h"
+#include "MemoryCommand.h"
 
 extern Message_t requestBuffer[MESSAGE_BUFFER_SIZE];
 extern Message_t responseBuffer[MESSAGE_BUFFER_SIZE];
 
-void mc16_apply(saf_Event event) {
-	if (event.code == COMMAND_MEMORY_16) {
+void mc_apply(saf_Event event) {
+	if (event.code == COMMAND_MEMORY) {
 		//TODO
 	}
 }

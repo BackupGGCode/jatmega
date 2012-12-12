@@ -26,7 +26,7 @@ void tc_apply(saf_Event event) {
 
 		//logika:
 		responseBuffer[event.value].operand[1] = 0;
-		for (uint8_t i=0; i<requestBuffer[event.value].count; i++) {
+		for (uint8_t i=1; i<requestBuffer[event.value].count; i++) {
 			responseBuffer[event.value].operand[1] += requestBuffer[event.value].operand[i];
 		}
 		responseBuffer[event.value].count = 2;
