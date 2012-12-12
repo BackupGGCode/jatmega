@@ -21,7 +21,7 @@
 
 #define COMMAND_TEST		0xF0
 #define COMMAND_MEMORY		0xF1
-#define COMMAND_2			0xF2
+#define COMMAND_MEMORY_16	0xF2
 #define COMMAND_3			0xF3
 #define COMMAND_4			0xF4
 #define COMMAND_5			0xF5
@@ -37,12 +37,12 @@
 #define COMMAND_STREAM		0xFF
 
 #define RESPONSE_TEST		0xE0
-#define RESPONSE_MEMORY_16	0xE1
-#define RESPONSE_MEMORY_8	0xE2
-#define RESPONSE_AND_16		0xE3
-#define RESPONSE_AND_8		0xE4
-#define RESPONSE_OR_16		0xE5
-#define RESPONSE_OR_8		0xE6
+#define RESPONSE_MEMORY		0xE1
+#define RESPONSE_MEMORY_16	0xE2
+#define RESPONSE_3			0xE3
+#define RESPONSE_4			0xE4
+#define RESPONSE_5			0xE5
+#define RESPONSE_6			0xE6
 #define RESPONSE_7			0xE7
 #define RESPONSE_8			0xE8
 #define RESPONSE_9			0xE9

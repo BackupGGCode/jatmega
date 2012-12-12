@@ -113,9 +113,10 @@ void _pc_applyResponse(uint8_t code, uint8_t value) {
 	}
 
 	uint8_t commandCode = (code << 4) | (_pc_getControllCode(value) & 0x0F);
-
+	if (commandCode == EOM || commandCode == PEOM) {
+		saf_eventBusSend_(EVENT_RS_SEND, PEOM);
+	}
 	saf_eventBusSend_(EVENT_RS_SEND, commandCode);
-	//tutaj jest blad !!! w FOR
 	for (uint8_t i=0; i<responseBuffer[value].count; i++) {
 		uint8_t tosend = responseBuffer[value].operand[i];
 		if (tosend == EOM || tosend == PEOM) {
