@@ -22,4 +22,11 @@ public class ConvertHelper {
 		return result.toString();
 	}
 
+	public static String ByteArrayToDec(Byte[] byteArray) {
+		StringBuffer result = new StringBuffer();
+		for (Byte b:byteArray) {
+		    result.append(" " + b);
+		}
+		return result.toString();
+	}
 }

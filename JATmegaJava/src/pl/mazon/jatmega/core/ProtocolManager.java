@@ -23,7 +23,7 @@ import pl.mazon.jatmega.logger.Logger;
 
 public class ProtocolManager extends Thread {
 
-	private static final long TIME_OUT_COMMAND = 6000;
+	private static final long TIME_OUT_COMMAND = 10000;
 	
 	/**
 	 *	Przechowuje informacje o czasie wyslanego pytania 
@@ -68,7 +68,7 @@ public class ProtocolManager extends Thread {
 		
 		@Override
 		public String toString() {
-			return "[c:" + targetName + ", id:"+frameId+"]";
+			return "[c:" + targetName + ", id:"+ConvertHelper.byteToHex(frameId)+"]";
 		}
 		
 	}
@@ -146,7 +146,7 @@ public class ProtocolManager extends Thread {
 			
 			//obsługa odebranej wiadomości
 			Byte[] message = getMessage();
-			if (message != null && message.length > 1) {
+			if (message != null && message.length > 0) {
 				applyMessage(message);
 			}
 			
@@ -169,7 +169,9 @@ public class ProtocolManager extends Thread {
 			}
 			
 			try {
-				wait(TIME_OUT_COMMAND);
+				if (receiveMessageList.size() == 0) {
+					wait(TIME_OUT_COMMAND/2);
+				}
 			} catch (InterruptedException e) {
 				logger.error("Protocol manager stopped.");
 				run = false;
@@ -221,10 +223,14 @@ public class ProtocolManager extends Thread {
 			extraByteInFrame = 2;
 		}
 		byte[] frame = new byte[message.length + extraByteInFrame];
-		frame[0] = (byte)(command.getTargetName() << 4);
-		frame[0] = (byte) (frame[0] | (getSum(message) & 0x0F));
+		byte frameId = 0;
 		if (command.isResponseMendatory()) {
-			frame[1] = getFrameId();
+			frameId = getFrameId();
+		}
+		frame[0] = (byte)(command.getTargetName() << 4);
+		frame[0] = (byte) (frame[0] | (getSum(message, frameId) & 0x0F));
+		if (command.isResponseMendatory()) {
+			frame[1] = frameId;
 		}
 		for (int i=0; i<message.length; i++) {
 			frame[i+extraByteInFrame] = message[i];
@@ -254,8 +260,8 @@ public class ProtocolManager extends Thread {
 		return gframeId++;
 	}
 	
-	private byte getSum(byte[] message) {
-		byte sum = 0;
+	private byte getSum(byte[] message, byte frameId) {
+		byte sum = frameId;
 		for (int i=0; i<message.length; i++) {
 			sum += message[i];
 		}
@@ -291,7 +297,7 @@ public class ProtocolManager extends Thread {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private synchronized void applyMessage(Byte[] frame) {
 		if (!checkSum(frame)) {
-			logger.error("Wrong sum! f: " + ConvertHelper.ByteArrayToHex(frame));
+			logger.error("Wrong sum! f: " + ConvertHelper.ByteArrayToHex(frame) + " dec: " +ConvertHelper.ByteArrayToDec(frame));
 		}
 		synchronized (syncCommandList) {
 			

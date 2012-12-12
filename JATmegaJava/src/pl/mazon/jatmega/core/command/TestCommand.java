@@ -1,6 +1,5 @@
 package pl.mazon.jatmega.core.command;
 
-import pl.mazon.jatmega.ConvertHelper;
 import pl.mazon.jatmega.core.model.MetaModel;
 
 

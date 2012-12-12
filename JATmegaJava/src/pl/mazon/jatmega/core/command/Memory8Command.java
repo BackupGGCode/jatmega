@@ -1,50 +1,53 @@
 package pl.mazon.jatmega.core.command;
 
 import pl.mazon.jatmega.core.address.Address8;
-import pl.mazon.jatmega.core.model.ByteModel;
+import pl.mazon.jatmega.core.model.MetaModel;
 
 /**
  * 
  * @author radomir.mazon
- * 
- *     bajt		opis
- *     0		Adres RAM
- *     1		Wartosc
- *     2		Operacja
- *
- *     rodzaj operacji:
- *     S		=
- *     A		AND
- *     O		OR
  *
  */
-public abstract class Memory8Command implements ICommand<ByteModel, ByteModel> {
+public abstract class Memory8Command implements ICommand<MetaModel, MetaModel> {
 	
-	private ByteModel request;
+	private MetaModel request;
 	
-	public static final int AND = 'A';
-	public static final int OR = 'O';
-	public static final int SET = 'S';
+	/**
+	 * Operacja GET MEMORY
+	 * Ta operacja wymaga odpowiedzi
+	 */
+	public Memory8Command(Address8 addr8) {
+		request = new MetaModel();
+		request.add(addr8.byteValue());
+	}
 	
-	public Memory8Command(int operation, Address8 addr8, int value) {
-		request = new ByteModel();
-		request.add(addr8.intValue());
+	/**
+	 * Operacja SET MEMORY
+	 * Ta operacja nie wymaga odpowiedzi
+	 */
+	public Memory8Command(Address8 addr8, byte value) {
+		request = new MetaModel();
+		request.add(addr8.byteValue());
 		request.add(value);
-		request.add(operation);
+	}
+	
+	@Override
+	public boolean isResponseMendatory() {
+		return true;
 	}
 	
 	@Override
 	public byte getTargetName() {
-		return 'M';
+		return 1;
 	}
 	
 	@Override
-	public ByteModel getRequest() {
+	public MetaModel getRequest() {
 		return request;
 	}
 	
 	@Override
-	public ByteModel getResponse() {
+	public MetaModel getResponse() {
 		return request;
 	}
 }

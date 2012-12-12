@@ -7,10 +7,7 @@ import pl.mazon.jatmega.core.address.Address8;
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.command.Memory16Command;
 import pl.mazon.jatmega.core.command.Memory8Command;
-import pl.mazon.jatmega.core.model.ByteModel;
-import pl.mazon.jatmega.core.model.WordModel;
-import pl.mazon.jatmega.logger.LogFactory;
-import pl.mazon.jatmega.logger.Logger;
+import pl.mazon.jatmega.core.model.MetaModel;
 
 /**
  * 
@@ -20,7 +17,7 @@ import pl.mazon.jatmega.logger.Logger;
 
 public class ATMEGA {
 
-	private static final Logger logger = LogFactory.getLog(ATMEGA.class);
+	//private static final Logger logger = LogFactory.getLog(ATMEGA.class);
 	
 	private ProtocolManager protocolManager;
 	
@@ -53,50 +50,33 @@ public class ATMEGA {
 		//todo...
 	}
 	
-	public void set(final Address8 addr8, final int value) {
-		protocolManager.apply(new Memory8Command(Memory8Command.SET, addr8, value) {
+	public void set(Address8 _addr8, int _value) {
+		final byte value = (byte)_value;
+		final Address8 addr8 = _addr8;
+		protocolManager.apply(new Memory8Command(addr8, value) {
 			
 			@Override
-			public void onSuccess(ByteModel response) {
-				if (!response.get(0).equals(new Integer(value))) {
-					logger.error("Value set error: " + addr8.toString() + "," + value + "->" + response.get(0));
-				}
+			public void onSuccess(MetaModel response) {
 			}
 			
 			@Override
 			public void onFailure() {
-				logger.error("Value not set: " + addr8.toString() + "," + value);
-				
-			}
-
-			@Override
-			public boolean isResponseMendatory() {
-				return true;
 			}
 		});
 	}
 	
-	public void set(final Address16 addr16, final int value) {
-		protocolManager.apply(new Memory16Command(Memory16Command.SET, addr16, value) {
+	public void set(Address16 _addr16, int _value) {
+		final Address16 addr16 = _addr16;
+		final int value = _value;
+		protocolManager.apply(new Memory16Command(addr16, value) {
 
 			@Override
-			public void onSuccess(WordModel response) {
-				if (!response.get(0).equals(new Integer(value))) {
-					logger.error("Value set error: " + addr16.toString() + "," + value + "->" + response.get(0));
-				}
+			public void onSuccess(MetaModel response) {
 			}
 
 			@Override
 			public void onFailure() {
-				logger.error("Value not set: " + addr16.toString() + "," + value);
-				
 			}
-
-			@Override
-			public boolean isResponseMendatory() {
-				return true;
-			}
-			
 		});
 	}
 }

@@ -1,50 +1,45 @@
 package pl.mazon.jatmega.core.command;
 
 import pl.mazon.jatmega.core.address.Address16;
-import pl.mazon.jatmega.core.model.WordModel;
+import pl.mazon.jatmega.core.model.MetaModel;
 
 /**
  * 
  * @author radomir.mazon
- * 
- *     bajt		opis
- *     0		Adres RAM
- *     1		Wartosc
- *     2		Operacja
- *
- *     rodzaj operacji:
- *     S		=
- *     A		AND
- *     O		OR
  *
  */
-public abstract class Memory16Command implements ICommand<WordModel, WordModel> {
+public abstract class Memory16Command implements ICommand<MetaModel, MetaModel> {
 	
-	private WordModel request;
+	private MetaModel request;
 	
-	public static final int AND = 'A';
-	public static final int OR = 'O';
-	public static final int SET = 'S';
+	public Memory16Command(Address16 addr16) {
+		request = new MetaModel();
+		request.add(addr16.byteValue());
+	}
+	public Memory16Command(Address16 addr16, int value) {
+		request = new MetaModel();
+		request.add(addr16.byteValue());
+		request.add((byte)((value >> 8) & 0x00FF));
+		request.add((byte)(value & 0x00FF));
+	}
 	
-	public Memory16Command(int operation, Address16 addr16, int value) {
-		request = new WordModel();
-		request.add(addr16.intValue());
-		request.add(value);
-		request.add(operation);
+	@Override
+	public boolean isResponseMendatory() {
+		return true;
 	}
 	
 	@Override
 	public byte getTargetName() {
-		return 'M';
+		return 2;
 	}
 	
 	@Override
-	public WordModel getRequest() {
+	public MetaModel getRequest() {
 		return request;
 	}
 	
 	@Override
-	public WordModel getResponse() {
+	public MetaModel getResponse() {
 		return request;
 	}
 }
