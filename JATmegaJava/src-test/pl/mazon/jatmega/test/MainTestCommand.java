@@ -3,6 +3,7 @@ package pl.mazon.jatmega.test;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import pl.mazon.jatmega.ConvertHelper;
 import pl.mazon.jatmega.core.BusManager;
 import pl.mazon.jatmega.core.ProtocolManager;
 import pl.mazon.jatmega.core.bus.IBus;
@@ -59,21 +60,32 @@ public class MainTestCommand {
 		
 		//test komunikacji 
 		//TestProtocol zwraca sumę liczb
-		TestCommand test = new TestCommand((byte)19, (byte)9) {
-			
-			@Override
-			public void onFailure() {
-				logger.error("fatal :(");
-			}
-			
-			@Override
-			public void onSuccess(MetaModel response) {
-				logger.info("wynik = " + response.getOperandA());
-			}
-		};
-		protocolManager.apply(test);
-		
-		
-		
+		//for (byte x= 0; x<1; x++) {
+			for (int y= 0; y<256; y++) {
+				final byte xx = 1;
+				final byte yy = (byte)y;
+				TestCommand test = new TestCommand((byte)xx, (byte)yy) {
+					
+					@Override
+					public void onFailure() {
+						logger.error("fatal :(");
+						throw new RuntimeException();
+					}
+					
+					@Override
+					public void onSuccess(MetaModel response) {
+						byte result = (byte)(xx+yy);
+						logger.info("Test x:" + ConvertHelper.byteToHex(xx) + "y:" + ConvertHelper.byteToHex(yy) + "r: " + ConvertHelper.byteToHex(response.getOperandA()));
+						if (response.getOperandA() == result) {
+							logger.info("---OK");
+						} else {
+							logger.error("---FAIL");
+							throw new RuntimeException();
+						}
+					}
+				};
+				protocolManager.apply(test);				
+			}	
+		//}
 	}
 }
