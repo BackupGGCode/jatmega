@@ -16,48 +16,34 @@
 extern Message_t requestBuffer[MESSAGE_BUFFER_SIZE];
 extern Message_t responseBuffer[MESSAGE_BUFFER_SIZE];
 
-void mc_apply(saf_Event event) {
-	if (event.code == COMMAND_MEMORY) {
-		//TODO
-	}
-}
-
 /**
-void MemoryCommand::apply(char* request, char* response) {
-	ByteModel model;
-	ByteModel resp;
-	model.fromString(request);
-	if (model.getSize() == 3) {
-		uint8_t* address = (uint8_t*)model.get(0);
-		uint8_t  value = model.get(1);
-		uint8_t  operation = model.get(2);
-		if (operation == 'S') {
-			*address = value;
-		} else if (operation == 'A') {
-			*address = *address & value;
-		} else if (operation == 'O') {
-			*address = *address | value;
-		}
-		resp.add(*address);
-	} else if (model.getSize() == 6) {
-		uint16_t* address = (uint16_t*)model.get(1);
+ * Operacja SET czy GET jest zakodowana w ilosci otrzymanych operandow
+ * jesli SET:
+ * 		0 - frame id
+ * 		1 - address
+ * 		2 - value
+ * 	jesli GET:
+ * 		0 - frame id
+ * 		1 - address
+ * 	odpowiedź
+ * 		0 - frame ID
+ * 		1 - value
+ */
 
-		uint8_t  value1 = model.get(2);
-		uint8_t  value2 = model.get(3);
-		uint16_t value = (value1<<8) | value2;
-		uint8_t  operation = model.get(5);
-		if (operation == 'S') {
-			*address = value;
-		} else if (operation == 'A') {
-			*address = *address & value;
-		} else if (operation == 'O') {
-			*address = *address | value;
+void mc_apply(saf_Event e) {
+	if (e.code == COMMAND_MEMORY) {
+		responseBuffer[e.value].count = 2;
+		//frame ID
+		responseBuffer[e.value].operand[0] = requestBuffer[e.value].operand[0];
+		uint8_t* address = (uint8_t*)(uint16_t)requestBuffer[e.value].operand[1];
+		if (requestBuffer[e.value].count == 3) {
+			//SET
+			*address = requestBuffer[e.value].operand[2];
 		}
-		value = *address;
-		resp.add(value>>8);
-		resp.add((uint8_t)value);
+		//GET
+		responseBuffer[e.value].operand[1] = *address;
+
+		saf_eventBusSend_(RESPONSE_MEMORY, e.value);
 	}
-
-	resp.toString(response);
 }
-**/
+
