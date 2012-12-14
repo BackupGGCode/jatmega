@@ -1,8 +1,5 @@
 package pl.mazon.jatmega.main;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import pl.mazon.jatmega.core.BusManager;
 import pl.mazon.jatmega.core.ProtocolManager;
 import pl.mazon.jatmega.core.bus.IBus;
@@ -15,9 +12,7 @@ import pl.mazon.jatmega.core.bus.IBusEventCallback;
  */
 
 public class Main {
-	
-	private static final Log logger = LogFactory.getLog(Main.class);
-	
+
 	/**
 	 * @param args
 	 */
@@ -36,22 +31,22 @@ public class Main {
 			
 			@Override
 			public void driverLoadFailuerEvent() {
-				int i=0; i++;
+				System.out.println("!driverLoadFailuerEvent!");
 			}
 			
 			@Override
 			public void disconnectEvent() {
-				int i=0; i++;
+				System.out.println("!disconnectEvent!");
 			}
 			
 			@Override
 			public void connectEvent() {
-				int i=0; i++;
+				System.out.println("!connectEvent!");
 			}
 
 			@Override
 			public void operationFailureBusConnecting() {
-				int i=0; i++;
+				System.out.println("!operationFailureBusConnecting!");
 			}
 		});
 	}
