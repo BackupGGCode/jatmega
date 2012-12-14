@@ -5,8 +5,6 @@ import java.util.Properties;
 
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.bus.IBusConfig;
-import pl.mazon.jatmega.core.bus.config.RSBusConfig;
-import pl.mazon.jatmega.core.bus.config.SocketBusConfig;
 import pl.mazon.jatmega.logger.LogFactory;
 import pl.mazon.jatmega.logger.Logger;
 
@@ -31,22 +29,8 @@ public class BusManager {
 		return bus; 
 	}
 	
-	public IBus getBus(IBusConfig config) {
-		IBus bus = null;
-		try {
-			bus = (IBus) Class.forName(config.getClassName()).newInstance();
-		} catch (Exception e) {
-			logger.error("Bus " + config.getClassName() + " loaded error; driver: ");
-			throw new IllegalStateException(e.getMessage());
-		}
-		logger.info("Bus " + config.getClassName() + " loaded success.");
-		bus.init(config);
-		return bus;
-	}
-	
-	public IBusConfig getConfig() {
-		logger.info("Loading configuration...");
-
+	private IBusConfig getConfig() {
+		logger.info("Looking for config...");
 		Properties properties = new Properties(); 
 		try {
 			properties.load(this.getClass().getResourceAsStream("/config.properties")); 
@@ -56,13 +40,23 @@ public class BusManager {
 			logger.error("Can't load config file... ");
 			throw new IllegalStateException(e);
 		} 
-		return getConfig(properties);
-	}
-	
-	private IBusConfig getConfig(Properties properties) {
-		String interfacee = properties.getProperty("interface");
-		IBusConfig config = null;
+		String osPrefix = getOsPrefix(properties);
+		String configClassName = properties.getProperty(osPrefix+"config");
+		IBusConfig busConfig = null;
+		try {
+			busConfig = (IBusConfig) Class.forName(configClassName).newInstance();
+		} catch (Exception e) {
+			logger.error("Bus config" + configClassName + " loaded error.");
+			throw new IllegalStateException(e.getMessage());
+		}
+		logger.info("Bus config" + configClassName + " loaded success.");
+
+		busConfig.init(properties, osPrefix);
 		
+		return busConfig;
+	}
+
+	private String getOsPrefix(Properties properties) {
 		String os = System.getProperty("os.name");
 		String osPrefix = "";
 		if (os.toLowerCase().startsWith("windows")) {
@@ -73,29 +67,20 @@ public class BusManager {
 			logger.error("Unknow OS.");
 			throw new RuntimeException();
 		}
-		
-		
-		if (interfacee.equals("RS232")) {
-			Integer baudRate = new Integer(properties.getProperty("baudRate"));
-			String portName = properties.getProperty(osPrefix+"port");
-			String driverName = properties.getProperty(osPrefix+"driver");			
-			config = new RSBusConfig( 
-					portName, 
-					driverName, 
-					baudRate, 
-					8, 
-					1, 
-					0);
-		} else if (interfacee.equals("AndroidBluetooth")) {
-			String mac = properties.getProperty(osPrefix+"bluetooth.receiver.mac");
-			config = new SocketBusConfig(mac);
+		return osPrefix;
+	}
+
+	public IBus getBus(IBusConfig config) {
+		IBus bus = null;
+		try {
+			bus = (IBus) Class.forName(config.getClassName()).newInstance();
+		} catch (Exception e) {
+			logger.error("Bus " + config.getClassName() + " loaded error;");
+			throw new IllegalStateException(e.getMessage());
 		}
-		
-		if (config == null) {
-			logger.error("Unknow interface: " + interfacee);
-			throw new RuntimeException();
-		}
-		return config;
+		logger.info("Bus " + config.getClassName() + " loaded success.");
+		bus.init(config);
+		return bus;
 	}
 
 	public static BusManager getInstance() {
