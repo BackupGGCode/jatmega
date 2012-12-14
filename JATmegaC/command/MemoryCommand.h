@@ -10,11 +10,9 @@
 
 #ifndef MEMORYCOMMAND_H_
 #define MEMORYCOMMAND_H_
-#include "ICommand.h"
+#include "../saf2core.h"
+#include "../ProtocolController.h"
 
-class MemoryCommand : public ICommand {
-	void apply(char* message, char* result);
-	char getTargetName(){return 'M';}
-};
+void mc_apply(saf_Event event);
 
 #endif /* MEMORYCOMMAND_H_ */
