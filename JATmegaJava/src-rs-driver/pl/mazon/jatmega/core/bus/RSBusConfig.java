@@ -1,6 +1,6 @@
-package pl.mazon.jatmega.core.bus.config;
+package pl.mazon.jatmega.core.bus;
 
-import pl.mazon.jatmega.core.bus.IBusConfig;
+import java.util.Properties;
 
 /**
  * 
@@ -21,15 +21,6 @@ public class RSBusConfig implements IBusConfig {
 	private int stopBits;
 	
 	private int pariti;
-	
-	public RSBusConfig(String portName, String driverName, int baudRate, int dataBits, int stopBits, int pariti) {
-		this.name = portName;
-		this.driverName = driverName;
-		this.baudRate = baudRate;
-		this.dataBits = dataBits;
-		this.stopBits = stopBits;
-		this.pariti = pariti;
-	}
 	
 	public String getName() {
 		return name;
@@ -58,6 +49,16 @@ public class RSBusConfig implements IBusConfig {
 	@Override
 	public String getClassName() {
 		return "pl.mazon.jatmega.core.bus.RSBus";
+	}
+
+	@Override
+	public void init(Properties properties, String osName) {
+		this.name = properties.getProperty(osName+"port");
+		this.driverName = properties.getProperty(osName+"driver");
+		this.baudRate = new Integer(properties.getProperty("baudRate"));
+		this.dataBits = 8;
+		this.stopBits = 1;
+		this.pariti = 0;
 	}
 	
 }

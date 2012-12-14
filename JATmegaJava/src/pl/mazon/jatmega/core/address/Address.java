@@ -14,10 +14,14 @@ public class Address<T> {
 	
 	@Override
 	public String toString() {
-		return new Integer(address).toString();
+		return Integer.valueOf(address).toString();
 	}
 
 	public int intValue() {
 		return address;
+	}
+	
+	public byte byteValue() {
+		return (byte) address;
 	}
 }

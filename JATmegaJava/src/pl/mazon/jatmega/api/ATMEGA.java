@@ -6,10 +6,10 @@ import pl.mazon.jatmega.core.address.Address16;
 import pl.mazon.jatmega.core.address.Address8;
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.command.Memory16Command;
+import pl.mazon.jatmega.core.command.Memory16Command.Memory16Get;
 import pl.mazon.jatmega.core.command.Memory8Command;
 import pl.mazon.jatmega.core.command.TestCommand;
-import pl.mazon.jatmega.core.model.ByteModel;
-import pl.mazon.jatmega.core.model.WordModel;
+import pl.mazon.jatmega.core.model.MetaModel;
 import pl.mazon.jatmega.logger.LogFactory;
 import pl.mazon.jatmega.logger.Logger;
 
@@ -31,63 +31,71 @@ public class ATMEGA {
 		this.protocolManager = ProtocolManager.getInstance();
 		this.bus = BusManager.getInstance().getBus();
 		protocolManager.setBus(bus);
+		bus.connect();
 		//test
-		/*protocolManager.apply(new TestCommand(13,7) {
+		protocolManager.apply(new TestCommand((byte)13, (byte)7) {
 			
 			@Override
-			public void onSuccess(ByteModel response) {
-				if ((13+7) == response.get(2)) {
-					logger.info("Test ok");
-				} else {
-					logger.info("Test failure");
+			public void onSuccess(MetaModel response) {
+				if (response.getOperandB() != 13+7) {
+					logger.error("Test failure");
 				}
-				
 			}
 			
 			@Override
 			public void onFailure() {
-				logger.error("Test aborted");
+				logger.error("Connection failure");
 			}
 		});
-		*/
+		
 		//version veryfication
 		//todo...
 	}
 	
-	public void set(final Address8 addr8, final int value) {
-		protocolManager.apply(new Memory8Command(Memory8Command.SET, addr8, value) {
+	public void set(Address8 _addr8, int _value) {
+		final byte value = (byte)_value;
+		final Address8 addr8 = _addr8;
+		protocolManager.apply(new Memory8Command(addr8, value) {
 			
 			@Override
-			public void onSuccess(ByteModel response) {
-				if (!response.get(0).equals(new Integer(value))) {
-					logger.error("Value set error: " + addr8.toString() + "," + value + "->" + response.get(0));
-				}
+			public void onSuccess(MetaModel response) {
 			}
 			
 			@Override
 			public void onFailure() {
-				logger.error("Value not set: " + addr8.toString() + "," + value);
-				
 			}
 		});
 	}
 	
-	public void set(final Address16 addr16, final int value) {
-		protocolManager.apply(new Memory16Command(Memory16Command.SET, addr16, value) {
+	public void set(Address16 _addr16, int _value) {
+		final Address16 addr16 = _addr16;
+		final int value = _value;
+		protocolManager.apply(new Memory16Command(addr16, value) {
 
 			@Override
-			public void onSuccess(WordModel response) {
-				if (!response.get(0).equals(new Integer(value))) {
-					logger.error("Value set error: " + addr16.toString() + "," + value + "->" + response.get(0));
-				}
+			public void onSuccess(MetaModel response) {
 			}
 
 			@Override
 			public void onFailure() {
-				logger.error("Value not set: " + addr16.toString() + "," + value);
+			}
+		});
+	}
+	
+	public void get(Address16 _addr16, final Memory16Get callback) {
+		final Address16 addr16 = _addr16;
+		protocolManager.apply(new Memory16Command(addr16) {
+			
+			@Override
+			public void onSuccess(MetaModel response) {
+				int result = response.getOperandA() & 0x000000ff;
 				
+				callback.onSuccess(result | (response.getOperandB() << 8));
 			}
 			
+			@Override
+			public void onFailure() {	
+			}
 		});
 	}
 }

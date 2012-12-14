@@ -1,4 +1,6 @@
-package pl.mazon.jatmega.core.bus.config;
+package pl.mazon.jatmega.core.bus;
+
+import java.util.Properties;
 
 import pl.mazon.jatmega.core.bus.IBusConfig;
 
@@ -23,5 +25,11 @@ public class SocketBusConfig implements IBusConfig {
 
 	public String getRemoteDeviceAddress() {
 		return remoteDeviceAddress;
+	}
+
+	@Override
+	public void init(Properties properties, String osName) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -11,6 +11,6 @@ public interface IBusReceiveCallback {
 	//Teraz jeszcze nie potrzebne...
 	//void receive(char message);
 	
-	void receiveLine(String message);
+	void receive(byte[] message);
 	
 }

@@ -1,6 +1,10 @@
 package pl.mazon.jatmega.core.bus;
 
+import java.util.Properties;
+
 public interface IBusConfig {
 
-	public String getClassName();
+	String getClassName();
+	
+	void init(Properties properties, String osName);
 }

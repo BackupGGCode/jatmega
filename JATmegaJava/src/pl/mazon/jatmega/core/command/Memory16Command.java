@@ -1,50 +1,56 @@
 package pl.mazon.jatmega.core.command;
 
 import pl.mazon.jatmega.core.address.Address16;
-import pl.mazon.jatmega.core.model.WordModel;
+import pl.mazon.jatmega.core.model.MetaModel;
 
 /**
  * 
  * @author radomir.mazon
- * 
- *     bajt		opis
- *     0		Adres RAM
- *     1		Wartosc
- *     2		Operacja
- *
- *     rodzaj operacji:
- *     S		=
- *     A		AND
- *     O		OR
  *
  */
-public abstract class Memory16Command implements ICommand<WordModel, WordModel> {
+public abstract class Memory16Command implements ICommand<MetaModel, MetaModel> {
 	
-	private WordModel request;
+	private MetaModel request = new MetaModel();
+	private MetaModel response = new MetaModel();
+	private static final byte OPERATION_GET = 4;
+	private static final byte OPERATION_SET = 3;
+	private byte operation;
 	
-	public static final int AND = 'A';
-	public static final int OR = 'O';
-	public static final int SET = 'S';
+	public interface Memory16Get {
+		void onSuccess(int value);
+	}
 	
-	public Memory16Command(int operation, Address16 addr16, int value) {
-		request = new WordModel();
-		request.add(addr16.intValue());
-		request.add(value);
-		request.add(operation);
+	public Memory16Command(Address16 addr16) {
+		request.add(addr16.byteValue());
+		operation = OPERATION_GET;
+	}
+	public Memory16Command(Address16 addr16, int value) {
+		request.add(addr16.byteValue());
+		request.add((byte)(value & 0x00FF));
+		request.add((byte)((value >> 8) & 0x00FF));
+		operation = OPERATION_SET;
 	}
 	
 	@Override
-	public char getTargetName() {
-		return 'M';
+	public boolean isResponseMendatory() {
+		if (operation == OPERATION_GET) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
-	public WordModel getRequest() {
+	public byte getTargetName() {
+		return operation;
+	}
+	
+	@Override
+	public MetaModel getRequest() {
 		return request;
 	}
 	
 	@Override
-	public WordModel getResponse() {
-		return request;
+	public MetaModel getResponse() {
+		return response;
 	}
 }
