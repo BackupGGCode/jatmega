@@ -5,9 +5,7 @@ public interface IBus {
 
 	void init(IBusConfig config);
 	
-	boolean send(String message);
-	
-	boolean sendLine(String message);
+	boolean send(byte[] message);
 	
 	void addReceiverCallback(IBusReceiveCallback callback);
 	

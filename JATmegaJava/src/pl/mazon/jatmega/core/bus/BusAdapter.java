@@ -22,11 +22,10 @@ public abstract class BusAdapter implements IBus {
 	private Logger logger = LogFactory.getLog(BusAdapter.class);
 	
 	/**
-	 * Znacznik nowej linii (czasami jest '\r')
-	 * czasami występują jednocześnie. 
-	 * W tym driverze używany jest jeden z nich
+	 * Znaczniki
 	 */
-	public static final char EOL = '\r';
+	public static final byte EOM = 0x13;
+	public static final byte PEOM = 0x12;
 	
 	private List<IBusReceiveCallback> receiveCallbackList;
 	
@@ -51,22 +50,7 @@ public abstract class BusAdapter implements IBus {
 	}
 	
 	@Override
-	public boolean sendLine(String message) {
-		if (!isOnLine()) {
-			return false;
-		}
-		 try {
-			 sendLineInternal(message);
-       } catch (IOException e) {
-    	   logger.info("Can't write to port... Disconnect...");
-    	   disconnect();
-    	   return false;
-       } 
-       return true;
-	}
-	
-	@Override
-	public boolean send(String message) {
+	public boolean send(byte[] message) {
 		if (!isOnLine()) {
 			return false;
 		}
@@ -80,15 +64,16 @@ public abstract class BusAdapter implements IBus {
        return true;
 	}
 	
-	abstract protected void sendLineInternal(String message) throws IOException;
-
-	abstract protected void sendInternal(String message) throws IOException;
+	abstract protected void sendInternal(byte[] message) throws IOException;
 	
 	@Override
 	public void connect() {
 		initResult = connectInternal();
 		if (initResult) {
 			logger.debug("Bus connected success.");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {}
 			onConnectEvent();
 		} else {
 			logger.debug("Bus connection failure.");
@@ -113,9 +98,9 @@ public abstract class BusAdapter implements IBus {
 	
 	abstract protected void disconnectInternal();
 	
-	protected void onReceive(String message) {
+	protected void onReceive(byte[] message) {
 		for (IBusReceiveCallback callback : receiveCallbackList) {
-			callback.receiveLine(message);
+			callback.receive(message);
 		}
 	}
 	
