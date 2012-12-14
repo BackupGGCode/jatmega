@@ -6,8 +6,12 @@ import pl.mazon.jatmega.core.address.Address16;
 import pl.mazon.jatmega.core.address.Address8;
 import pl.mazon.jatmega.core.bus.IBus;
 import pl.mazon.jatmega.core.command.Memory16Command;
+import pl.mazon.jatmega.core.command.Memory16Command.Memory16Get;
 import pl.mazon.jatmega.core.command.Memory8Command;
+import pl.mazon.jatmega.core.command.TestCommand;
 import pl.mazon.jatmega.core.model.MetaModel;
+import pl.mazon.jatmega.logger.LogFactory;
+import pl.mazon.jatmega.logger.Logger;
 
 /**
  * 
@@ -17,7 +21,7 @@ import pl.mazon.jatmega.core.model.MetaModel;
 
 public class ATMEGA {
 
-	//private static final Logger logger = LogFactory.getLog(ATMEGA.class);
+	private static final Logger logger = LogFactory.getLog(ATMEGA.class);
 	
 	private ProtocolManager protocolManager;
 	
@@ -27,25 +31,23 @@ public class ATMEGA {
 		this.protocolManager = ProtocolManager.getInstance();
 		this.bus = BusManager.getInstance().getBus();
 		protocolManager.setBus(bus);
+		bus.connect();
 		//test
-		/*protocolManager.apply(new TestCommand(13,7) {
+		protocolManager.apply(new TestCommand((byte)13, (byte)7) {
 			
 			@Override
-			public void onSuccess(ByteModel response) {
-				if ((13+7) == response.get(2)) {
-					logger.info("Test ok");
-				} else {
-					logger.info("Test failure");
+			public void onSuccess(MetaModel response) {
+				if (response.getOperandB() != 13+7) {
+					logger.error("Test failure");
 				}
-				
 			}
 			
 			@Override
 			public void onFailure() {
-				logger.error("Test aborted");
+				logger.error("Connection failure");
 			}
 		});
-		*/
+		
 		//version veryfication
 		//todo...
 	}
@@ -76,6 +78,23 @@ public class ATMEGA {
 
 			@Override
 			public void onFailure() {
+			}
+		});
+	}
+	
+	public void get(Address16 _addr16, final Memory16Get callback) {
+		final Address16 addr16 = _addr16;
+		protocolManager.apply(new Memory16Command(addr16) {
+			
+			@Override
+			public void onSuccess(MetaModel response) {
+				int result = response.getOperandA() & 0x000000ff;
+				
+				callback.onSuccess(result | (response.getOperandB() << 8));
+			}
+			
+			@Override
+			public void onFailure() {	
 			}
 		});
 	}

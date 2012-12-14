@@ -10,7 +10,11 @@ import pl.mazon.jatmega.core.model.MetaModel;
  */
 public abstract class Memory8Command implements ICommand<MetaModel, MetaModel> {
 	
-	private MetaModel request;
+	private MetaModel request = new MetaModel();
+	private MetaModel response = new MetaModel();
+	private static final byte OPERATION_GET = 2;
+	private static final byte OPERATION_SET = 1;
+	private byte operation;
 	
 	/**
 	 * Operacja GET MEMORY
@@ -19,6 +23,7 @@ public abstract class Memory8Command implements ICommand<MetaModel, MetaModel> {
 	public Memory8Command(Address8 addr8) {
 		request = new MetaModel();
 		request.add(addr8.byteValue());
+		operation = OPERATION_GET;
 	}
 	
 	/**
@@ -29,16 +34,20 @@ public abstract class Memory8Command implements ICommand<MetaModel, MetaModel> {
 		request = new MetaModel();
 		request.add(addr8.byteValue());
 		request.add(value);
+		operation = OPERATION_SET;
 	}
 	
 	@Override
 	public boolean isResponseMendatory() {
-		return true;
+		if (operation == OPERATION_GET) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
 	public byte getTargetName() {
-		return 1;
+		return operation;
 	}
 	
 	@Override
@@ -48,6 +57,6 @@ public abstract class Memory8Command implements ICommand<MetaModel, MetaModel> {
 	
 	@Override
 	public MetaModel getResponse() {
-		return request;
+		return response;
 	}
 }

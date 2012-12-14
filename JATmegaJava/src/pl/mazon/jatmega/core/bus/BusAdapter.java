@@ -71,6 +71,9 @@ public abstract class BusAdapter implements IBus {
 		initResult = connectInternal();
 		if (initResult) {
 			logger.debug("Bus connected success.");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {}
 			onConnectEvent();
 		} else {
 			logger.debug("Bus connection failure.");
