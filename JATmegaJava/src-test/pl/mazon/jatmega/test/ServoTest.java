@@ -5,7 +5,7 @@ import pl.mazon.jatmega.api.uC.ATMEGA168;
 
 public class ServoTest {
 
-	private static final int speed = 20;
+	private static final int speed = 10;
 	private static final int min = 320-100;
 	private static final int max = 480+100;
 	
@@ -30,7 +30,7 @@ public class ServoTest {
 		atmega.set(atmega.io.DDRB, 0xFF);
 		atmega.set(atmega.io.DDRD, 0xFF);
 		while(true) {
-		for (int i=min; i<max; i = i+5)
+		for (int i=min; i<max; i = i+3)
 		{
 				//atmega.set(atmega.io.OCR1A, 130);	//0 dgree min
 			//atmega.set(atmega.io.OCR1A, 320);  //180 degree
