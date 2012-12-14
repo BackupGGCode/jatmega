@@ -44,13 +44,7 @@ void pc_onEnevt(saf_Event event) {
 			_pc_frameIndex = 0;
 		} else {
 			if (_pc_frameIndex < FRAME_BUFFER_SIZE) {
-				_pc_frameBuffer[_pc_frameIndex] = event.value;
-			}
-			_pc_frameIndex++;
-			if (_pc_frameIndex>FRAME_BUFFER_SIZE) {
-				//Cala ramka zostala odebrama. Odebrano jedka dodatkowe dane
-				_pc_frameIndex = FRAME_BUFFER_SIZE;
-				saf_eventBusSend_(EVENT_FRAME_OVERFLOW, event.value);
+				_pc_frameBuffer[_pc_frameIndex++] = event.value;
 			}
 		}
 	}
@@ -78,7 +72,7 @@ uint8_t _pc_isControllCodeOK() {
 void _pc_applyCommand() {
 	//walidacja
 	if (_pc_frameIndex == 0) {
-		saf_eventBusSend_(EVENT_ERROR, ERROR_INDEX_FRAME);
+		//saf_eventBusSend_(EVENT_ERROR, ERROR_INDEX_FRAME);
 		return;
 	}
 

@@ -88,7 +88,7 @@
  * UWAGA: obecna wersja ma mozliwosc zaadresowania 16 roznym chmend do wykonania.
  */
 
-#define FRAME_BUFFER_SIZE 5
+#define FRAME_BUFFER_SIZE 4
 
 #define MESSAGE_BUFFER_SIZE FRAME_BUFFER_SIZE -1
 
