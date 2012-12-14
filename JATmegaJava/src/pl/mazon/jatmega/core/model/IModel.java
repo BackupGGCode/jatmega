@@ -7,6 +7,6 @@ package pl.mazon.jatmega.core.model;
  */
 
 public interface IModel {
-	String toString();
-	void fromString(String m);
+	byte[] serialize();
+	void deserialize(byte[] m);
 }
