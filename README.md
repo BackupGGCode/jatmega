@@ -32,11 +32,3 @@ Przykład zastosowania:
 
 
 <a href='http://www.youtube.com/watch?feature=player_embedded&v=rj_pDUVG078' target='_blank'><img src='http://img.youtube.com/vi/rj_pDUVG078/0.jpg' width='425' height=344 /></a>
-
-Podobne projekty:
-
-http://code.google.com/p/simple-avr-framework/
-
-http://code.google.com/p/avr-wav-interface/
-
-http://code.google.com/p/xbee-api/
